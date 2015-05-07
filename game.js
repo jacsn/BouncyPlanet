@@ -374,7 +374,7 @@ function update() {
 		if(showtrails)
 		{
 			trails[p].push(particles[p].c.clone());
-			while(trails[p].length > 500)
+			while(trails[p].length > 1000)
 			{
 				trails[p].shift();
 			}
