@@ -1,0 +1,7 @@
+SCREEN_WIDTH = 1024;
+SCREEN_HEIGHT = 640;
+
+var K_UP = 38;
+var K_DOWN = 40;
+var K_LEFT = 37;
+var K_RIGHT = 39;
