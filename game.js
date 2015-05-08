@@ -1,133 +1,6 @@
 window.onload = function()
 {
 
-var Vector = function (x, y) {
-    this.x = x || 0;
-    this.y = y || 0;
-};
-
-Vector.prototype = { // typeof VAR === "object" | VAR instanceof Vector
-    constructor: Vector,
-
-    set: function (set) {
-        if (typeof set === "object") {
-            this.x = set.x;
-            this.y = set.y;
-        } else {
-            this.x = set;
-            this.y = set;
-        }
-
-        return this;
-    },
-
-    equals: function (v) {
-        return ((v.x === this.x) && (v.y === this.y));
-    },
-
-    clone: function () {
-        return new Vector(this.x, this.y);
-    },
-
-    mul: function (mul) {
-        if (typeof mul === "object") {
-            return new Vector(this.x * mul.x, this.y * mul.y);
-        } else {
-            return new Vector(this.x * mul, this.y * mul);
-        }
-    },
-
-    div: function (div) {
-        return new Vector(this.x / div, this.y / div);
-    },
-
-    add: function (add) {
-        if (typeof add === "object") {
-            return new Vector(this.x + add.x, this.y + add.y);
-        } else {
-            return new Vector(this.x + add, this.y + add);
-        }
-    },
-
-    sub: function (sub) {
-        if (typeof sub === "object") {
-            return new Vector(this.x - sub.x, this.y - sub.y);
-        } else {
-            return new Vector(this.x - sub, this.y - sub);
-        }
-    },
-
-    reverse: function () {
-        return this.mul(-1);
-    },
-
-    abs: function () {
-        return new Vector(Math.abs(this.x), Math.abs(this.y));
-    },
-
-    dot: function (v) {
-        return (this.x * v.x + this.y * v.y);
-    },
-
-    length: function () {
-        return Math.sqrt(this.dot(this));
-    },
-
-    lengthSq: function () {
-        return this.dot(this);
-    },
-
-    setLength: function (l) {
-        return this.normalize().mul(l);
-    },
-
-    lerp: function (v, s) {
-        return new Vector(this.x + (v.x - this.x) * s, this.y + (v.y - this.y) * s);
-    },
-
-    normalize: function () {
-        return this.div(this.length());
-    },
-
-    truncate: function (max) {
-        if (this.length() > max) {
-            return this.normalize().mul(max);
-        } else {
-            return this;
-        }
-    },
-
-    dist: function (v) {
-        return Math.sqrt(this.distSq(v));
-    },
-
-    distSq: function (v) {
-        var dx = this.x - v.x,
-            dy = this.y - v.y;
-        return dx * dx + dy * dy;
-    },
-
-    cross: function (v) {
-        return this.x * v.y - this.y * v.x;
-    }
-};
-
-if (typeof Math.sign == "undefined") {
-    Math.sign = function (x) {
-        return x === 0 ? 0 : x > 0 ? 1 : -1;
-    };
-}
-
-
-
-
-
-
-
-
-
-
-
 var Circle = function (c, r, cor, cof) { // Fix CoR & CoF
     this.c = c;
     this.r = r;
@@ -137,6 +10,8 @@ var Circle = function (c, r, cor, cof) { // Fix CoR & CoF
     this.a = new Vector();
     this.cor = cor;
     this.cof = cof;
+	this.img = null;
+	this.angle = 0;
 };
 
 
@@ -182,7 +57,7 @@ function resCCCol(a, b) {
 var preloader = setInterval(preloadloop, 10);
 function preloadloop()
 {
-	if(true) //load assets
+	if(StarCaptainImage.ready) //load assets
 	{
 		clearInterval(preloader);
 		
@@ -212,9 +87,9 @@ var h = canvas.height;
 var CameraX = 0;
 var CameraY = 0;
 var keys = [];
-var bindex = 0;
+var bindex = 1;
 var camlock = true;
-var showtrails = false;
+var showtrails = true;
 
 var mouse = {
     p: new Vector()
@@ -226,9 +101,19 @@ var particles = [];
 var newParticles = [];
 var trails = [];
 
-var sun = new Circle(new Vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 100, 0.95, 0.95);
-sun.m = 100000;
-particles.push(sun);
+var sun = new Circle(new Vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 300, 0.95, 0.95);
+particles.push(sun); //the sun is particles[0] - this is important for holding it still
+trails.push([]);
+
+var starcaptain = new Circle(new Vector(SCREEN_WIDTH, SCREEN_HEIGHT / 2), 22, 0.95, 0.95);
+starcaptain.m = 10;
+starcaptain.img = StarCaptainImage;
+particles.push(starcaptain); //this means Star Captain will be particles[1] - this is important
+trails.push([]);
+
+var bouncyplanet = new Circle(new Vector(SCREEN_WIDTH * 2, SCREEN_HEIGHT / 2), 100, 0.95, 0.95);
+bouncyplanet.v = new Vector(0, -8);
+particles.push(bouncyplanet); //bouncy planet is currently particles[2] - this may not last
 trails.push([]);
 
 
@@ -239,7 +124,8 @@ window.addEventListener("mousemove", function (e) {
 window.addEventListener("mousedown", function (e) {
     mouse.p.x = e.pageX - canvas.getBoundingClientRect().left - CameraX;
     mouse.p.y = e.pageY - canvas.getBoundingClientRect().top - CameraY;
-	
+	//removed because I don't want planets appearing when you click anymore. It gets annoying.
+	/*
 	var removed = false;
 	for(var i = 1; i < particles.length; i++)
 	{
@@ -264,6 +150,7 @@ window.addEventListener("mousedown", function (e) {
 		body.v = new Vector(0, -10);
 		newParticles.push(body);
 	}
+	*/
 });
 
 window.addEventListener("mouseup", function (e) {
@@ -284,17 +171,17 @@ window.addEventListener("keyup", function (e) {
 	
 	if(e.which == 9)
 	{
-		e.preventDefault();
+		e.preventDefault();/*
 		if(++bindex >= particles.length)
 		{
 			bindex = 0;
 			CameraX = -particles[bindex].c.x + SCREEN_WIDTH / 2;
 			CameraY = -particles[bindex].c.y + SCREEN_HEIGHT / 2;
-		}
+		}*/
 	}
 	else if(e.which == 32)
 	{
-		camlock = !camlock;
+		//camlock = !camlock;
 	}
 	else if(e.which == 84)
 	{
@@ -413,23 +300,31 @@ function update() {
 		var speed = 0.25;
 		if(keys[K_UP])
 		{
-			//apply upward force
-			particles[bindex].v.set(particles[bindex].v.add(new Vector(0, -speed)));
+			//apply forward force
+			var p = particles[bindex];
+			var angle = p.angle - Math.PI / 2;
+			var vx = Math.cos(angle) * speed;
+			var vy = Math.sin(angle) * speed;
+			p.v.set(p.v.add(new Vector(vx, vy)));
 		}
 		if(keys[K_DOWN])
 		{
-			//apply downward force
-			particles[bindex].v.set(particles[bindex].v.add(new Vector(0, speed)));
+			//apply reverse force
+			var p = particles[bindex];
+			var angle = p.angle + Math.PI / 2;
+			var vx = Math.cos(angle) * speed;
+			var vy = Math.sin(angle) * speed;
+			p.v.set(p.v.add(new Vector(vx, vy)));
 		}
 		if(keys[K_LEFT])
 		{
-			//apply leftward force
-			particles[bindex].v.set(particles[bindex].v.add(new Vector(-speed, 0)));
+			//turn left
+			particles[bindex].angle -= ANGLE_INCREMENT;
 		}
 		if(keys[K_RIGHT])
 		{
-			//apply rightward force
-			particles[bindex].v.set(particles[bindex].v.add(new Vector(speed, 0)));
+			//turn right
+			particles[bindex].angle += ANGLE_INCREMENT;
 		}
 	}
 
@@ -460,14 +355,30 @@ function render() {
 		}
 	}
 
-    for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
+    for (var i = 0; i < particles.length; i++)
+	{
+		if(particles[i].img === null)
+		{
+			var p = particles[i];
 
-        ctx.beginPath();
-        ctx.arc(p.c.x + CameraX, p.c.y + CameraY, p.r, 0, Math.PI * 2, false);
-        ctx.fillStyle = "#AA0000"; //p.colour;
-        ctx.fill();
-        ctx.closePath();
+			ctx.beginPath();
+			ctx.arc(p.c.x + CameraX, p.c.y + CameraY, p.r, 0, Math.PI * 2, false);
+			ctx.fillStyle = "#AA0000"; //p.colour;
+			ctx.fill();
+			ctx.closePath();
+		}
+		else
+		{
+			var p = particles[i];
+			var imgx = p.c.x + CameraX;
+			var imgy = p.c.y + CameraY;
+			
+			ctx.translate(imgx, imgy);
+			ctx.rotate(p.angle);
+			ctx.drawImage(p.img, -p.r, -p.r);
+			ctx.rotate(-p.angle);
+			ctx.translate(-imgx, -imgy);
+		}
     }
 }
 
