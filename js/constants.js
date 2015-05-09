@@ -11,9 +11,9 @@ var K_RIGHT = 39;
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};
-StarCaptainImage.src = "starcaptain.png";
+StarCaptainImage.src = "img/starcaptain.png";
 
 var RadarImage = new Image();
 RadarImage.ready = false;
 RadarImage.onload = function(){this.ready = true;};
-RadarImage.src = "radar.png";
+RadarImage.src = "img/radar.png";
