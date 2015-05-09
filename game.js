@@ -89,7 +89,6 @@ var CameraX = 0;
 var CameraY = 0;
 var keys = [];
 var bindex = 1;
-var zoom = 1.0;
 var target = 0;
 var camlock = true;
 var showtrails = true;
@@ -287,10 +286,23 @@ function update() {
 	{
 		if(showtrails)
 		{
-			trails[p].push(particles[p].c.clone());
-			while(trails[p].length > 1000)
+			if(trails[p].length > 1)
 			{
-				trails[p].shift();
+				//we want to make sure that each point in the trails is far enough away from the previous one so that slow-moving bodies don't have noticibly shorter tails
+				var diffx = trails[p][trails[p].length - 1].x - particles[p].c.x;
+				var diffy = trails[p][trails[p].length - 1].y - particles[p].c.y;
+				if((diffx * diffx) + (diffy * diffy) >= 9)
+				{
+					trails[p].push(particles[p].c.clone());
+					while(trails[p].length > 1000)
+					{
+						trails[p].shift();
+					}
+				}
+			}
+			else
+			{
+				trails[p].push(particles[p].c.clone());
 			}
 		}
 		else
@@ -364,13 +376,15 @@ function render() {
 	
 	if(camlock)
 	{
+		//keep the camera locked on Star Captain (or whichever body is at bindex)
 		CameraX = -particles[bindex].c.x + SCREEN_WIDTH / 2;
 		CameraY = -particles[bindex].c.y + SCREEN_HEIGHT / 2;
 	}
 	
 	if(showtrails)
 	{
-		for(var t = 1; t < trails.length; t++)
+		//draw movement trails for all bodies in motion
+		for(var t = 1; t < trails.length; t++) //start with 1 instead of 0 because the sun doesn't move currently
 		{
 			ctx.beginPath();
 			ctx.moveTo(trails[t][0].x + CameraX, trails[t][0].y + CameraY);
@@ -386,6 +400,7 @@ function render() {
 	{
 		if(particles[i].img === null)
 		{
+			//draw canvas arcs for bodies which have no image assigned to them
 			var p = particles[i];
 
 			ctx.beginPath();
@@ -400,24 +415,36 @@ function render() {
 			var imgx = p.c.x + CameraX;
 			var imgy = p.c.y + CameraY;
 			
+			//draw the particle's image, properly rotated
 			ctx.translate(imgx, imgy);
 			ctx.rotate(p.angle);
 			ctx.drawImage(p.img, -p.r, -p.r);
 			ctx.rotate(-p.angle);
 			ctx.translate(-imgx, -imgy);
 			
-			//draw the radar indicator
+			//compute the angle for the radar, and the distance for the HUD
 			var t = particles[target];
 			var diffx = t.c.x - p.c.x;
 			var diffy = t.c.y - p.c.y;
 			var ang = Math.atan2(diffy, diffx) + Math.PI / 2;
-			var dist = Math.sqrt(diffx * diffx + diffy * diffy) + "";
+			var dist = Math.sqrt(diffx * diffx + diffy * diffy) - t.r - p.r;
+			if(dist < 0)
+			{
+				dist = "0";
+			}
+			else
+			{
+				dist = dist + "";
+			}
+			
+			//whole numbers only, please
 			var dot = dist.indexOf(".");
 			if(dot >= 0)
 			{
 				dist = dist.substring(0, dot);
 			}
 			
+			//draw the radar indicator
 			ctx.translate(imgx, imgy);
 			ctx.rotate(ang);
 			ctx.drawImage(RadarImage, -50, -50);
@@ -426,11 +453,13 @@ function render() {
 		}
     }
 	
+	//display the current target destination
 	ctx.textAlign = "left";
 	ctx.font = "20px sans-serif";
 	ctx.fillStyle = "#999999";
 	ctx.fillText("Target: " + particles[target].name, 10, 25);
 	
+	//display distance to target
 	ctx.textAlign = "right";
 	ctx.fillText("Distance: " + dist, SCREEN_WIDTH - 10, 25);
 }
