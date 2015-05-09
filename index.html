@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Bouncy Planet</title>
-<script src="constants.js"></script>
-<script src="vector.js"></script>
-<script src="game.js"></script>
-</head>
-<body bgcolor="#000000">
-<noscript style="color:#FFFFFF;">This game requires JavaScript. Please enable javascript in your browser, or contact your network administrator.</noscript>
-<canvas id="canvas" width="1024" height="640" style="display:block; margin:0 auto; border:1px solid white;"><p style="color:#FFFFFF;">This game only supports modern browsers. I would recommend using <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a> or <a href="https://www.google.com/chrome/" target="_blank">Chrome</a>.</p></canvas>
-</body>
-<p style="color:#FFFFFF">Controls:
-<br />
-Arrow keys - Steer your ship<br />
-Tab - Switches destination<br />
-T - Toggles visible trails
-</p>
+	<head>
+		<meta charset="utf-8">
+		<title>Bouncy Planet</title>
+	</head>
+	<body bgcolor="#000000">
+		<noscript style="color:#FFFFFF;">
+			This game requires JavaScript. Please enable javascript in your browser, or contact your network administrator.
+		</noscript>
+		<canvas id="canvas" width="1024" height="640" style="display:block; margin:0 auto; border:1px solid white;">
+			<p style="color:#FFFFFF;">This game only supports modern browsers. I would recommend using
+			<a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a> or
+			<a href="https://www.google.com/chrome/" target="_blank">Chrome</a>.</p>
+		</canvas>
+		<p style="color:#FFFFFF">
+			Controls:<br>
+			Arrow keys - Steer your ship<br>
+			Tab - Switches destination<br>
+			T - Toggles visible trails
+		</p>
+
+		<script src="js/constants.js"></script>
+		<script src="js/vector.js"></script>
+		<script src="js/entity.js"></script>
+		<script src="js/game.js"></script>
+		<script src="js/controller.js"></script>
+	</body>
 </html>
