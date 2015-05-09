@@ -12,6 +12,7 @@ var Circle = function (c, r, cor, cof) { // Fix CoR & CoF
     this.cof = cof;
 	this.img = null;
 	this.angle = 0;
+	this.name = "Space Debris";
 };
 
 
@@ -57,7 +58,7 @@ function resCCCol(a, b) {
 var preloader = setInterval(preloadloop, 10);
 function preloadloop()
 {
-	if(StarCaptainImage.ready) //load assets
+	if(StarCaptainImage.ready && RadarImage.ready) //load assets
 	{
 		clearInterval(preloader);
 		
@@ -88,6 +89,8 @@ var CameraX = 0;
 var CameraY = 0;
 var keys = [];
 var bindex = 1;
+var zoom = 1.0;
+var target = 0;
 var camlock = true;
 var showtrails = true;
 
@@ -102,18 +105,27 @@ var newParticles = [];
 var trails = [];
 
 var sun = new Circle(new Vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 300, 0.95, 0.95);
+sun.name = "Sun";
 particles.push(sun); //the sun is particles[0] - this is important for holding it still
 trails.push([]);
 
 var starcaptain = new Circle(new Vector(SCREEN_WIDTH, SCREEN_HEIGHT / 2), 22, 0.95, 0.95);
 starcaptain.m = 10;
 starcaptain.img = StarCaptainImage;
+starcaptain.name = "Star Captain";
 particles.push(starcaptain); //this means Star Captain will be particles[1] - this is important
 trails.push([]);
 
-var bouncyplanet = new Circle(new Vector(SCREEN_WIDTH * 2, SCREEN_HEIGHT / 2), 100, 0.95, 0.95);
-bouncyplanet.v = new Vector(0, -8);
+var bouncyplanet = new Circle(new Vector(SCREEN_WIDTH * 3, SCREEN_HEIGHT / 2), 100, 0.95, 0.95);
+bouncyplanet.v = new Vector(0, -6);
+bouncyplanet.name = "Bouncy Planet";
 particles.push(bouncyplanet); //bouncy planet is currently particles[2] - this may not last
+trails.push([]);
+
+var mercury = new Circle(new Vector(SCREEN_WIDTH * -8, SCREEN_HEIGHT / 2), 80, 0.95, 0.95); //I'll come up with a better name later.
+mercury.v = new Vector(0, -5); //mercury is particles[3]... for now.
+mercury.name = "Mercury";
+particles.push(mercury);
 trails.push([]);
 
 
@@ -171,7 +183,16 @@ window.addEventListener("keyup", function (e) {
 	
 	if(e.which == 9)
 	{
-		e.preventDefault();/*
+		e.preventDefault();
+		if(++target >= particles.length)
+		{
+			target = 0;
+		}
+		else if(target == 1)
+		{
+			target++;
+		}
+		/*
 		if(++bindex >= particles.length)
 		{
 			bindex = 0;
@@ -378,8 +399,24 @@ function render() {
 			ctx.drawImage(p.img, -p.r, -p.r);
 			ctx.rotate(-p.angle);
 			ctx.translate(-imgx, -imgy);
+			
+			//draw the radar indicator
+			var t = particles[target];
+			var diffx = t.c.x - p.c.x;
+			var diffy = t.c.y - p.c.y;
+			var ang = Math.atan2(diffy, diffx) + Math.PI / 2;
+			
+			ctx.translate(imgx, imgy);
+			ctx.rotate(ang);
+			ctx.drawImage(RadarImage, -50, -50);
+			ctx.rotate(-ang);
+			ctx.translate(-imgx, -imgy);
 		}
     }
+	
+	ctx.font = "20px sans-serif";
+	ctx.fillStyle = "#999999";
+	ctx.fillText("Target: " + particles[target].name, 10, 25);
 }
 
 //update();

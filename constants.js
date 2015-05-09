@@ -12,3 +12,8 @@ var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};
 StarCaptainImage.src = "starcaptain.png";
+
+var RadarImage = new Image();
+RadarImage.ready = false;
+RadarImage.onload = function(){this.ready = true;};
+RadarImage.src = "radar.png";
