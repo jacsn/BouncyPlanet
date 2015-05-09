@@ -128,6 +128,12 @@ mercury.name = "Mercury";
 particles.push(mercury);
 trails.push([]);
 
+var venus = new Circle(new Vector(SCREEN_WIDTH / 2, SCREEN_WIDTH * 16), 120, 0.95, 0.95);
+venus.v = new Vector(4, 0); //venus is particles[4]... for now
+venus.name = "Venus";
+particles.push(venus);
+trails.push([]);
+
 
 window.addEventListener("mousemove", function (e) {
 
@@ -405,6 +411,12 @@ function render() {
 			var diffx = t.c.x - p.c.x;
 			var diffy = t.c.y - p.c.y;
 			var ang = Math.atan2(diffy, diffx) + Math.PI / 2;
+			var dist = Math.sqrt(diffx * diffx + diffy * diffy) + "";
+			var dot = dist.indexOf(".");
+			if(dot >= 0)
+			{
+				dist = dist.substring(0, dot);
+			}
 			
 			ctx.translate(imgx, imgy);
 			ctx.rotate(ang);
@@ -414,9 +426,13 @@ function render() {
 		}
     }
 	
+	ctx.textAlign = "left";
 	ctx.font = "20px sans-serif";
 	ctx.fillStyle = "#999999";
 	ctx.fillText("Target: " + particles[target].name, 10, 25);
+	
+	ctx.textAlign = "right";
+	ctx.fillText("Distance: " + dist, SCREEN_WIDTH - 10, 25);
 }
 
 //update();
