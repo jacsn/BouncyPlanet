@@ -57,6 +57,7 @@ particles.push(starcaptain); //this means Star Captain will be particles[1] - th
 trails.push([]);
 
 var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
+	mass: 5000,
 	image: GeneralMeanImage
 });
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
@@ -333,14 +334,27 @@ function render() {
 			
 			if(i == bindex)
 			{
-				//draw the radar indicator
-				ctx.save();
-				ctx.translate(imgx, imgy);
-				ctx.rotate(ang);
-				ctx.drawImage(SCRadarImage, -50, -50);
-				ctx.restore();
-				//ctx.rotate(-ang);
-				//ctx.translate(-imgx, -imgy);
+				//if you're Star Captain, draw his radar indicator
+				if(bindex == 1)
+				{
+					//draw Star Captain's radar indicator
+					ctx.save();
+					ctx.translate(imgx, imgy);
+					ctx.rotate(ang);
+					ctx.drawImage(SCRadarImage, -50, -50);
+					ctx.restore();
+					//ctx.rotate(-ang);
+					//ctx.translate(-imgx, -imgy);
+				}
+				else //if you're not SC, you're General Mean
+				{
+					//draw General Mean's radar indicator
+					ctx.save();
+					ctx.translate(imgx, imgy);
+					ctx.rotate(ang);
+					ctx.drawImage(GMRadarImage, -80, -80);
+					ctx.restore();
+				}
 			}
 		}
     }
