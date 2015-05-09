@@ -98,7 +98,11 @@ function compute_forces() {
     }
 }
 
+//TODO: get rid of this anti-functional monstrosity of a global variable with refactoring
+// Right now it keeps track of what entities collided on the last call to do_collisions
+var collidedEntities = [];
 function do_collisions() {
+	collidedEntities = [];
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
         for (var j = 0; j < i; j++) {
@@ -106,6 +110,8 @@ function do_collisions() {
 
 			if(p.checkCollision(p2)){
 				p.resolveCollision(p2);
+				collidedEntities.push(p);
+				collidedEntities.push(p2);
 			}
         }
     }
