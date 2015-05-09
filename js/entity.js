@@ -10,8 +10,6 @@ function Entity(name, pos, radius, options){
 	this.mass = options.mass || this.radius*this.radius*Math.PI;
 	this.velocity = options.velocity || new Vector();
 	this.acceleration = options.acceleration || new Vector();
-	this.friction = options.friction || .95;
-	this.restitution = options.restitution || .95;
 	this.angle = options.angle || 0;
 
 	this.image = options.image || null;
