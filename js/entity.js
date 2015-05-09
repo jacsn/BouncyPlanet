@@ -27,8 +27,7 @@ Entity.prototype.checkCollision = function(other){
     }
 }
 
-//TODO is "restitute" the proper verb?
-Entity.prototype.restituteCollision = function(other){
+Entity.prototype.resolveCollision = function(other){
     var d = this.pos.sub(other.pos);
 
     d.set(d.normalize());

@@ -53,13 +53,13 @@ window.addEventListener("keyup", function (e) {
 	if(e.which == 9)
 	{
 		e.preventDefault();
-		if(++target >= particles.length)
+		if(++newtarget >= particles.length)
 		{
-			target = 0;
+			newtarget = 0;
 		}
-		else if(target == 1)
+		else if(newtarget == bindex)
 		{
-			target++;
+			newtarget++;
 		}
 		/*
 		if(++bindex >= particles.length)
@@ -71,7 +71,22 @@ window.addEventListener("keyup", function (e) {
 	}
 	else if(e.which == 32)
 	{
-		//camlock = !camlock;
+		if(bindex == 1)
+		{
+			newbindex = 2;
+			if(target == newbindex)
+			{
+				newtarget = 1;
+			}
+		}
+		else
+		{
+			newbindex = 1;
+			if(target == newbindex)
+			{
+				newtarget = 2;
+			}
+		}
 	}
 	else if(e.which == 84)
 	{

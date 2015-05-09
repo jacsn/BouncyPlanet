@@ -1,7 +1,7 @@
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(StarCaptainImage.ready && RadarImage.ready) {
+	if(StarCaptainImage.ready && RadarImage.ready && GeneralMeanImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -25,14 +25,13 @@ function preloadloop(){
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-var w = canvas.width;
-var h = canvas.height;
-
 var CameraX = 0;
 var CameraY = 0;
 var keys = [];
 var bindex = 1;
+var newbindex = bindex;
 var target = 0;
+var newtarget = target;
 var camlock = true;
 var showtrails = true;
 
@@ -57,22 +56,28 @@ var starcaptain = new Entity('Star Captain', new Vector(1024, 320), 22,	{
 particles.push(starcaptain); //this means Star Captain will be particles[1] - this is important
 trails.push([]);
 
+var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
+	image: GeneralMeanImage
+});
+particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
+trails.push([]);
+
 var bouncyplanet = new Entity('Bouncy Planet', new Vector(3072, 320), 100, {
 	velocity: new Vector(0, -6)
 });
-particles.push(bouncyplanet); //bouncy planet is currently particles[2] - this may not last
+particles.push(bouncyplanet); //bouncy planet is currently particles[3] - this may not last
 trails.push([]);
 
 var mercury = new Entity('Mercury', new Vector(-8192, 320), 80, {
 	velocity: new Vector(0, -5)
 });
-particles.push(mercury); //mercury is particles[3]... for now.
+particles.push(mercury); //mercury is particles[4]... for now.
 trails.push([]);
 
 var venus = new Entity('Venus', new Vector(512, 10240), 120, {
 	velocity: new Vector(4, 0)
 });
-particles.push(venus); //venus is particles[4]... for now
+particles.push(venus); //venus is particles[5]... for now
 trails.push([]);
 
 function compute_forces() {
@@ -100,7 +105,7 @@ function do_collisions() {
             var p2 = particles[j];
 
 			if(p.checkCollision(p2)){
-				p.restituteCollision(p2);
+				p.resolveCollision(p2);
 			}
         }
     }
@@ -222,10 +227,26 @@ function update() {
 	}
 
     render();
+	
+	//update target and bindex after updating and rendering to prevent weirdness
+	if(newtarget != target)
+	{
+		target = newtarget;
+	}
+	
+	if(newbindex != bindex)
+	{
+		bindex = newbindex;
+	}
+	
+	if(target == bindex)
+	{
+		target++;
+	}
 }
 
 function render() {
-    ctx.clearRect(0, 0, w, h);
+    ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	ctx.strokeStyle = "#AA0000";
 	
 	if(camlock)
@@ -269,12 +290,18 @@ function render() {
 			var imgx = p.pos.x + CameraX;
 			var imgy = p.pos.y + CameraY;
 			
-			//draw the particle's image, properly rotated
+			//draw the body's image, properly rotated
+			ctx.save();
 			ctx.translate(imgx, imgy);
 			ctx.rotate(p.angle);
 			ctx.drawImage(p.image, -p.radius, -p.radius);
-			ctx.rotate(-p.angle);
-			ctx.translate(-imgx, -imgy);
+			ctx.restore();
+			//ctx.rotate(-p.angle);
+			//ctx.translate(-imgx, -imgy);
+		}
+		
+		if(i == bindex)
+		{
 			
 			//compute the angle for the radar, and the distance for the HUD
 			var t = particles[target];
@@ -298,12 +325,17 @@ function render() {
 				dist = dist.substring(0, dot);
 			}
 			
-			//draw the radar indicator
-			ctx.translate(imgx, imgy);
-			ctx.rotate(ang);
-			ctx.drawImage(RadarImage, -50, -50);
-			ctx.rotate(-ang);
-			ctx.translate(-imgx, -imgy);
+			if(i == bindex)
+			{
+				//draw the radar indicator
+				ctx.save();
+				ctx.translate(imgx, imgy);
+				ctx.rotate(ang);
+				ctx.drawImage(RadarImage, -50, -50);
+				ctx.restore();
+				//ctx.rotate(-ang);
+				//ctx.translate(-imgx, -imgy);
+			}
 		}
     }
 	

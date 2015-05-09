@@ -13,6 +13,11 @@ StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};
 StarCaptainImage.src = "img/starcaptain.png";
 
+var GeneralMeanImage = new Image();
+GeneralMeanImage.ready = false;
+GeneralMeanImage.onload = function(){this.ready = true;};
+GeneralMeanImage.src = "img/generalmean.png";
+
 var RadarImage = new Image();
 RadarImage.ready = false;
 RadarImage.onload = function(){this.ready = true;};
