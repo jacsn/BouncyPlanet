@@ -18,7 +18,12 @@ GeneralMeanImage.ready = false;
 GeneralMeanImage.onload = function(){this.ready = true;};
 GeneralMeanImage.src = "img/generalmean.png";
 
-var RadarImage = new Image();
-RadarImage.ready = false;
-RadarImage.onload = function(){this.ready = true;};
-RadarImage.src = "img/radar.png";
+var SCRadarImage = new Image();
+SCRadarImage.ready = false;
+SCRadarImage.onload = function(){this.ready = true;};
+SCRadarImage.src = "img/scradar.png";
+
+var GMRadarImage = new Image();
+GMRadarImage.ready = false;
+GMRadarImage.onload = function(){this.ready = true;};
+GMRadarImage.src = "img/gmradar.png";

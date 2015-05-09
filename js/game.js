@@ -1,7 +1,7 @@
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(StarCaptainImage.ready && RadarImage.ready && GeneralMeanImage.ready) {
+	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -307,7 +307,7 @@ function render() {
 			var t = particles[target];
 			var diffx = t.pos.x - p.pos.x;
 			var diffy = t.pos.y - p.pos.y;
-			var ang = Math.atan2(diffy, diffx) + Math.PI / 2;
+			var ang = Math.atan2(diffy, diffx);
 			var dist = Math.sqrt(diffx * diffx + diffy * diffy) - t.radius - p.radius;
 			if(dist < 0)
 			{
@@ -331,7 +331,7 @@ function render() {
 				ctx.save();
 				ctx.translate(imgx, imgy);
 				ctx.rotate(ang);
-				ctx.drawImage(RadarImage, -50, -50);
+				ctx.drawImage(SCRadarImage, -50, -50);
 				ctx.restore();
 				//ctx.rotate(-ang);
 				//ctx.translate(-imgx, -imgy);
