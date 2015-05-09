@@ -20,6 +20,10 @@ function preloadloop(){
 		//start the game loop
 		animationFrame(recursiveAnimation, canvas);
 	}
+	else
+	{
+		//TODO: display loading animation
+	}
 }
 
 var canvas = document.getElementById("canvas");
@@ -63,22 +67,28 @@ var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
 trails.push([]);
 
-var bouncyplanet = new Entity('Bouncy Planet', new Vector(3072, 320), 100, {
+var bouncyplanet = new Entity('Bouncy Planet', new Vector(3072, 0), 100, {
 	velocity: new Vector(0, -6)
 });
 particles.push(bouncyplanet); //bouncy planet is currently particles[3] - this may not last
 trails.push([]);
 
-var mercury = new Entity('Mercury', new Vector(-8192, 320), 80, {
+var mercury = new Entity('Mercury', new Vector(-8192, 0), 80, {
 	velocity: new Vector(0, -5)
 });
 particles.push(mercury); //mercury is particles[4]... for now.
 trails.push([]);
 
-var venus = new Entity('Venus', new Vector(512, 10240), 120, {
+var venus = new Entity('Venus', new Vector(0, 10240), 120, {
 	velocity: new Vector(4, 0)
 });
 particles.push(venus); //venus is particles[5]... for now
+trails.push([]);
+
+var jupiter = new Entity("Jupiter", new Vector(32768, 0), 160, {
+	velocity: new Vector(0, 2)
+});
+particles.push(jupiter);
 trails.push([]);
 
 function compute_forces() {
