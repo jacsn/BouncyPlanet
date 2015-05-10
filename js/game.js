@@ -213,7 +213,7 @@ function update() {
 	else
 	{
 		//give General Mean a heftier feel by giving him lower acceleration
-		var speed = (bindex == 1) ? 0.25 : 0.1;
+		var speed = (bindex == 1) ? 0.25 : 0.2;
 		if(keys[K_UP])
 		{
 			//apply forward force
@@ -228,8 +228,8 @@ function update() {
 			//apply reverse force
 			var p = particles[bindex];
 			var angle = p.angle + Math.PI / 2;
-			var vx = Math.cos(angle) * speed;
-			var vy = Math.sin(angle) * speed;
+			var vx = Math.cos(angle) * (speed * 0.8); //reverse thrusters shouldn't be as strong as your main engine
+			var vy = Math.sin(angle) * (speed * 0.8);
 			p.velocity.set(p.velocity.add(new Vector(vx, vy)));
 		}
 		if(keys[K_LEFT])
