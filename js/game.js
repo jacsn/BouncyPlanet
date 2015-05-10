@@ -212,7 +212,8 @@ function update() {
 	}
 	else
 	{
-		var speed = 0.25;
+		//give General Mean a heftier feel by giving him lower acceleration
+		var speed = (bindex == 1) ? 0.25 : 0.1;
 		if(keys[K_UP])
 		{
 			//apply forward force
