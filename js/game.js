@@ -61,7 +61,7 @@ particles.push(starcaptain); //this means Star Captain will be particles[1] - th
 trails.push([]);
 
 var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
-	mass: 5000,
+	mass: 3000,
 	image: GeneralMeanImage
 });
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
@@ -73,19 +73,19 @@ var bouncyplanet = new Entity('Bouncy Planet', new Vector(3072, 0), 100, {
 particles.push(bouncyplanet); //bouncy planet is currently particles[3] - this may not last
 trails.push([]);
 
-var mercury = new Entity('Mercury', new Vector(-8192, 0), 80, {
-	velocity: new Vector(0, -5)
+var mercury = new Entity('Mercury', new Vector(-10240, 0), 80, {
+	velocity: new Vector(0, -4.8)
 });
 particles.push(mercury); //mercury is particles[4]... for now.
 trails.push([]);
 
-var venus = new Entity('Venus', new Vector(0, 10240), 120, {
-	velocity: new Vector(4, 0)
+var venus = new Entity('Venus', new Vector(0, 40000), 120, {
+	velocity: new Vector(3, 0)
 });
 particles.push(venus); //venus is particles[5]... for now
 trails.push([]);
 
-var jupiter = new Entity("Jupiter", new Vector(32768, 0), 160, {
+var jupiter = new Entity("Jupiter", new Vector(120000, 0), 160, {
 	velocity: new Vector(0, 2)
 });
 particles.push(jupiter);
