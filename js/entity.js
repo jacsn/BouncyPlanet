@@ -80,3 +80,19 @@ Entity.prototype.isOrbitStable = function(){
 
 	return stable;
 }
+
+Entity.prototype.isEscaping = function(b)
+{
+	//Test to see if the entity will escape body b's orbit
+	var body = b || sun;
+	//determine if entity is moving at escape velocity
+	var m = body.mass;
+	var v = Math.sqrt((this.velocity.x * this.velocity.x) + (this.velocity.y * this.velocity.y));
+	var diffx = this.pos.x - body.pos.x;
+	var diffy = this.pos.y - body.pos.y;
+	var r = Math.sqrt(diffx * diffx + diffy * diffy);
+	
+	//formula for escape velocity is Math.sqrt((2 * g * m) / r);
+	//Temporarily using 2 as the value for 2 * g, where g is the gravitational constant. I need to figure out what g should actually be in this case.
+	return (v > Math.sqrt((2 * m) / r));
+}
