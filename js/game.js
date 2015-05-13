@@ -3,7 +3,7 @@ var curframe = 0;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready) {
+	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -330,6 +330,19 @@ function render() {
 					if(frame < 6)
 					{
 						ctx.drawImage(SCShieldImage, 50 * frame, 0, 50, 50, p.pos.x + CameraX - p.radius, p.pos.y + CameraY - p.radius, 50, 50);
+					}
+					else
+					{
+						p.shieldframe = -1;
+					}
+				}
+				else if(p.name == "General Mean")
+				{
+					var percent = (curframe - p.shieldframe) / 400;
+					var frame = Math.floor(percent * 6);
+					if(frame < 6)
+					{
+						ctx.drawImage(GMShieldImage, 100 * frame, 0, 100, 100, p.pos.x + CameraX - p.radius, p.pos.y + CameraY - p.radius, 100, 100);
 					}
 					else
 					{

@@ -32,3 +32,8 @@ var SCShieldImage = new Image();
 SCShieldImage.ready = false;
 SCShieldImage.onload = function(){this.ready = true;};
 SCShieldImage.src = "img/scshield.png";
+
+var GMShieldImage = new Image();
+GMShieldImage.ready = false;
+GMShieldImage.onload = function(){this.ready = true;};
+GMShieldImage.src = "img/gmshield.png";
