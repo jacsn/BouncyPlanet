@@ -27,3 +27,8 @@ var GMRadarImage = new Image();
 GMRadarImage.ready = false;
 GMRadarImage.onload = function(){this.ready = true;};
 GMRadarImage.src = "img/gmradar.png";
+
+var SCShieldImage = new Image();
+SCShieldImage.ready = false;
+SCShieldImage.onload = function(){this.ready = true;};
+SCShieldImage.src = "img/scshield.png";

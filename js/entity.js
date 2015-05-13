@@ -13,6 +13,7 @@ function Entity(name, pos, radius, options){
 	this.angle = options.angle || 0;
 
 	this.image = options.image || null;
+	this.shieldframe = -1;
 }
 
 Entity.prototype.checkCollision = function(other){
@@ -42,6 +43,17 @@ Entity.prototype.resolveCollision = function(other){
         this.velocity.set(this.velocity.add(c.mul(other.mass)));
         other.velocity.set(other.velocity.sub(c.mul(this.mass)));
     }
+	
+	//start shield animation if entity is a playable ship
+	if(this.name == "Star Captain")
+	{
+		this.shieldframe = curframe;
+	}
+	else if(other.name == "Star Captain")
+	{
+		//Apparently if some other body collides with "this" before "this" gets its turn in the collision loop, "this" will never have resolveCollision called. In that case, we need to activate the animation on the other body.
+		other.shieldframe = curframe;
+	}
 }
 
 Entity.prototype.isOrbitStable = function(){

@@ -1,12 +1,15 @@
+var curframe = 0;
+
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready) {
+	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
 		
 		gameloop = function(step){
+			curframe = step; //curframe is necessary for animations to know how long they've been playing
 			update();
 		};
 		
@@ -53,7 +56,7 @@ var sun = new Entity('Sun', new Vector(0, 0), 300);
 particles.push(sun); //the sun is particles[0] - this is important for holding it still
 trails.push([]);
 
-var starcaptain = new Entity('Star Captain', new Vector(1024, 320), 22,	{
+var starcaptain = new Entity('Star Captain', new Vector(1024, 320), 25,	{
 	mass: 10,
 	image: StarCaptainImage
 });
@@ -316,6 +319,24 @@ function render() {
 			ctx.restore();
 			//ctx.rotate(-p.angle);
 			//ctx.translate(-imgx, -imgy);
+			
+			//This new segment just draws Star Captain's shield
+			if(p.shieldframe >= 0)
+			{
+				if(p.name == "Star Captain")
+				{
+					var percent = (curframe - p.shieldframe) / 400;
+					var frame = Math.floor(percent * 6);
+					if(frame < 6)
+					{
+						ctx.drawImage(SCShieldImage, 50 * frame, 0, 50, 50, p.pos.x + CameraX - p.radius, p.pos.y + CameraY - p.radius, 50, 50);
+					}
+					else
+					{
+						p.shieldframe = -1;
+					}
+				}
+			}
 		}
 		
 		if(i == bindex)
@@ -349,22 +370,24 @@ function render() {
 				if(bindex == 1)
 				{
 					//draw Star Captain's radar indicator
-					ctx.save();
+					//ctx.save();
 					ctx.translate(imgx, imgy);
 					ctx.rotate(ang);
 					ctx.drawImage(SCRadarImage, -50, -50);
-					ctx.restore();
-					//ctx.rotate(-ang);
-					//ctx.translate(-imgx, -imgy);
+					//ctx.restore();
+					ctx.rotate(-ang);
+					ctx.translate(-imgx, -imgy);
 				}
 				else //if you're not SC, you're General Mean
 				{
 					//draw General Mean's radar indicator
-					ctx.save();
+					//ctx.save();
 					ctx.translate(imgx, imgy);
 					ctx.rotate(ang);
 					ctx.drawImage(GMRadarImage, -80, -80);
-					ctx.restore();
+					//ctx.restore();
+					ctx.rotate(-ang);
+					ctx.translate(-imgx, -imgy);
 				}
 			}
 		}
