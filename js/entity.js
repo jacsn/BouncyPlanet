@@ -47,12 +47,18 @@ Entity.prototype.resolveCollision = function(other){
 	//start shield animation if entity is a playable ship
 	if(this.name == "Star Captain")
 	{
-		this.shieldframe = curframe;
+		if(this.shieldframe < 0) //we only want to start the animation if it hasn't already started; otherwise we could get stuck on the first frame
+		{
+			this.shieldframe = curframe;
+		}
 	}
 	else if(other.name == "Star Captain")
 	{
 		//Apparently if some other body collides with "this" before "this" gets its turn in the collision loop, "this" will never have resolveCollision called. In that case, we need to activate the animation on the other body.
-		other.shieldframe = curframe;
+		if(other.shieldframe < 0)
+		{
+			other.shieldframe = curframe;
+		}
 	}
 }
 
