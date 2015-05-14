@@ -7,6 +7,8 @@ var K_UP = 38;
 var K_DOWN = 40;
 var K_LEFT = 37;
 var K_RIGHT = 39;
+//key used for shooting
+var K_FIRE = 90;
 
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;

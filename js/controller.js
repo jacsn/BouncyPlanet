@@ -71,7 +71,7 @@ window.addEventListener("keyup", function (e) {
 	}
 	else if(e.which == 32)
 	{
-		if(bindex == 1)
+		if(bindex == 1) //if you're Star Captain
 		{
 			newbindex = 2;
 			if(target == newbindex)
@@ -91,5 +91,12 @@ window.addEventListener("keyup", function (e) {
 	else if(e.which == 84)
 	{
 		showtrails = !showtrails;
+	}
+	else if(e.which == K_FIRE)
+	{
+		if(bindex == 1)
+		{
+			FireBullet();
+		}
 	}
 });

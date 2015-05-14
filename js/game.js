@@ -50,6 +50,7 @@ var gravity = 0.5;
 
 var particles = [];
 var newParticles = [];
+var bullets = [];
 var trails = [];
 
 var sun = new Entity('Sun', new Vector(0, 0), 300);
@@ -148,6 +149,31 @@ function do_physics(dt) {
     do_collisions();
 }
 
+function do_bullets(dt) {
+    for (var i1 = 0; i1 < bullets.length; i1++) {
+        var p1 = bullets[i1];
+        p1.pos.set(p1.pos.add(p1.velocity.mul(0.5 * dt)));
+    }
+}
+
+function FireBullet()
+{
+	var p = particles[1]; //manually set a variable to Star Captain's particle
+	var bulletspeed = 20;
+	var bulletradius = 2;
+	
+	var angle = p.angle - Math.PI / 2;
+	var v = new Vector(Math.cos(angle) * bulletspeed, Math.sin(angle) * bulletspeed);
+	v.set(v.add(p.velocity)); //add SC's velocity to the bullet because that's how it'd work
+	
+	var startpos = new Vector(Math.cos(angle) * p.radius + p.pos.x, Math.sin(angle) * p.radius + p.pos.y);
+	var bullet = new Entity("", startpos, bulletradius, {
+		velocity: v
+	});
+	bullet.shieldframe = curframe;
+	bullets.push(bullet);
+}
+
 function update() {
     
     for(var newParticlesPos = 0; newParticlesPos < newParticles.length; newParticlesPos++)
@@ -159,6 +185,7 @@ function update() {
     
     for (var k = 0; k < 4; k++) { // increase the greater than value to increase simulation step rate
         do_physics(1.0 / 16); // increase the divisor to increase accuracy and decrease simulation speed 
+		do_bullets(1.0 / 16);
     }
 	
 	for(var p = 0; p < particles.length; p++)
@@ -405,6 +432,32 @@ function render() {
 			}
 		}
     }
+	
+	//draw bullets
+	var bullets_to_remove = 0;
+	for(var b = 0; b < bullets.length; b++)
+	{
+		//draw canvas arcs for bullets
+		var p = bullets[b];
+
+		if(curframe - p.shieldframe > 1000)
+		{
+			bullets_to_remove++;
+		}
+		else
+		{
+			ctx.beginPath();
+			ctx.arc(p.pos.x + CameraX, p.pos.y + CameraY, p.radius, 0, Math.PI * 2, false);
+			ctx.fillStyle = "#FF0000"; //p.colour;
+			ctx.fill();
+			ctx.closePath();
+		}
+	}
+	
+	for(var i = 0; i < bullets_to_remove; i++)
+	{
+		bullets.shift();
+	}
 	
 	//display the current target destination
 	ctx.textAlign = "left";
