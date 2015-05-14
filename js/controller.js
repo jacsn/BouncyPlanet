@@ -41,7 +41,7 @@ window.addEventListener("mouseup", function (e) {
 window.addEventListener("keydown", function (e) {
 	keys[e.which] = true;
 	
-	if(e.which == 9)
+	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == K_FIRE)
 	{
 		e.preventDefault();
 	}
@@ -71,6 +71,7 @@ window.addEventListener("keyup", function (e) {
 	}
 	else if(e.which == 32)
 	{
+		e.preventDefault();
 		if(bindex == 1) //if you're Star Captain
 		{
 			newbindex = 2;
@@ -90,13 +91,19 @@ window.addEventListener("keyup", function (e) {
 	}
 	else if(e.which == 84)
 	{
+		e.preventDefault();
 		showtrails = !showtrails;
 	}
 	else if(e.which == K_FIRE)
 	{
+		e.preventDefault();
 		if(bindex == 1)
 		{
 			FireBullet();
 		}
+	}
+	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT)
+	{
+		e.preventDefault();
 	}
 });
