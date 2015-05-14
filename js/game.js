@@ -3,7 +3,7 @@ var curframe = 0;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready) {
+	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -61,6 +61,7 @@ var starcaptain = new Entity('Star Captain', new Vector(1024, 320), 25,	{
 	mass: 10,
 	image: StarCaptainImage
 });
+starcaptain.thrusting = false;
 particles.push(starcaptain); //this means Star Captain will be particles[1] - this is important
 trails.push([]);
 
@@ -68,6 +69,7 @@ var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
 	mass: 3000,
 	image: GeneralMeanImage
 });
+generalmean.thrusting = false;
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
 trails.push([]);
 
@@ -254,12 +256,23 @@ function update() {
 		var speed = (bindex == 1) ? 0.25 : 0.2;
 		if(keys[K_UP])
 		{
+			if(bindex == 1)
+			{
+				starcaptain.thrusting = true;
+			}
 			//apply forward force
 			var p = particles[bindex];
 			var angle = p.angle - Math.PI / 2;
 			var vx = Math.cos(angle) * speed;
 			var vy = Math.sin(angle) * speed;
 			p.velocity.set(p.velocity.add(new Vector(vx, vy)));
+		}
+		else
+		{
+			if(bindex == 1)
+			{
+				starcaptain.thrusting = false;
+			}
 		}
 		if(keys[K_DOWN])
 		{
@@ -350,6 +363,11 @@ function render() {
 			ctx.save();
 			ctx.translate(imgx, imgy);
 			ctx.rotate(p.angle);
+			if(p.name == "Star Captain" && starcaptain.thrusting)
+			{
+				//draw the flame
+				ctx.drawImage(SCThrustImage, -p.radius, -p.radius);
+			}
 			ctx.drawImage(p.image, -p.radius, -p.radius);
 			ctx.restore();
 			//ctx.rotate(-p.angle);
