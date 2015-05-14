@@ -154,6 +154,14 @@ function do_bullets(dt) {
         var p1 = bullets[i1];
         p1.pos.set(p1.pos.add(p1.velocity.mul(0.5 * dt)));
     }
+    for (var i2 = 0; i2 < bullets.length; i2++) {
+        var p2 = bullets[i2];
+        p2.velocity.set(p2.velocity.add(p2.acceleration.mul(dt)));
+    }
+    for (var i3 = 0; i3 < bullets.length; i3++) {
+        var p3 = bullets[i3];
+        p3.pos.set(p3.pos.add(p3.velocity.mul(0.5 * dt)));
+    }
 }
 
 function FireBullet()
