@@ -396,8 +396,7 @@ function render() {
 			var imgx = p.pos.x + CameraX;
 			var imgy = p.pos.y + CameraY;
 			
-			//draw the body's image, properly rotated
-			
+			//Draw the Engine Flames if Star Captain is thrusting
 			if(p.name == "Star Captain")
 			{
 				//draw the flame
@@ -416,11 +415,15 @@ function render() {
 					}
 					else
 					{
-						var gb = Math.floor(lifeper * 100);
-						ctx.fillStyle = "rgba(255, " + gb + ", 0, 1)";
-						ctx.beginPath();
-						ctx.arc(f.pos.x + CameraX, f.pos.y + CameraY, f.radius * (1 - lifeper), 0, Math.PI * 2);
-						ctx.fill();
+						var reducedradius = f.radius * (1 - lifeper);
+						if(reducedradius > 1)
+						{
+							var gb = Math.floor(lifeper * 100);
+							ctx.fillStyle = "rgba(255, " + gb + ", 0, 1)";
+							ctx.beginPath();
+							ctx.arc(f.pos.x + CameraX, f.pos.y + CameraY, reducedradius, 0, Math.PI * 2);
+							ctx.fill();
+						}
 					}
 				}
 				ctx.globalCompositeOperation = "source-over";
@@ -445,6 +448,7 @@ function render() {
 					}
 				}
 			}
+			//draw the image, properly rotated
 			ctx.save();
 			ctx.translate(imgx, imgy);
 			ctx.rotate(p.angle);
