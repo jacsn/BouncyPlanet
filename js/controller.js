@@ -41,9 +41,20 @@ window.addEventListener("mouseup", function (e) {
 window.addEventListener("keydown", function (e) {
 	keys[e.which] = true;
 	
-	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == K_FIRE)
+	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == K_FIRE)
 	{
 		e.preventDefault();
+	}
+	else if(e.which == K_UP)
+	{
+		e.preventDefault();
+		if(bindex == 1)
+		{
+			for(var i = 0; i < 10; i++)
+			{
+				engineflames.push(CreateEngineFlame());
+			}
+		}
 	}
 });
 
