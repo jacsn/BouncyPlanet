@@ -51,7 +51,8 @@ var gravity = 0.5;
 var particles = [];
 var newParticles = [];
 var bullets = [];
-var engineflames = [];
+var scengineflames = [];
+var gmengineflames = [];
 var trails = [];
 
 var sun = new Entity('Sun', new Vector(0, 0), 300);
@@ -71,6 +72,7 @@ var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
 	image: GeneralMeanImage
 });
 generalmean.thrusting = false;
+generalmean.hp = 100;
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
 trails.push([]);
 
@@ -135,6 +137,25 @@ function do_collisions() {
     }
 }
 
+function do_bulletcollisions()
+{
+	var removed = [];
+	for(var i = 0; i < bullets.length; i++)
+	{
+		if(bullets[i].checkCollision(generalmean))
+		{
+			removed.push(i);
+			generalmean.hp--;
+		}
+	}
+	
+	//removed all collided bullets
+	for(var r = removed.length - 1; r >= 0; r--)
+	{
+		bullets.splice(removed[r], 1);
+	}
+}
+
 function do_physics(dt) {
     for (var i1 = 0; i1 < particles.length; i1++) {
         var p1 = particles[i1];
@@ -165,19 +186,35 @@ function do_bullets(dt) {
         var p3 = bullets[i3];
         p3.pos.set(p3.pos.add(p3.velocity.mul(0.5 * dt)));
     }
+	do_bulletcollisions();
 }
 
-function do_engineflames(dt) {
-    for (var i1 = 0; i1 < engineflames.length; i1++) {
-        var p1 = engineflames[i1];
+function do_scengineflames(dt) {
+    for (var i1 = 0; i1 < scengineflames.length; i1++) {
+        var p1 = scengineflames[i1];
         p1.pos.set(p1.pos.add(p1.velocity.mul(0.5 * dt)));
     }
-    for (var i2 = 0; i2 < engineflames.length; i2++) {
-        var p2 = engineflames[i2];
+    for (var i2 = 0; i2 < scengineflames.length; i2++) {
+        var p2 = scengineflames[i2];
         p2.velocity.set(p2.velocity.add(p2.acceleration.mul(dt)));
     }
-    for (var i3 = 0; i3 < engineflames.length; i3++) {
-        var p3 = engineflames[i3];
+    for (var i3 = 0; i3 < scengineflames.length; i3++) {
+        var p3 = scengineflames[i3];
+        p3.pos.set(p3.pos.add(p3.velocity.mul(0.5 * dt)));
+    }
+}
+
+function do_gmengineflames(dt) {
+    for (var i1 = 0; i1 < gmengineflames.length; i1++) {
+        var p1 = gmengineflames[i1];
+        p1.pos.set(p1.pos.add(p1.velocity.mul(0.5 * dt)));
+    }
+    for (var i2 = 0; i2 < gmengineflames.length; i2++) {
+        var p2 = gmengineflames[i2];
+        p2.velocity.set(p2.velocity.add(p2.acceleration.mul(dt)));
+    }
+    for (var i3 = 0; i3 < gmengineflames.length; i3++) {
+        var p3 = gmengineflames[i3];
         p3.pos.set(p3.pos.add(p3.velocity.mul(0.5 * dt)));
     }
 }
@@ -200,7 +237,7 @@ function FireBullet()
 	bullets.push(bullet);
 }
 
-function CreateEngineFlame()
+function CreateSCEngineFlame()
 {
 	var p = particles[1]; //manually set a variable to Star Captain's particle
 	var firespeed = 12 + Math.random() * 5;
@@ -212,6 +249,26 @@ function CreateEngineFlame()
 	v.set(v.add(p.velocity)); //add SC's velocity to the bullet because that's how it'd work
 	
 	var startpos = new Vector(Math.cos(pangle) * (p.radius * 0.8) + p.pos.x, Math.sin(pangle) * (p.radius * 0.8) + p.pos.y);
+	var flame = new Entity("", startpos, fireradius, {
+		velocity: v
+	});
+	flame.shieldframe = curframe;
+	
+	return flame;
+}
+
+function CreateGMEngineFlame()
+{
+	var p = particles[2]; //manually set a variable to General Mean's particle
+	var firespeed = 12 + Math.random() * 5;
+	var fireradius = 4 + Math.random() * 6;
+	
+	var angle = p.angle + Math.PI / 2 + ((Math.random() * 0.2) - 0.1);
+	var pangle = p.angle + Math.PI / 2;
+	var v = new Vector(Math.cos(angle) * firespeed, Math.sin(angle) * firespeed);
+	v.set(v.add(p.velocity)); //add SC's velocity to the bullet because that's how it'd work
+	
+	var startpos = new Vector(Math.cos(pangle) * (p.radius * 0.9) + p.pos.x, Math.sin(pangle) * (p.radius * 0.9) + p.pos.y);
 	var flame = new Entity("", startpos, fireradius, {
 		velocity: v
 	});
@@ -232,7 +289,8 @@ function update() {
     for (var k = 0; k < 4; k++) { // increase the greater than value to increase simulation step rate
         do_physics(1.0 / 16); // increase the divisor to increase accuracy and decrease simulation speed 
 		do_bullets(1.0 / 16);
-		do_engineflames(1.0 / 16);
+		do_scengineflames(1.0 / 16);
+		do_gmengineflames(1.0 / 16);
     }
 	
 	for(var p = 0; p < particles.length; p++)
@@ -297,6 +355,10 @@ function update() {
 			{
 				starcaptain.thrusting = true;
 			}
+			else if(bindex == 2)
+			{
+				generalmean.thrusting = true;
+			}
 			//apply forward force
 			var p = particles[bindex];
 			var angle = p.angle - Math.PI / 2;
@@ -309,6 +371,10 @@ function update() {
 			if(bindex == 1)
 			{
 				starcaptain.thrusting = false;
+			}
+			else if(bindex == 2)
+			{
+				generalmean.thrusting = false;
 			}
 		}
 		if(keys[K_DOWN])
@@ -403,9 +469,9 @@ function render() {
 				//ctx.drawImage(SCThrustImage, -p.radius, -p.radius);
 				ctx.globalCompositeOperation = "lighter";
 				var toberemoved = [];
-				for(var fi = 0; fi < engineflames.length; fi++)
+				for(var fi = 0; fi < scengineflames.length; fi++)
 				{
-					var f = engineflames[fi];
+					var f = scengineflames[fi];
 					var elapsed = curframe - f.shieldframe;
 					var maxlife = 150;
 					var lifeper = elapsed / maxlife;
@@ -430,21 +496,71 @@ function render() {
 				
 				for(var tbr = toberemoved.length - 1; tbr >= 0; tbr--)
 				{
-					engineflames.splice(toberemoved[tbr], 1);
+					scengineflames.splice(toberemoved[tbr], 1);
 				}
 				
 				if(starcaptain.thrusting)
 				{
-					if(engineflames.length < 30)
+					if(scengineflames.length < 30)
 					{
 						for(var nef = 0; nef < 10; nef++)
 						{
-							engineflames.push(CreateEngineFlame());
+							scengineflames.push(CreateSCEngineFlame());
 						}
 					}
-					else if(engineflames.length < 50)
+					else if(scengineflames.length < 50)
 					{
-						engineflames.push(CreateEngineFlame());
+						scengineflames.push(CreateSCEngineFlame());
+					}
+				}
+			}
+			else if(p.name == "General Mean")
+			{
+				//draw the flames
+				ctx.globalCompositeOperation = "lighter";
+				var toberemoved = [];
+				for(var fi = 0; fi < gmengineflames.length; fi++)
+				{
+					var f = gmengineflames[fi];
+					var elapsed = curframe - f.shieldframe;
+					var maxlife = 150;
+					var lifeper = elapsed / maxlife;
+					if(lifeper > 1)
+					{
+						toberemoved.push(fi);
+					}
+					else
+					{
+						var reducedradius = f.radius * (1 - lifeper);
+						if(reducedradius > 1)
+						{
+							var gb = Math.floor(lifeper * 100);
+							ctx.fillStyle = "rgba(255, " + gb + ", 0, 1)";
+							ctx.beginPath();
+							ctx.arc(f.pos.x + CameraX, f.pos.y + CameraY, reducedradius, 0, Math.PI * 2);
+							ctx.fill();
+						}
+					}
+				}
+				ctx.globalCompositeOperation = "source-over";
+				
+				for(var tbr = toberemoved.length - 1; tbr >= 0; tbr--)
+				{
+					gmengineflames.splice(toberemoved[tbr], 1);
+				}
+				
+				if(generalmean.thrusting)
+				{
+					if(gmengineflames.length < 30)
+					{
+						for(var nef = 0; nef < 10; nef++)
+						{
+							gmengineflames.push(CreateGMEngineFlame());
+						}
+					}
+					else if(gmengineflames.length < 50)
+					{
+						gmengineflames.push(CreateGMEngineFlame());
 					}
 				}
 			}
@@ -520,24 +636,24 @@ function render() {
 				if(bindex == 1)
 				{
 					//draw Star Captain's radar indicator
-					//ctx.save();
+					ctx.save();
 					ctx.translate(imgx, imgy);
 					ctx.rotate(ang);
 					ctx.drawImage(SCRadarImage, -50, -50);
-					//ctx.restore();
-					ctx.rotate(-ang);
-					ctx.translate(-imgx, -imgy);
+					ctx.restore();
+					//ctx.rotate(-ang);
+					//ctx.translate(-imgx, -imgy);
 				}
 				else //if you're not SC, you're General Mean
 				{
 					//draw General Mean's radar indicator
-					//ctx.save();
+					ctx.save();
 					ctx.translate(imgx, imgy);
 					ctx.rotate(ang);
 					ctx.drawImage(GMRadarImage, -80, -80);
-					//ctx.restore();
-					ctx.rotate(-ang);
-					ctx.translate(-imgx, -imgy);
+					ctx.restore();
+					//ctx.rotate(-ang);
+					//ctx.translate(-imgx, -imgy);
 				}
 			}
 		}

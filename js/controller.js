@@ -52,7 +52,14 @@ window.addEventListener("keydown", function (e) {
 		{
 			for(var i = 0; i < 10; i++)
 			{
-				engineflames.push(CreateEngineFlame());
+				scengineflames.push(CreateSCEngineFlame());
+			}
+		}
+		else if(bindex == 2)
+		{
+			for(var i = 0; i < 10; i++)
+			{
+				gmengineflames.push(CreateGMEngineFlame());
 			}
 		}
 	}
