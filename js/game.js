@@ -41,6 +41,7 @@ var target = 0;
 var newtarget = target;
 var camlock = true;
 var showtrails = true;
+var guntimer = -1;
 
 var mouse = {
     p: new Vector()
@@ -72,7 +73,7 @@ var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
 	image: GeneralMeanImage
 });
 generalmean.thrusting = false;
-generalmean.hp = 100;
+generalmean.hp = 2000;
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
 trails.push([]);
 
@@ -399,6 +400,19 @@ function update() {
 		{
 			//turn right
 			particles[bindex].angle += ANGLE_INCREMENT;
+		}
+	}
+	
+	//deal with repeated fire if you hold down the fire button
+	if(bindex == 1 && guntimer >= 0)
+	{
+		var elapsed = curframe - guntimer;
+		var interval = 250;
+		var remainder = elapsed - interval;
+		if(remainder >= 0)
+		{
+			FireBullet();
+			guntimer = curframe + remainder;
 		}
 	}
 

@@ -41,9 +41,19 @@ window.addEventListener("mouseup", function (e) {
 window.addEventListener("keydown", function (e) {
 	keys[e.which] = true;
 	
-	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == K_FIRE)
+	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT)
 	{
 		e.preventDefault();
+	}
+	else if(e.which == K_FIRE)
+	{
+		if(bindex == 1)
+		{
+			if(guntimer < 0)
+			{
+				guntimer = curframe;
+			}
+		}
 	}
 	else if(e.which == K_UP)
 	{
@@ -92,6 +102,7 @@ window.addEventListener("keyup", function (e) {
 		e.preventDefault();
 		if(bindex == 1) //if you're Star Captain
 		{
+			guntimer = -1;
 			newbindex = 2;
 			if(target == newbindex)
 			{
@@ -118,6 +129,7 @@ window.addEventListener("keyup", function (e) {
 		if(bindex == 1)
 		{
 			FireBullet();
+			guntimer = -1;
 		}
 	}
 	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT)
