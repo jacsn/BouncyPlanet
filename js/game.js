@@ -1,16 +1,28 @@
-var curframe = 0;
+var curframe = -1;
 
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
 		
-		gameloop = function(step){
+		gameloop = function(step)
+		{
+			if(curframe < 0)
+			{
+				ChangeMenu(Menus.Main);
+			}
 			curframe = step; //curframe is necessary for animations to know how long they've been playing
-			update();
+			if(MenuShowing)
+			{
+				drawMenu();
+			}
+			else
+			{
+				update();
+			}
 		};
 		
 		//Gameloop setup in the browser is here
@@ -31,6 +43,13 @@ function preloadloop(){
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+
+var MenuShowing = true;
+var MenuID = Menus.Main;
+var Controls = [];
+var MouseDown = false;
+var MouseDownX = 0;
+var MouseDownY = 0;
 
 var CameraX = 0;
 var CameraY = 0;
@@ -55,6 +74,14 @@ var bullets = [];
 var scengineflames = [];
 var gmengineflames = [];
 var trails = [];
+
+//Declare all buttons here
+var btnBegin = new Button("Begin", SCREEN_WIDTH / 2 - 115, 500, 230, 90, btnBegin_Click, ButtonImage);
+
+function btnBegin_Click()
+{
+	ChangeMenu(Menus.None);
+}
 
 var sun = new Entity('Sun', new Vector(0, 0), 300);
 particles.push(sun); //the sun is particles[0] - this is important for holding it still
@@ -625,7 +652,6 @@ function render() {
 		
 		if(i == bindex)
 		{
-			
 			//compute the angle for the radar, and the distance for the HUD
 			var t = particles[target];
 			var diffx = t.pos.x - p.pos.x;
@@ -647,35 +673,39 @@ function render() {
 			{
 				dist = dist.substring(0, dot);
 			}
-			
-			if(i == bindex)
-			{
-				//if you're Star Captain, draw his radar indicator
-				if(bindex == 1)
-				{
-					//draw Star Captain's radar indicator
-					ctx.save();
-					ctx.translate(imgx, imgy);
-					ctx.rotate(ang);
-					ctx.drawImage(SCRadarImage, -50, -50);
-					ctx.restore();
-					//ctx.rotate(-ang);
-					//ctx.translate(-imgx, -imgy);
-				}
-				else //if you're not SC, you're General Mean
-				{
-					//draw General Mean's radar indicator
-					ctx.save();
-					ctx.translate(imgx, imgy);
-					ctx.rotate(ang);
-					ctx.drawImage(GMRadarImage, -80, -80);
-					ctx.restore();
-					//ctx.rotate(-ang);
-					//ctx.translate(-imgx, -imgy);
-				}
-			}
 		}
     }
+	
+	//Draw the radar UI (this is outside the particle loop now, because it's supposed to be a UI overlay
+	//if you're Star Captain, draw his radar indicator
+	if(bindex == 1)
+	{
+		var t = particles[target];
+		var diffx = t.pos.x - starcaptain.pos.x;
+		var diffy = t.pos.y - starcaptain.pos.y;
+		var ang = Math.atan2(diffy, diffx);
+		var imgx = starcaptain.pos.x + CameraX;
+		var imgy = starcaptain.pos.y + CameraY;
+		//draw Star Captain's radar indicator
+		ctx.save();
+		ctx.translate(imgx, imgy);
+		ctx.rotate(ang);
+		ctx.drawImage(SCRadarImage, -100, -100);
+		ctx.restore();
+		//ctx.rotate(-ang);
+		//ctx.translate(-imgx, -imgy);
+	}
+	else if(bindex == 2)
+	{
+		//draw General Mean's radar indicator
+		ctx.save();
+		ctx.translate(imgx, imgy);
+		ctx.rotate(ang);
+		ctx.drawImage(GMRadarImage, -80, -80);
+		ctx.restore();
+		//ctx.rotate(-ang);
+		//ctx.translate(-imgx, -imgy);
+	}
 	
 	//draw bullets
 	var bullets_to_remove = 0;
@@ -712,6 +742,45 @@ function render() {
 	//display distance to target
 	ctx.textAlign = "right";
 	ctx.fillText("Distance: " + dist, SCREEN_WIDTH - 10, 25);
+	
+	drawControls();
+}
+
+function ChangeMenu(menu)
+{
+	Controls = [];
+	if(menu == Menus.Main)
+	{
+		Controls.push(btnBegin);
+	}
+	else if(menu == Menus.None)
+	{
+		MenuShowing = false;
+	}
+}
+
+function drawMenu()
+{
+	ctx.fillStyle = "#666666";
+	ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	
+	if(MenuID == Menus.Main)
+	{
+		ctx.fillStyle = "#000000";
+		ctx.textAlign = "center";
+		ctx.font = "80px Arial, sans-serif";
+		ctx.fillText("Bouncy Planet", SCREEN_WIDTH / 2, 120);
+	}
+	
+	drawControls();
+}
+
+function drawControls()
+{
+	for(var c = 0; c < Controls.length; c++)
+	{
+		Controls[c].draw(ctx);
+	}
 }
 
 /*

@@ -10,6 +10,17 @@ var K_RIGHT = 39;
 //key used for shooting
 var K_FIRE = 90;
 
+var Menus = new function()
+{
+	this.Main = 0;
+	this.None = 1;
+}
+
+var ButtonImage = new Image();
+ButtonImage.ready = false;
+ButtonImage.onload = function(){this.ready = true;};
+ButtonImage.src = "img/button.png";
+
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};

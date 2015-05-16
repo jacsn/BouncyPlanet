@@ -1,41 +1,40 @@
-window.addEventListener("mousemove", function (e) {
-
+window.addEventListener("mousemove", function (event) {
+	var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
+	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
+	
+	//pick controls
+	for(var c = 0; c < Controls.length; c++)
+	{
+		Controls[c].pick(x, y, EventType.MOVE, MouseDown, MouseDownX, MouseDownY);
+	}
 });
 
-window.addEventListener("mousedown", function (e) {
-    mouse.p.x = e.pageX - canvas.getBoundingClientRect().left - CameraX;
-    mouse.p.y = e.pageY - canvas.getBoundingClientRect().top - CameraY;
-	//removed because I don't want planets appearing when you click anymore. It gets annoying.
-	/*
-	var removed = false;
-	for(var i = 1; i < particles.length; i++)
+window.addEventListener("mousedown", function (event) {
+    var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
+	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
+	
+	MouseDown = true;
+	MouseDownX = x;
+	MouseDownY = y;
+	
+	//pick controls
+	for(var c = 0; c < Controls.length; c++)
 	{
-		var diff = mouse.p.sub(particles[i].c);
-		var r = particles[i].r;
-		
-		if(diff.lengthSq() <= r * r)
-		{
-			particles.splice(i, 1);
-			trails.splice(i, 1);
-			while(bindex >= particles.length)
-			{
-				bindex--;
-			}
-			removed = true;
-		}
+		Controls[c].pick(x, y, EventType.DOWN, MouseDown, MouseDownX, MouseDownY);
 	}
-
-	if(!removed)
-	{
-		var body = new Circle(mouse.p.clone(), Math.random() * 10 + 15, 0.95, 0.95);
-		body.v = new Vector(0, -10);
-		newParticles.push(body);
-	}
-	*/
 });
 
-window.addEventListener("mouseup", function (e) {
-
+window.addEventListener("mouseup", function (event) {
+	var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
+	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
+	
+	MouseDown = false;
+	
+	//pick controls
+	for(var c = 0; c < Controls.length; c++)
+	{
+		Controls[c].pick(x, y, EventType.UP, MouseDown, MouseDownX, MouseDownY);
+	}
 });
 
 window.addEventListener("keydown", function (e) {
