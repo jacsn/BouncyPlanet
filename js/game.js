@@ -146,6 +146,10 @@ function do_bulletcollisions()
 		{
 			removed.push(i);
 			generalmean.hp--;
+			if(generalmean.shieldframe < 0)
+			{
+				generalmean.shieldframe = curframe;
+			}
 		}
 	}
 	
