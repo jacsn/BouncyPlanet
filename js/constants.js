@@ -21,6 +21,11 @@ ButtonImage.ready = false;
 ButtonImage.onload = function(){this.ready = true;};
 ButtonImage.src = "img/button.png";
 
+var SunImage = new Image();
+SunImage.ready = false;
+SunImage.onload = function(){this.ready = true;};
+SunImage.src = "img/sun.png";
+
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};

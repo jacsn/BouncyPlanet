@@ -83,7 +83,9 @@ function btnBegin_Click()
 	ChangeMenu(Menus.None);
 }
 
-var sun = new Entity('Sun', new Vector(0, 0), 300);
+var sun = new Entity('Sun', new Vector(0, 0), 300, {
+	image: SunImage
+});
 particles.push(sun); //the sun is particles[0] - this is important for holding it still
 trails.push([]);
 
@@ -434,7 +436,7 @@ function update() {
 	if(bindex == 1 && guntimer >= 0)
 	{
 		var elapsed = curframe - guntimer;
-		var interval = 250;
+		var interval = 200;
 		var remainder = elapsed - interval;
 		if(remainder >= 0)
 		{
