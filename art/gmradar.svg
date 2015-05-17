@@ -9,17 +9,50 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="160"
-   height="160"
+   width="250"
+   height="250"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
    sodipodi:docname="gmradar.svg"
-   inkscape:export-filename="C:\Users\Nick\Desktop\HTML5 Games\Childhood\gmradar.png"
+   inkscape:export-filename="C:\Users\Nick\Desktop\HTML5 Games\Childhood\img\gmradar.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs4" />
+     id="defs4">
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3761">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3763" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3765" />
+    </filter>
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3769">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3771" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3773" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -28,8 +61,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="98"
-     inkscape:cy="86"
+     inkscape:cx="189.61646"
+     inkscape:cy="177.82251"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -37,7 +70,9 @@
      inkscape:window-height="1018"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -46,7 +81,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,12 +89,52 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-892.36218)">
+     transform="translate(0,-802.36218)">
     <path
        style="fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0"
-       d="m 156.5,972.36218 -24,14.5 c 4.78444,-9.6667 4.47402,-19.33335 0,-29.00002 z"
+       d="m 396.5,902.36218 -24,14.5 c 4.78444,-9.6667 4.47402,-19.33335 0,-29.00002 z"
        id="rect2987"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
+    <g
+       id="g3757"
+       style="opacity:0.8;filter:url(#filter3761)"
+       transform="translate(397,-176)">
+      <path
+         transform="matrix(1.4244186,0,0,1.4244186,-62.238372,680.15288)"
+         d="m 235,156 c 0,47.49649 -38.50351,86 -86,86 -47.49649,0 -86,-38.50351 -86,-86 0,-47.49649 38.50351,-86 86,-86 47.49649,0 86,38.50351 86,86 z"
+         sodipodi:ry="86"
+         sodipodi:rx="86"
+         sodipodi:cy="156"
+         sodipodi:cx="149"
+         id="path2983"
+         style="fill:none;stroke:#aa0000;stroke-width:3.51020432;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3755"
+         d="m 271.70833,886.9354 0,31 25.83334,-15.5 z"
+         style="fill:#aa0000;stroke:none" />
+    </g>
+    <g
+       id="g3765"
+       style="filter:url(#filter3769);opacity:0.8">
+      <path
+         transform="matrix(1.3,0,0,1.3,-24.5,766.16218)"
+         d="m 190,124 a 75,75 0 1 1 -150,0 75,75 0 1 1 150,0 z"
+         sodipodi:ry="75"
+         sodipodi:rx="75"
+         sodipodi:cy="124"
+         sodipodi:cx="115"
+         id="path2991"
+         style="fill:none;stroke:#aa0000;stroke-width:3.84615397000000000;stroke-miterlimit:4;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3761"
+         d="m 220.17411,911.68302 0,31.25002 25.13694,-15.51284 z"
+         style="fill:#aa0000;stroke:none" />
+    </g>
   </g>
 </svg>

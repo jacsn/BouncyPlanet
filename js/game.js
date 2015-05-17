@@ -3,7 +3,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && SunImage.ready && BouncyPlanetImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -102,12 +102,13 @@ var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
 	image: GeneralMeanImage
 });
 generalmean.thrusting = false;
-generalmean.hp = 2000;
+generalmean.hp = 1000;
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
 trails.push([]);
 
 var bouncyplanet = new Entity('Bouncy Planet', new Vector(3072, 0), 100, {
-	velocity: new Vector(0, -6)
+	velocity: new Vector(0, -6),
+	image: BouncyPlanetImage
 });
 particles.push(bouncyplanet); //bouncy planet is currently particles[3] - this may not last
 trails.push([]);
@@ -436,7 +437,7 @@ function update() {
 	if(bindex == 1 && guntimer >= 0)
 	{
 		var elapsed = curframe - guntimer;
-		var interval = 200;
+		var interval = 250;
 		var remainder = elapsed - interval;
 		if(remainder >= 0)
 		{
@@ -654,11 +655,10 @@ function render() {
 		
 		if(i == bindex)
 		{
-			//compute the angle for the radar, and the distance for the HUD
+			//compute the distance for the HUD
 			var t = particles[target];
 			var diffx = t.pos.x - p.pos.x;
 			var diffy = t.pos.y - p.pos.y;
-			var ang = Math.atan2(diffy, diffx);
 			var dist = Math.sqrt(diffx * diffx + diffy * diffy) - t.radius - p.radius;
 			if(dist < 0)
 			{
@@ -699,11 +699,17 @@ function render() {
 	}
 	else if(bindex == 2)
 	{
+		var t = particles[target];
+		var diffx = t.pos.x - generalmean.pos.x;
+		var diffy = t.pos.y - generalmean.pos.y;
+		var ang = Math.atan2(diffy, diffx);
+		var imgx = generalmean.pos.x + CameraX;
+		var imgy = generalmean.pos.y + CameraY;
 		//draw General Mean's radar indicator
 		ctx.save();
 		ctx.translate(imgx, imgy);
 		ctx.rotate(ang);
-		ctx.drawImage(GMRadarImage, -80, -80);
+		ctx.drawImage(GMRadarImage, -125, -125);
 		ctx.restore();
 		//ctx.rotate(-ang);
 		//ctx.translate(-imgx, -imgy);

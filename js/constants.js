@@ -26,6 +26,11 @@ SunImage.ready = false;
 SunImage.onload = function(){this.ready = true;};
 SunImage.src = "img/sun.png";
 
+var BouncyPlanetImage = new Image();
+BouncyPlanetImage.ready = false;
+BouncyPlanetImage.onload = function(){this.ready = true;};
+BouncyPlanetImage.src = "img/bouncyplanet.png";
+
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};
