@@ -3,10 +3,16 @@ var SCREEN_HEIGHT = 640;
 
 var ANGLE_INCREMENT = Math.PI / 64;
 
+//arrow keys
 var K_UP = 38;
 var K_DOWN = 40;
 var K_LEFT = 37;
 var K_RIGHT = 39;
+//WASD keys
+var A_UP = 87;
+var A_DOWN = 83;
+var A_LEFT = 65;
+var A_RIGHT = 68;
 //key used for shooting
 var K_FIRE = 90;
 
@@ -30,6 +36,11 @@ var BouncyPlanetImage = new Image();
 BouncyPlanetImage.ready = false;
 BouncyPlanetImage.onload = function(){this.ready = true;};
 BouncyPlanetImage.src = "img/bouncyplanet.png";
+
+var MercuryImage = new Image();
+MercuryImage.ready = false;
+MercuryImage.onload = function(){this.ready = true;};
+MercuryImage.src = "img/mercury.png";
 
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;

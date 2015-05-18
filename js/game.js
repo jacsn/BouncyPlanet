@@ -3,7 +3,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && SunImage.ready && BouncyPlanetImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -114,7 +114,8 @@ particles.push(bouncyplanet); //bouncy planet is currently particles[3] - this m
 trails.push([]);
 
 var mercury = new Entity('Mercury', new Vector(-10240, 0), 80, {
-	velocity: new Vector(0, -4.8)
+	velocity: new Vector(0, -4.8),
+	image: MercuryImage
 });
 particles.push(mercury); //mercury is particles[4]... for now.
 trails.push([]);
@@ -363,19 +364,19 @@ function update() {
 	
 	if(!camlock)
 	{
-		if(keys[K_UP])
+		if(keys[K_UP] || keys[A_UP])
 		{
 			CameraY += 5;
 		}
-		if(keys[K_DOWN])
+		if(keys[K_DOWN] || keys[A_DOWN])
 		{
 			CameraY -= 5;
 		}
-		if(keys[K_LEFT])
+		if(keys[K_LEFT] || keys[A_LEFT])
 		{
 			CameraX += 5;
 		}
-		if(keys[K_RIGHT])
+		if(keys[K_RIGHT] || keys[A_RIGHT])
 		{
 			CameraX -= 5;
 		}
@@ -384,7 +385,7 @@ function update() {
 	{
 		//give General Mean a heftier feel by giving him lower acceleration
 		var speed = (bindex == 1) ? 0.25 : 0.2;
-		if(keys[K_UP])
+		if(keys[K_UP] || keys[A_UP])
 		{
 			if(bindex == 1)
 			{
@@ -412,7 +413,7 @@ function update() {
 				generalmean.thrusting = false;
 			}
 		}
-		if(keys[K_DOWN])
+		if(keys[K_DOWN] || keys[A_DOWN])
 		{
 			//apply reverse force
 			var p = particles[bindex];
@@ -421,12 +422,12 @@ function update() {
 			var vy = Math.sin(angle) * (speed * 0.8);
 			p.velocity.set(p.velocity.add(new Vector(vx, vy)));
 		}
-		if(keys[K_LEFT])
+		if(keys[K_LEFT] || keys[A_LEFT])
 		{
 			//turn left
 			particles[bindex].angle -= ANGLE_INCREMENT;
 		}
-		if(keys[K_RIGHT])
+		if(keys[K_RIGHT] || keys[A_RIGHT])
 		{
 			//turn right
 			particles[bindex].angle += ANGLE_INCREMENT;

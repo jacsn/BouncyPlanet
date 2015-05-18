@@ -40,7 +40,7 @@ window.addEventListener("mouseup", function (event) {
 window.addEventListener("keydown", function (e) {
 	keys[e.which] = true;
 	
-	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT)
+	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
 	{
 		e.preventDefault();
 	}
@@ -54,7 +54,7 @@ window.addEventListener("keydown", function (e) {
 			}
 		}
 	}
-	else if(e.which == K_UP)
+	else if(e.which == K_UP || e.which == A_UP)
 	{
 		e.preventDefault();
 		if(bindex == 1)
@@ -131,7 +131,7 @@ window.addEventListener("keyup", function (e) {
 			guntimer = -1;
 		}
 	}
-	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT)
+	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
 	{
 		e.preventDefault();
 	}
