@@ -40,7 +40,7 @@ window.addEventListener("mouseup", function (event) {
 window.addEventListener("keydown", function (e) {
 	keys[e.which] = true;
 	
-	if(e.which == 9 || e.which == 32 || e.which == 84 || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
+	if(e.which == K_TAB || e.which == K_SPACE || e.which == K_TRAILS || e.which == K_RADAR || e.which == K_ESC || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
 	{
 		e.preventDefault();
 	}
@@ -77,7 +77,7 @@ window.addEventListener("keydown", function (e) {
 window.addEventListener("keyup", function (e) {
 	keys[e.which] = false;
 	
-	if(e.which == 9)
+	if(e.which == K_TAB)
 	{
 		e.preventDefault();
 		if(++newtarget >= particles.length)
@@ -96,7 +96,7 @@ window.addEventListener("keyup", function (e) {
 			CameraY = -particles[bindex].c.y + SCREEN_HEIGHT / 2;
 		}*/
 	}
-	else if(e.which == 32)
+	else if(e.which == K_SPACE)
 	{
 		e.preventDefault();
 		if(bindex == 1) //if you're Star Captain
@@ -117,10 +117,15 @@ window.addEventListener("keyup", function (e) {
 			}
 		}
 	}
-	else if(e.which == 84)
+	else if(e.which == K_TRAILS)
 	{
 		e.preventDefault();
 		showtrails = !showtrails;
+	}
+	else if(e.which == K_RADAR)
+	{
+		e.preventDefault();
+		showradar = !showradar;
 	}
 	else if(e.which == K_FIRE)
 	{
@@ -131,7 +136,7 @@ window.addEventListener("keyup", function (e) {
 			guntimer = -1;
 		}
 	}
-	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
+	else if(e.which == K_ESC || e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
 	{
 		e.preventDefault();
 	}

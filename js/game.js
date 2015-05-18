@@ -59,6 +59,7 @@ var newbindex = bindex;
 var target = 0;
 var newtarget = target;
 var camlock = true;
+var showradar = true;
 var showtrails = true;
 var guntimer = -1;
 
@@ -680,40 +681,43 @@ function render() {
     }
 	
 	//Draw the radar UI (this is outside the particle loop now, because it's supposed to be a UI overlay
-	//if you're Star Captain, draw his radar indicator
-	if(bindex == 1)
+	if(showradar)
 	{
-		var t = particles[target];
-		var diffx = t.pos.x - starcaptain.pos.x;
-		var diffy = t.pos.y - starcaptain.pos.y;
-		var ang = Math.atan2(diffy, diffx);
-		var imgx = starcaptain.pos.x + CameraX;
-		var imgy = starcaptain.pos.y + CameraY;
-		//draw Star Captain's radar indicator
-		ctx.save();
-		ctx.translate(imgx, imgy);
-		ctx.rotate(ang);
-		ctx.drawImage(SCRadarImage, -100, -100);
-		ctx.restore();
-		//ctx.rotate(-ang);
-		//ctx.translate(-imgx, -imgy);
-	}
-	else if(bindex == 2)
-	{
-		var t = particles[target];
-		var diffx = t.pos.x - generalmean.pos.x;
-		var diffy = t.pos.y - generalmean.pos.y;
-		var ang = Math.atan2(diffy, diffx);
-		var imgx = generalmean.pos.x + CameraX;
-		var imgy = generalmean.pos.y + CameraY;
-		//draw General Mean's radar indicator
-		ctx.save();
-		ctx.translate(imgx, imgy);
-		ctx.rotate(ang);
-		ctx.drawImage(GMRadarImage, -125, -125);
-		ctx.restore();
-		//ctx.rotate(-ang);
-		//ctx.translate(-imgx, -imgy);
+		//if you're Star Captain, draw his radar indicator
+		if(bindex == 1)
+		{
+			var t = particles[target];
+			var diffx = t.pos.x - starcaptain.pos.x;
+			var diffy = t.pos.y - starcaptain.pos.y;
+			var ang = Math.atan2(diffy, diffx);
+			var imgx = starcaptain.pos.x + CameraX;
+			var imgy = starcaptain.pos.y + CameraY;
+			//draw Star Captain's radar indicator
+			ctx.save();
+			ctx.translate(imgx, imgy);
+			ctx.rotate(ang);
+			ctx.drawImage(SCRadarImage, -100, -100);
+			ctx.restore();
+			//ctx.rotate(-ang);
+			//ctx.translate(-imgx, -imgy);
+		}
+		else if(bindex == 2)
+		{
+			var t = particles[target];
+			var diffx = t.pos.x - generalmean.pos.x;
+			var diffy = t.pos.y - generalmean.pos.y;
+			var ang = Math.atan2(diffy, diffx);
+			var imgx = generalmean.pos.x + CameraX;
+			var imgy = generalmean.pos.y + CameraY;
+			//draw General Mean's radar indicator
+			ctx.save();
+			ctx.translate(imgx, imgy);
+			ctx.rotate(ang);
+			ctx.drawImage(GMRadarImage, -125, -125);
+			ctx.restore();
+			//ctx.rotate(-ang);
+			//ctx.translate(-imgx, -imgy);
+		}
 	}
 	
 	//draw bullets

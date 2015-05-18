@@ -15,6 +15,12 @@ var A_LEFT = 65;
 var A_RIGHT = 68;
 //key used for shooting
 var K_FIRE = 90;
+//other necessary keys
+var K_SPACE = 32;
+var K_ESC = 27;
+var K_TAB = 9;
+var K_TRAILS = 84;
+var K_RADAR = 82;
 
 var Menus = new function()
 {
