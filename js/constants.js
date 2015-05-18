@@ -48,6 +48,11 @@ MercuryImage.ready = false;
 MercuryImage.onload = function(){this.ready = true;};
 MercuryImage.src = "img/mercury.png";
 
+var VenusImage = new Image();
+VenusImage.ready = false;
+VenusImage.onload = function(){this.ready = true;};
+VenusImage.src = "img/venus.png";
+
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};

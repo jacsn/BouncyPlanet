@@ -3,7 +3,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -122,7 +122,8 @@ particles.push(mercury); //mercury is particles[4]... for now.
 trails.push([]);
 
 var venus = new Entity('Venus', new Vector(0, 40000), 120, {
-	velocity: new Vector(3, 0)
+	velocity: new Vector(3, 0),
+	image: VenusImage
 });
 particles.push(venus); //venus is particles[5]... for now
 trails.push([]);
