@@ -62,6 +62,7 @@ var camlock = true;
 var showradar = true;
 var showtrails = true;
 var guntimer = -1;
+var maxhp = 1000;
 
 var mouse = {
     p: new Vector()
@@ -99,11 +100,11 @@ particles.push(starcaptain); //this means Star Captain will be particles[1] - th
 trails.push([]);
 
 var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
-	mass: 3000,
+	mass: 2000,
 	image: GeneralMeanImage
 });
 generalmean.thrusting = false;
-generalmean.hp = 1000;
+generalmean.hp = maxhp;
 particles.push(generalmean); //General Mean is particles[2] - important for toggling bindex between him and Star Captain
 trails.push([]);
 
@@ -617,18 +618,49 @@ function render() {
 				}
 			}
 			//draw the image, properly rotated
-			ctx.save();
-			ctx.translate(imgx, imgy);
-			ctx.rotate(p.angle);
-			ctx.drawImage(p.image, -p.radius, -p.radius);
-			ctx.restore();
-			//ctx.rotate(-p.angle);
-			//ctx.translate(-imgx, -imgy);
+			if(p.name == "General Mean")
+			{
+				//account for General Mean's battle damage
+				var lifeper = generalmean.hp / maxhp;
+				var shipframe = 0;
+				if(lifeper < 0.2)
+				{
+					shipframe = 4;
+				}
+				else if(lifeper < 0.4)
+				{
+					shipframe = 3;
+				}
+				else if(lifeper < 0.6)
+				{
+					shipframe = 2;
+				}
+				else if(lifeper < 0.8)
+				{
+					shipframe = 1;
+				}
+				
+				ctx.save();
+				ctx.translate(imgx, imgy);
+				ctx.rotate(p.angle);
+				ctx.drawImage(p.image, 100 * shipframe, 0, 100, 100, -p.radius, -p.radius, 100, 100);
+				ctx.restore();
+			}
+			else
+			{
+				ctx.save();
+				ctx.translate(imgx, imgy);
+				ctx.rotate(p.angle);
+				ctx.drawImage(p.image, -p.radius, -p.radius);
+				ctx.restore();
+				//ctx.rotate(-p.angle);
+				//ctx.translate(-imgx, -imgy);
+			}
 			
-			//This new segment just draws Star Captain's shield
+			//This new segment just draws Star Captain's and General Mean's shields
 			if(p.shieldframe >= 0)
 			{
-				if(p.name == "Star Captain")
+				if(p.name == "Star Captain") //other (actual) particles make use of shieldframe as a ttl timer
 				{
 					var percent = (curframe - p.shieldframe) / 400;
 					var frame = Math.floor(percent * 6);
