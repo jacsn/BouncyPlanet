@@ -53,6 +53,11 @@ VenusImage.ready = false;
 VenusImage.onload = function(){this.ready = true;};
 VenusImage.src = "img/venus.png";
 
+var JupiterImage = new Image();
+JupiterImage.ready = false;
+JupiterImage.onload = function(){this.ready = true;};
+JupiterImage.src = "img/jupiter.png";
+
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};
