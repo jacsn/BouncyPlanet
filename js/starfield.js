@@ -17,6 +17,12 @@ Star.prototype.render = function(){
 	var playerPos = particles[bindex].pos;
 	var x = (this.x - this.speed * playerPos.x) % STARFIELD_WIDTH;
 	var y = (this.y - this.speed * playerPos.y) % STARFIELD_HEIGHT;
+	while(x < 0){
+		x += STARFIELD_WIDTH;
+	}
+	while(y < 0){
+		y += STARFIELD_HEIGHT;
+	}
 
 	ctx.fillStyle='#fff';
 	ctx.fillRect(x, y, STAR_SIZE, STAR_SIZE);
