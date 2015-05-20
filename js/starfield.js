@@ -3,8 +3,8 @@
 var STARFIELD_WIDTH = 2048;
 var STARFIELD_HEIGHT = 1080;
 var STAR_COUNT = 75;
-var STAR_MIN_SPEED = .20;
-var STAR_MAX_SPEED = .95;
+var STAR_MIN_SPEED = .05;
+var STAR_MAX_SPEED = .25;
 var STAR_SIZE = 2;
 
 function Star(){

@@ -58,6 +58,11 @@ JupiterImage.ready = false;
 JupiterImage.onload = function(){this.ready = true;};
 JupiterImage.src = "img/jupiter.png";
 
+var PlutoImage = new Image();
+PlutoImage.ready = false;
+PlutoImage.onload = function(){this.ready = true;};
+PlutoImage.src = "img/pluto.png";
+
 var StarCaptainImage = new Image();
 StarCaptainImage.ready = false;
 StarCaptainImage.onload = function(){this.ready = true;};
