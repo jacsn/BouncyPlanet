@@ -500,6 +500,11 @@ function render() {
 		}
 	}
 
+	// Draw starfield
+	for(var i = 0; i < stars.length; i++){
+		stars[i].render();
+	}
+
     for (var i = 0; i < particles.length; i++)
 	{
 		if(particles[i].image === null)
