@@ -148,10 +148,10 @@ Button.prototype = {
 				
 				if(this.text.length > 0)
 				{
-					canvas.fillStyle = "#000000";
+					canvas.fillStyle = "#FFFFFF";
 					canvas.textAlign = "center";
-					canvas.font = "48px Arial, sans-serif";
-					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 60);
+					canvas.font = "52px Arial, sans-serif";
+					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 58);
 				}
 			}
 			else if(this.state == ButtonState.DOWN)
@@ -160,10 +160,10 @@ Button.prototype = {
 				
 				if(this.text.length > 0)
 				{
-					canvas.fillStyle = "#000000";
+					canvas.fillStyle = "#FFFFFF";
 					canvas.textAlign = "center";
-					canvas.font = "48px Arial, sans-serif";
-					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 60);
+					canvas.font = "52px Arial, sans-serif";
+					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 58);
 				}
 			}
 			else
@@ -172,10 +172,10 @@ Button.prototype = {
 				
 				if(this.text.length > 0)
 				{
-					canvas.fillStyle = "#000000";
+					canvas.fillStyle = "#FFFFFF";
 					canvas.textAlign = "center";
-					canvas.font = "48px Arial, sans-serif";
-					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 60);
+					canvas.font = "52px Arial, sans-serif";
+					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 58);
 				}
 			}
 		}

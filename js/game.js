@@ -78,7 +78,11 @@ var gmengineflames = [];
 var trails = [];
 
 //Declare all buttons here
-var btnBegin = new Button("Begin", SCREEN_WIDTH / 2 - 115, 500, 230, 90, btnBegin_Click, ButtonImage);
+var btnBegin = new Button("Begin", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnBegin_Click, ButtonImage);
+btnBegin.x += 10;
+btnBegin.width -= 20;
+btnBegin.y += 10;
+btnBegin.height -= 20;
 
 function btnBegin_Click()
 {

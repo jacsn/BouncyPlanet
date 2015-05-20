@@ -31,7 +31,7 @@ var Menus = new function()
 var ButtonImage = new Image();
 ButtonImage.ready = false;
 ButtonImage.onload = function(){this.ready = true;};
-ButtonImage.src = "img/button.png";
+ButtonImage.src = "img/button2.png";
 
 var SunImage = new Image();
 SunImage.ready = false;
