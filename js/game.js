@@ -450,7 +450,7 @@ function update() {
 	}
 	
 	//deal with repeated fire if you hold down the fire button
-	if(bindex == 1 && guntimer >= 0)
+	if(guntimer >= 0)
 	{
 		var elapsed = curframe - guntimer;
 		var interval = 250;
@@ -461,6 +461,8 @@ function update() {
 			guntimer = curframe + remainder;
 		}
 	}
+
+	updateAI();
 
     render();
 	
