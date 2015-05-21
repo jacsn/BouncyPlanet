@@ -14,5 +14,11 @@ function updateAI(){
 		if(guntimer < 0){
 			guntimer = curframe;
 		}
+		me.thrusting = true;
+		var angle = me.angle - Math.PI / 2;
+		var speed = .25;
+		var vx = Math.cos(angle) * speed;
+		var vy = Math.sin(angle) * speed;
+		me.velocity.set(me.velocity.add(new Vector(vx, vy)));
 	}
 }
