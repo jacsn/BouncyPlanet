@@ -1,5 +1,30 @@
 'use strict';
 
+window.addEventListener("blur", function (event) {
+	if(!MenuShowing)
+	{
+		ChangeMenu(Menus.Pause);
+	}
+
+	/*
+	keys[K_UP] = false;
+	keys[K_DOWN] = false;
+	keys[K_LEFT] = false;
+	keys[K_RIGHT] = false;
+	keys[A_UP] = false;
+	keys[A_DOWN] = false;
+	keys[A_LEFT] = false;
+	keys[A_RIGHT] = false;
+	keys[K_FIRE] = false;
+	keys[K_SPACE] = false;
+	keys[K_ESC] = false;
+	keys[K_TAB] = false;
+	keys[K_TRAILS] = false;
+	keys[K_RADAR] = false;
+	guntimer = -1;
+	*/
+});
+
 window.addEventListener("mousemove", function (event) {
 	var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
 	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;

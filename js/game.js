@@ -523,7 +523,7 @@ function render() {
 					var elapsed = curframe - f.shieldframe;
 					var maxlife = 150;
 					var lifeper = elapsed / maxlife;
-					if(lifeper > 1)
+					if(lifeper > 1 || lifeper < 0) //sometimes the elapsed variable winds up negative? I don't know why. This seems like some kind of terrible bug...
 					{
 						toberemoved.push(fi);
 					}
@@ -842,10 +842,10 @@ function ChangeMenu(menu)
 			
 			for(var i = 0; i < gmengineflames.length; i++)
 			{
-				var f = gmengineflames[i];
-				if(f.shieldframe >= 0)
+				var g = gmengineflames[i];
+				if(g.shieldframe >= 0)
 				{
-					f.shieldframe += pausetime;
+					g.shieldframe += pausetime;
 				}
 			}
 			
