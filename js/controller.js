@@ -1,3 +1,5 @@
+'use strict';
+
 window.addEventListener("mousemove", function (event) {
 	var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
 	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
@@ -136,7 +138,18 @@ window.addEventListener("keyup", function (e) {
 			guntimer = -1;
 		}
 	}
-	else if(e.which == K_ESC || e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
+	else if(e.which == K_ESC)
+	{
+		if(MenuShowing && MenuID == Menus.Pause)
+		{
+			ChangeMenu(Menus.None);
+		}
+		else if(!MenuShowing)
+		{
+			ChangeMenu(Menus.Pause);
+		}
+	}
+	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
 	{
 		e.preventDefault();
 	}

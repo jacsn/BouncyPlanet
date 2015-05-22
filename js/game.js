@@ -1,3 +1,4 @@
+'use strict';
 var curframe = -1;
 
 var preloader = setInterval(preloadloop, 10);
@@ -8,7 +9,7 @@ function preloadloop(){
 
 		//requestAnimationFrame(frame);
 		
-		gameloop = function(step)
+		var gameloop = function(step)
 		{
 			if(curframe < 0)
 			{
@@ -51,6 +52,7 @@ var MouseDown = false;
 var MouseDownX = 0;
 var MouseDownY = 0;
 
+var pausetimer = -1;
 var CameraX = 0;
 var CameraY = 0;
 var keys = [];
@@ -58,7 +60,6 @@ var bindex = 1;
 var newbindex = bindex;
 var target = 0;
 var newtarget = target;
-var camlock = true;
 var showradar = true;
 var showtrails = true;
 var guntimer = -1;
@@ -71,7 +72,6 @@ var mouse = {
 var gravity = 0.5;
 
 var particles = [];
-var newParticles = [];
 var bullets = [];
 var scengineflames = [];
 var gmengineflames = [];
@@ -83,6 +83,12 @@ btnBegin.x += 10;
 btnBegin.width -= 20;
 btnBegin.y += 10;
 btnBegin.height -= 20;
+
+var btnResume = new Button("Resume", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnBegin_Click, ButtonImage);
+btnResume.x += 10;
+btnResume.width -= 20;
+btnResume.y += 10;
+btnResume.height -= 20;
 
 function btnBegin_Click()
 {
@@ -328,15 +334,8 @@ function CreateGMEngineFlame()
 	return flame;
 }
 
-function update() {
-    
-    for(var newParticlesPos = 0; newParticlesPos < newParticles.length; newParticlesPos++)
-    {
-        particles.push(newParticles[newParticlesPos]);
-		trails.push([]);
-    }
-    newParticles = [];
-    
+function update()
+{
     for (var k = 0; k < 4; k++) { // increase the greater than value to increase simulation step rate
         do_physics(1.0 / 16); // increase the divisor to increase accuracy and decrease simulation speed 
 		do_bullets(1.0 / 16);
@@ -374,29 +373,10 @@ function update() {
 	}
 	
 	//hold the sun still
-	particles[0].pos.x = 0;
-	particles[0].pos.y = 0;
+	sun.pos.x = 0;
+	sun.pos.y = 0;
 	
-	if(!camlock)
-	{
-		if(keys[K_UP] || keys[A_UP])
-		{
-			CameraY += 5;
-		}
-		if(keys[K_DOWN] || keys[A_DOWN])
-		{
-			CameraY -= 5;
-		}
-		if(keys[K_LEFT] || keys[A_LEFT])
-		{
-			CameraX += 5;
-		}
-		if(keys[K_RIGHT] || keys[A_RIGHT])
-		{
-			CameraX -= 5;
-		}
-	}
-	else
+	if(bindex == 1 || bindex == 2)
 	{
 		//give General Mean a heftier feel by giving him lower acceleration
 		var speed = (bindex == 1) ? 0.25 : 0.2;
@@ -487,12 +467,9 @@ function render() {
     ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	ctx.strokeStyle = "#AA0000";
 	
-	if(camlock)
-	{
-		//keep the camera locked on Star Captain (or whichever body is at bindex)
-		CameraX = -particles[bindex].pos.x + SCREEN_WIDTH / 2;
-		CameraY = -particles[bindex].pos.y + SCREEN_HEIGHT / 2;
-	}
+	//keep the camera locked on Star Captain (or whichever body is at bindex)
+	CameraX = -particles[bindex].pos.x + SCREEN_WIDTH / 2;
+	CameraY = -particles[bindex].pos.y + SCREEN_HEIGHT / 2;
 	
 	if(showtrails)
 	{
@@ -814,14 +791,70 @@ function render() {
 function ChangeMenu(menu)
 {
 	Controls = [];
+	MenuShowing = true;
+	
 	if(menu == Menus.Main)
 	{
 		Controls.push(btnBegin);
 	}
+	else if(menu == Menus.Pause)
+	{
+		pausetimer = curframe;
+		Controls.push(btnResume);
+	}
 	else if(menu == Menus.None)
 	{
+		if(MenuID == Menus.Pause) //if we're unpausing
+		{
+			var pausetime = curframe - pausetimer;
+			//deal with all the timers
+			if(guntimer >= 0)
+			{
+				guntimer += pausetime;
+			}
+			
+			for(var i = 0; i < particles.length; i++)
+			{
+				var p = particles[i];
+				if(p.shieldframe >= 0)
+				{
+					p.shieldframe += pausetime;
+				}
+			}
+			
+			for(var i = 0; i < bullets.length; i++)
+			{
+				var b = bullets[i];
+				if(b.shieldframe >= 0)
+				{
+					b.shieldframe += pausetime;
+				}
+			}
+			
+			for(var i = 0; i < scengineflames.length; i++)
+			{
+				var f = scengineflames[i];
+				if(f.shieldframe >= 0)
+				{
+					f.shieldframe += pausetime;
+				}
+			}
+			
+			for(var i = 0; i < gmengineflames.length; i++)
+			{
+				var f = gmengineflames[i];
+				if(f.shieldframe >= 0)
+				{
+					f.shieldframe += pausetime;
+				}
+			}
+			
+			pausetimer = -1;
+		}
 		MenuShowing = false;
 	}
+	
+	MenuID = menu;
 }
 
 function drawMenu()
@@ -835,6 +868,13 @@ function drawMenu()
 		ctx.textAlign = "center";
 		ctx.font = "80px Arial, sans-serif";
 		ctx.fillText("Bouncy Planet", SCREEN_WIDTH / 2, 120);
+	}
+	else if(MenuID == Menus.Pause)
+	{
+		ctx.fillStyle = "#000000";
+		ctx.textAlign = "center";
+		ctx.font = "80px Arial, sans-serif";
+		ctx.fillText("Pause Menu", SCREEN_WIDTH / 2, 120);
 	}
 	
 	drawControls();

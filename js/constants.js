@@ -1,3 +1,5 @@
+'use strict';
+
 var SCREEN_WIDTH = 1024;
 var SCREEN_HEIGHT = 640;
 
@@ -25,7 +27,10 @@ var K_RADAR = 82;
 var Menus = new function()
 {
 	this.Main = 0;
-	this.None = 1;
+	this.Pause = 1;
+	this.Story1 = 2;
+	this.Story2 = 3;
+	this.None = 4;
 }
 
 var ButtonImage = new Image();

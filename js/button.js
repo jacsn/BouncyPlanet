@@ -1,3 +1,5 @@
+'use strict';
+
 var EventType = new function()
 {
 	this.UP = 0;
