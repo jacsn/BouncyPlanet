@@ -790,6 +790,10 @@ function render() {
 
 function ChangeMenu(menu)
 {
+	for(var c = 0; c < Controls.length; c++)
+	{
+		Controls[c].state = ButtonState.UP;
+	}
 	Controls = [];
 	MenuShowing = true;
 	
