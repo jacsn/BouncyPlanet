@@ -90,9 +90,21 @@ btnResume.width -= 20;
 btnResume.y += 10;
 btnResume.height -= 20;
 
+var btnQuit = new Button("Quit", SCREEN_WIDTH / 2 - 140, 360, 280, 100, btnMainMenu_Click, ButtonImage);
+btnQuit.x += 10;
+btnQuit.width -= 20;
+btnQuit.y += 10;
+btnQuit.height -= 20;
+
 function btnBegin_Click()
 {
+	NewGame();
 	ChangeMenu(Menus.None);
+}
+
+function btnMainMenu_Click()
+{
+	ChangeMenu(Menus.Main);
 }
 
 var sun = new Entity('Sun', new Vector(0, 0), 300, {
@@ -152,6 +164,54 @@ var pluto = new Entity("Pluto", new Vector(500000, 0), 90, {
 });
 particles.push(pluto);
 trails.push([]);
+
+
+function NewGame()
+{
+	for(var i = 0; i < trails.length; i++)
+	{
+		trails[i] = [];
+	}
+	
+	bullets = [];
+	scengineflames = [];
+	gmengineflames = [];
+	
+	pausetimer = -1;
+	CameraX = 0;
+	CameraY = 0;
+	bindex = 1;
+	newbindex = bindex;
+	target = 0;
+	newtarget = target;
+	showradar = true;
+	showtrails = true;
+	guntimer = -1;
+	
+	starcaptain.pos = new Vector(1024, 320);
+	starcaptain.velocity = new Vector();
+	starcaptain.angle = 0;
+	
+	generalmean.pos = new Vector(3072, 3072);
+	generalmean.velocity = new Vector();
+	generalmean.angle = 0;
+	generalmean.hp = maxhp;
+	
+	bouncyplanet.pos = new Vector(3072, 0);
+	bouncyplanet.velocity = new Vector(0, -6);
+	
+	mercury.pos = new Vector(-10240, 0);
+	mercury.velocity = new Vector(0, -4.8);
+	
+	venus.pos = new Vector(0, 40000);
+	venus.velocity = new Vector(3, 0);
+	
+	jupiter.pos = new Vector(120000, 0);
+	jupiter.velocity = new Vector(0, 2);
+	
+	pluto.pos = new Vector(500000, 0);
+	pluto.velocity = new Vector(0, -1);
+}
 
 function compute_forces() {
     for (var i = 0; i < particles.length; i++) {
@@ -809,6 +869,7 @@ function ChangeMenu(menu)
 	else if(menu == Menus.Pause)
 	{
 		pausetimer = curframe;
+		Controls.push(btnQuit);
 		Controls.push(btnResume);
 	}
 	else if(menu == Menus.None)
