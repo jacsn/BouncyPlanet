@@ -52,6 +52,22 @@
          in2="result91"
          id="feComposite3773" />
     </filter>
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3771">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3773" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3775" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -61,8 +77,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="189.61646"
-     inkscape:cy="177.82251"
+     inkscape:cx="236.35452"
+     inkscape:cy="121.41341"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -117,24 +133,25 @@
          style="fill:#aa0000;stroke:none" />
     </g>
     <g
-       id="g3765"
-       style="filter:url(#filter3769);opacity:0.8">
+       id="g3767"
+       style="filter:url(#filter3771);opacity:0.8">
       <path
-         transform="matrix(1.3,0,0,1.3,-24.5,766.16218)"
-         d="m 190,124 a 75,75 0 1 1 -150,0 75,75 0 1 1 150,0 z"
-         sodipodi:ry="75"
-         sodipodi:rx="75"
-         sodipodi:cy="124"
-         sodipodi:cx="115"
-         id="path2991"
-         style="fill:none;stroke:#aa0000;stroke-width:3.84615397000000000;stroke-miterlimit:4;stroke-dasharray:none"
+         transform="matrix(0.78629032,0,0,0.78629032,401.77419,922.64444)"
+         d="m -228,6 c 0,68.483309 -55.51669,124 -124,124 -68.48331,0 -124,-55.516691 -124,-124 0,-68.483309 55.51669,-124 124,-124 68.48331,0 124,55.516691 124,124 z"
+         sodipodi:ry="124"
+         sodipodi:rx="124"
+         sodipodi:cy="6"
+         sodipodi:cx="-352"
+         id="path2995"
+         style="fill:none;stroke:#0000ff;stroke-width:6.35897445999999980;stroke-miterlimit:4;stroke-dasharray:none"
          sodipodi:type="arc" />
       <path
          sodipodi:nodetypes="cccc"
+         transform="translate(0,802.36218)"
          inkscape:connector-curvature="0"
-         id="path3761"
-         d="m 220.17411,911.68302 0,31.25002 25.13694,-15.51284 z"
-         style="fill:#aa0000;stroke:none" />
+         id="path3765"
+         d="m 221.625,110.125 0,29.625 23.75,-14.75 z"
+         style="fill:#0000ff;stroke:none" />
     </g>
   </g>
 </svg>

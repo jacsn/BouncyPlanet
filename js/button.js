@@ -152,7 +152,7 @@ Button.prototype = {
 				{
 					canvas.fillStyle = "#FFFFFF";
 					canvas.textAlign = "center";
-					canvas.font = "52px Arial, sans-serif";
+					canvas.font = "52px Bitwise, Arial, sans-serif";
 					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 58);
 				}
 			}
@@ -164,7 +164,7 @@ Button.prototype = {
 				{
 					canvas.fillStyle = "#FFFFFF";
 					canvas.textAlign = "center";
-					canvas.font = "52px Arial, sans-serif";
+					canvas.font = "52px Bitwise, Arial, sans-serif";
 					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 58);
 				}
 			}
@@ -176,7 +176,7 @@ Button.prototype = {
 				{
 					canvas.fillStyle = "#FFFFFF";
 					canvas.textAlign = "center";
-					canvas.font = "52px Arial, sans-serif";
+					canvas.font = "52px Bitwise, Arial, sans-serif";
 					canvas.fillText(this.text, this.imgx + this.imgw / 2, this.y + 58);
 				}
 			}

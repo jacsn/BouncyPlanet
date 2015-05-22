@@ -36,6 +36,22 @@
          in2="result91"
          id="feComposite3900" />
     </filter>
+    <filter
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB"
+       id="filter3765">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result91"
+         id="feGaussianBlur3767" />
+      <feComposite
+         in="SourceGraphic"
+         operator="over"
+         in2="result91"
+         id="feComposite3769" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -45,8 +61,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="162.73125"
-     inkscape:cy="64.592883"
+     inkscape:cx="179.26317"
+     inkscape:cy="100.40938"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -63,7 +79,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -79,24 +95,25 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
     <g
-       id="g3892"
-       style="filter:url(#filter3896);opacity:0.8">
+       id="g3761"
+       style="filter:url(#filter3765);opacity:0.8">
       <path
-         transform="matrix(0.93373494,0,0,0.93373494,285.81325,933.68748)"
-         d="m -116,20 a 83,83 0 1 1 -166,0 83,83 0 1 1 166,0 z"
-         sodipodi:ry="83"
-         sodipodi:rx="83"
-         sodipodi:cy="20"
-         sodipodi:cx="-199"
-         id="path2983"
-         style="fill:none;stroke:#aa0000;stroke-width:5.35483885000000010;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         transform="matrix(0.86111111,0,0,0.86111111,350.58333,899.8344)"
+         d="m -201,61 c 0,49.70563 -40.29437,90 -90,90 -49.70563,0 -90,-40.29437 -90,-90 0,-49.705627 40.29437,-90 90,-90 49.70563,0 90,40.294373 90,90 z"
+         sodipodi:ry="90"
+         sodipodi:rx="90"
+         sodipodi:cy="61"
+         sodipodi:cx="-291"
+         id="path2989"
+         style="fill:none;stroke:#0000ff;stroke-width:5.80645179999999960;stroke-miterlimit:4;stroke-dasharray:none"
          sodipodi:type="arc" />
       <path
          sodipodi:nodetypes="cccc"
+         transform="translate(0,852.36218)"
          inkscape:connector-curvature="0"
-         id="path3753"
-         d="m 178.25,941.36218 0,22.125 18.625,-11.125 z"
-         style="fill:#aa0000;fill-opacity:1;stroke:#aa0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         id="path3759"
+         d="m 177.04186,87.65841 0,24.83713 20.85965,-12.55115 z"
+         style="fill:#0000ff;stroke:none" />
     </g>
   </g>
 </svg>

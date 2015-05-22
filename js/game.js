@@ -4,7 +4,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -465,7 +465,7 @@ function update()
 
 function render() {
     ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	ctx.strokeStyle = "#AA0000";
+	ctx.strokeStyle = "#0000FF";
 	
 	//keep the camera locked on Star Captain (or whichever body is at bindex)
 	CameraX = -particles[bindex].pos.x + SCREEN_WIDTH / 2;
@@ -776,14 +776,19 @@ function render() {
 	}
 	
 	//display the current target destination
+	ctx.font = "20px Bitwise, sans-serif";
+	ctx.fillStyle = "#FFFFFF";
+	var targettext = "Target: " + particles[target].name;
+	ctx.drawImage(UIBoxImage, ctx.measureText(targettext).width - 400, -45);
+	
 	ctx.textAlign = "left";
-	ctx.font = "20px sans-serif";
-	ctx.fillStyle = "#999999";
-	ctx.fillText("Target: " + particles[target].name, 10, 25);
+	ctx.fillText(targettext, 10, 25);
 	
 	//display distance to target
+	var distancetext = "Distance: " + dist;
+	ctx.drawImage(UIBoxImage, SCREEN_WIDTH - ctx.measureText(distancetext).width - 80, -45);
 	ctx.textAlign = "right";
-	ctx.fillText("Distance: " + dist, SCREEN_WIDTH - 10, 25);
+	ctx.fillText(distancetext, SCREEN_WIDTH - 10, 25);
 	
 	drawControls();
 }

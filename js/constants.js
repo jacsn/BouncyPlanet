@@ -38,6 +38,11 @@ ButtonImage.ready = false;
 ButtonImage.onload = function(){this.ready = true;};
 ButtonImage.src = "img/button2.png";
 
+var UIBoxImage = new Image();
+UIBoxImage.ready = false;
+UIBoxImage.onload = function(){this.ready = true;};
+UIBoxImage.src = "img/uibox.png";
+
 var SunImage = new Image();
 SunImage.ready = false;
 SunImage.onload = function(){this.ready = true;};
