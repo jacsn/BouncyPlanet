@@ -26,8 +26,10 @@ window.addEventListener("blur", function (event) {
 });
 
 window.addEventListener("mousemove", function (event) {
-	var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
-	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
+	var left = (window.pageXOffset || document.body.scrollLeft) - (document.body.clientLeft || 0);
+	var top = (window.pageYOffset || document.body.scrollTop)  - (document.body.clientTop || 0);
+	var x = event.clientX - canvas.offsetLeft + left;
+	var y = event.clientY - canvas.offsetTop + top;
 	
 	//pick controls
 	for(var c = 0; c < Controls.length; c++)
@@ -37,8 +39,10 @@ window.addEventListener("mousemove", function (event) {
 });
 
 window.addEventListener("mousedown", function (event) {
-    var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
-	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
+    var left = (window.pageXOffset || document.body.scrollLeft) - (document.body.clientLeft || 0);
+	var top = (window.pageYOffset || document.body.scrollTop)  - (document.body.clientTop || 0);
+	var x = event.clientX - canvas.offsetLeft + left;
+	var y = event.clientY - canvas.offsetTop + top;
 	
 	MouseDown = true;
 	MouseDownX = x;
@@ -52,8 +56,10 @@ window.addEventListener("mousedown", function (event) {
 });
 
 window.addEventListener("mouseup", function (event) {
-	var x = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
-	var y = event.clientY - canvas.offsetTop + document.body.scrollTop;
+	var left = (window.pageXOffset || document.body.scrollLeft) - (document.body.clientLeft || 0);
+	var top = (window.pageYOffset || document.body.scrollTop)  - (document.body.clientTop || 0);
+	var x = event.clientX - canvas.offsetLeft + left;
+	var y = event.clientY - canvas.offsetTop + top;
 	
 	MouseDown = false;
 	

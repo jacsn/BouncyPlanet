@@ -4,7 +4,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -47,6 +47,8 @@ var ctx = canvas.getContext("2d");
 
 var MenuShowing = true;
 var MenuID = Menus.Main;
+var TalkBoxes = [];
+var curTB = -1;
 var Controls = [];
 var MouseDown = false;
 var MouseDownX = 0;
@@ -77,6 +79,16 @@ var scengineflames = [];
 var gmengineflames = [];
 var trails = [];
 
+//Declare TalkBoxes here
+TalkBoxes.push(new TalkBox(KidIconImage, "Oh no! The evil General Mean is going to knock all of the planets out of their orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB01, ArrowButtonImage), "fact", -1));
+
+function btnTB01()
+{
+	NewGame();
+	clearTalkBox();
+	ChangeMenu(Menus.None);
+}
+
 //Declare all buttons here
 var btnBegin = new Button("Begin", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnBegin_Click, ButtonImage);
 btnBegin.x += 10;
@@ -98,8 +110,7 @@ btnQuit.height -= 20;
 
 function btnBegin_Click()
 {
-	NewGame();
-	ChangeMenu(Menus.None);
+	ChangeMenu(Menus.Story1);
 }
 
 function btnResume_Click()
@@ -552,10 +563,7 @@ function render() {
 		}
 	}
 
-	// Draw starfield
-	for(var i = 0; i < stars.length; i++){
-		stars[i].render();
-	}
+	drawStars();
 
     for (var i = 0; i < particles.length; i++)
 	{
@@ -859,6 +867,14 @@ function render() {
 	drawControls();
 }
 
+function drawStars()
+{
+	// Draw starfield
+	for(var i = 0; i < stars.length; i++){
+		stars[i].render();
+	}
+}
+
 function ChangeMenu(menu)
 {
 	for(var c = 0; c < Controls.length; c++)
@@ -871,6 +887,10 @@ function ChangeMenu(menu)
 	if(menu == Menus.Main)
 	{
 		Controls.push(btnBegin);
+	}
+	else if(menu == Menus.Story1)
+	{
+		setTalkBox(0);
 	}
 	else if(menu == Menus.Pause)
 	{
@@ -935,29 +955,89 @@ function ChangeMenu(menu)
 
 function drawMenu()
 {
-	ctx.fillStyle = "#666666";
+	ctx.fillStyle = "#000000";
 	ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	if(MenuID == Menus.Main)
 	{
-		ctx.fillStyle = "#000000";
+		drawStars();
+		ctx.fillStyle = "#FFFFFF";
+		ctx.textAlign = "center";
+		ctx.font = "80px Bitwise, Arial, sans-serif";
+		ctx.fillText("Bouncy Planet", SCREEN_WIDTH / 2, 120);
+	}
+	else if(MenuID == Menus.Story1)
+	{
+		ctx.fillStyle = "#A05A2C";
+		ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		
+		ctx.fillStyle = "#FFFFFF";
 		ctx.textAlign = "center";
 		ctx.font = "80px Arial, sans-serif";
-		ctx.fillText("Bouncy Planet", SCREEN_WIDTH / 2, 120);
+		ctx.fillText("TODO: Picture Here", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3);
 	}
 	else if(MenuID == Menus.Pause)
 	{
-		ctx.fillStyle = "#000000";
+		drawStars();
+		ctx.fillStyle = "#FFFFFF";
 		ctx.textAlign = "center";
-		ctx.font = "80px Arial, sans-serif";
+		ctx.font = "80px Bitwise, Arial, sans-serif";
 		ctx.fillText("Pause Menu", SCREEN_WIDTH / 2, 120);
 	}
 	
 	drawControls();
 }
 
+function setTalkBox(id)
+{
+	//remove the previous Talk Box button from Controls (if there is one)
+	clearTalkBox();
+	
+	//set the current Talk Box and add its button to Controls
+	if(id >= 0 && id < TalkBoxes.length)
+	{
+		curTB = id;
+		Controls.push(TalkBoxes[id].button);
+		TalkBoxes[id].frame = curframe;
+	}
+}
+
+function clearTalkBox()
+{
+	//remove the previous Talk Box button from Controls (if there is one)
+	var removed = -1;
+	for(var i = 0; i < TalkBoxes.length; i++)
+	{
+		TalkBoxes[i].button.state = ButtonState.UP;
+		TalkBoxes[i].frame = -1;
+		var io = Controls.indexOf(TalkBoxes[i].button);
+		if(io >= 0)
+		{
+			removed = io;
+		}
+	}
+	if(removed >= 0)
+	{
+		Controls.splice(removed, 1);
+	}
+	
+	curTB = -1;
+}
+
 function drawControls()
 {
+	if(curTB >= 0)
+	{
+		if(TalkBoxes[curTB].timelimit >= 0 && curframe - TalkBoxes[curTB].frame > TalkBoxes[curTB].timelimit) //talk boxes need to be timed so that things don't go out of control
+		{
+			TalkBoxes[curTB].button.event();
+		}
+		else
+		{
+			TalkBoxes[curTB].draw();
+		}
+	}
+	
 	for(var c = 0; c < Controls.length; c++)
 	{
 		Controls[c].draw(ctx);

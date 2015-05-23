@@ -43,6 +43,26 @@ UIBoxImage.ready = false;
 UIBoxImage.onload = function(){this.ready = true;};
 UIBoxImage.src = "img/uibox.png";
 
+var TalkBackgroundImage = new Image();
+TalkBackgroundImage.ready = false;
+TalkBackgroundImage.onload = function(){this.ready = true;};
+TalkBackgroundImage.src = "img/talkbackground.png";
+
+var TalkBG2Image = new Image();
+TalkBG2Image.ready = false;
+TalkBG2Image.onload = function(){this.ready = true;};
+TalkBG2Image.src = "img/talkbg2.png";
+
+var ArrowButtonImage = new Image();
+ArrowButtonImage.ready = false;
+ArrowButtonImage.onload = function(){this.ready = true;};
+ArrowButtonImage.src = "img/arrowbutton.png";
+
+var KidIconImage = new Image();
+KidIconImage.ready = false;
+KidIconImage.onload = function(){this.ready = true;};
+KidIconImage.src = "img/kidicon.png";
+
 var SunImage = new Image();
 SunImage.ready = false;
 SunImage.onload = function(){this.ready = true;};
