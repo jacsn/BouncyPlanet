@@ -84,7 +84,7 @@ btnBegin.width -= 20;
 btnBegin.y += 10;
 btnBegin.height -= 20;
 
-var btnResume = new Button("Resume", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnBegin_Click, ButtonImage);
+var btnResume = new Button("Resume", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnResume_Click, ButtonImage);
 btnResume.x += 10;
 btnResume.width -= 20;
 btnResume.y += 10;
@@ -102,6 +102,11 @@ function btnBegin_Click()
 	ChangeMenu(Menus.None);
 }
 
+function btnResume_Click()
+{
+	ChangeMenu(Menus.None);
+}
+
 function btnMainMenu_Click()
 {
 	ChangeMenu(Menus.Main);
@@ -113,15 +118,16 @@ var sun = new Entity('Sun', new Vector(0, 0), 300, {
 particles.push(sun); //the sun is particles[0] - this is important for holding it still
 trails.push([]);
 
-var starcaptain = new Entity('Star Captain', new Vector(1024, 320), 25,	{
+var starcaptain = new Entity('Star Captain', new Vector(3100, -200), 25,	{
 	mass: 10,
+	velocity: new Vector(-8, -3),
 	image: StarCaptainImage
 });
 starcaptain.thrusting = false;
 particles.push(starcaptain); //this means Star Captain will be particles[1] - this is important
 trails.push([]);
 
-var generalmean = new Entity("General Mean", new Vector(3072, 3072), 50, {
+var generalmean = new Entity("General Mean", new Vector(503072, 3072), 50, {
 	mass: 2000,
 	image: GeneralMeanImage
 });
@@ -188,11 +194,11 @@ function NewGame()
 	showtrails = true;
 	guntimer = -1;
 	
-	starcaptain.pos = new Vector(1024, 320);
-	starcaptain.velocity = new Vector();
+	starcaptain.pos = new Vector(3000, -200);
+	starcaptain.velocity = new Vector(-8, -3);
 	starcaptain.angle = 0;
 	
-	generalmean.pos = new Vector(3072, 3072);
+	generalmean.pos = new Vector(503072, 3072);
 	generalmean.velocity = new Vector();
 	generalmean.angle = 0;
 	generalmean.hp = maxhp;
