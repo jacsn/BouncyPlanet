@@ -346,7 +346,7 @@ function FireBullet()
 {
 	var p = particles[1]; //manually set a variable to Star Captain's particle
 	var bulletspeed = 20;
-	var bulletradius = 2;
+	var bulletradius = 3;
 	
 	var angle = p.angle - Math.PI / 2;
 	var v = new Vector(Math.cos(angle) * bulletspeed, Math.sin(angle) * bulletspeed);
@@ -830,7 +830,7 @@ function render() {
 		{
 			ctx.beginPath();
 			ctx.arc(p.pos.x + CameraX, p.pos.y + CameraY, p.radius, 0, Math.PI * 2, false);
-			ctx.fillStyle = "#FF0000"; //p.colour;
+			ctx.fillStyle = "#FF9900"; //p.colour;
 			ctx.fill();
 			ctx.closePath();
 		}
