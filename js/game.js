@@ -567,6 +567,7 @@ function update()
 	if(newbindex != bindex)
 	{
 		bindex = newbindex;
+		guntimer = -1;
 	}
 	
 	if(target == bindex)

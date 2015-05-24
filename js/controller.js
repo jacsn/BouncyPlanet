@@ -134,7 +134,6 @@ window.addEventListener("keyup", function (e) {
 		e.preventDefault();
 		if(bindex == 1) //if you're Star Captain
 		{
-			guntimer = -1;
 			newbindex = 2;
 			if(target == newbindex)
 			{
