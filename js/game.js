@@ -88,6 +88,8 @@ TalkBoxes.push(new TalkBox(KidIconImage, "And can Star Captain, hero of Bouncy P
 TalkBoxes.push(new TalkBox(KidIconImage, "I will destroy this solar system. With my massive ship, the Mighty Hammerhead, I will knock every planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB03, ArrowButtonImage), "fiction", -1));
 //ID 3
 TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain... Come in, Star Captain... You have to stop General Mean! The people of Bouncy Planet need your help!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB04, ArrowButtonImage), "fiction", -1));
+//ID 4
+TalkBoxes.push(new TalkBox(KidIconImage, "I read you, Mr. President. I'll shoot him down before he can reach Bouncy Planet.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB05, ArrowButtonImage), "fiction", 60000));
 
 function btnTB01()
 {
@@ -108,8 +110,13 @@ function btnTB03()
 function btnTB04()
 {
 	NewGame();
-	clearTalkBox();
 	ChangeMenu(Menus.None);
+	setTalkBox(4);
+}
+
+function btnTB05()
+{
+	clearTalkBox();
 }
 
 //Declare all buttons here
