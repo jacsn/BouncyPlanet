@@ -80,9 +80,32 @@ var gmengineflames = [];
 var trails = [];
 
 //Declare TalkBoxes here
-TalkBoxes.push(new TalkBox(KidIconImage, "Oh no! The evil General Mean is going to knock all of the planets out of their orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB01, ArrowButtonImage), "fact", -1));
+//ID 0
+TalkBoxes.push(new TalkBox(KidIconImage, "Oh no! The evil General Mean approaches the system. What sinister plans could he have in mind?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB01, ArrowButtonImage), "fact", -1));
+//ID 1
+TalkBoxes.push(new TalkBox(KidIconImage, "And can Star Captain, hero of Bouncy Planet, stop him?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB02, ArrowButtonImage), "fact", -1));
+//ID 2
+TalkBoxes.push(new TalkBox(KidIconImage, "I will destroy this solar system. With my massive ship, the Mighty Hammerhead, I will knock every planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB03, ArrowButtonImage), "fiction", -1));
+//ID 3
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain... Come in, Star Captain... You have to stop General Mean! The people of Bouncy Planet need your help!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB04, ArrowButtonImage), "fiction", -1));
 
 function btnTB01()
+{
+	setTalkBox(1);
+}
+
+function btnTB02()
+{
+	clearTalkBox();
+	ChangeMenu(Menus.Story2);
+}
+
+function btnTB03()
+{
+	setTalkBox(3);
+}
+
+function btnTB04()
 {
 	NewGame();
 	clearTalkBox();
@@ -892,6 +915,10 @@ function ChangeMenu(menu)
 	{
 		setTalkBox(0);
 	}
+	else if(menu == Menus.Story2)
+	{
+		setTalkBox(2);
+	}
 	else if(menu == Menus.Pause)
 	{
 		pausetimer = curframe;
@@ -975,6 +1002,10 @@ function drawMenu()
 		ctx.textAlign = "center";
 		ctx.font = "80px Arial, sans-serif";
 		ctx.fillText("TODO: Picture Here", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3);
+	}
+	else if(MenuID == Menus.Story2)
+	{
+		drawStars();
 	}
 	else if(MenuID == Menus.Pause)
 	{

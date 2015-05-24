@@ -3,7 +3,7 @@ var TalkBox = function(img, text, btn, style, time)
 	this.img = img;
 	this.text = text;
 	this.button = btn;
-	this.font = (style == "fact") ? "20px Arial, sans-serif" : "20px Bitwise, Arial, sans-serif";
+	this.font = (style == "fact") ? "24px Arial, sans-serif" : "24px Bitwise, Arial, sans-serif";
 	this.bg = (style == "fact") ? TalkBG2Image : TalkBackgroundImage;
 	this.frame = -1;
 	this.timelimit = time;
