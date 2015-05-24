@@ -253,13 +253,14 @@ function NewGame()
 	pluto.velocity = new Vector(0, -1);
 }
 
-function compute_forces() {
-    for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
+function compute_forces(particleList) {
+	particleList = particleList || particles;
+    for (var i = 0; i < particleList.length; i++) {
+        var p = particleList[i];
         p.acceleration.set(0);
 
         for (var j = 0; j < i; j++) {
-            var p2 = particles[j];
+            var p2 = particleList[j];
 
             var d = p.pos.sub(p2.pos);
             var norm = Math.sqrt(10.0 + d.lengthSq());
@@ -274,12 +275,13 @@ function compute_forces() {
 //TODO: get rid of this anti-functional monstrosity of a global variable with refactoring
 // Right now it keeps track of what entities collided on the last call to do_collisions
 var collidedEntities = [];
-function do_collisions() {
+function do_collisions(particleList) {
+	particleList = particleList || particles;
 	collidedEntities = [];
-    for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
+    for (var i = 0; i < particleList.length; i++) {
+        var p = particleList[i];
         for (var j = 0; j < i; j++) {
-            var p2 = particles[j];
+            var p2 = particleList[j];
 
 			if(p.checkCollision(p2)){
 				p.resolveCollision(p2);
@@ -290,12 +292,13 @@ function do_collisions() {
     }
 }
 
-function do_bulletcollisions()
+function do_bulletcollisions(particleList)
 {
+	particleList = particleList || particles;
 	var removed = [];
-	for(var i = 0; i < bullets.length; i++)
+	for(var i = 0; i < particleList.length; i++)
 	{
-		if(bullets[i].checkCollision(generalmean))
+		if(particleList[i].checkCollision(generalmean))
 		{
 			removed.push(i);
 			generalmean.hp--;
@@ -306,44 +309,46 @@ function do_bulletcollisions()
 		}
 	}
 	
-	//removed all collided bullets
+	//removed all collided particleList
 	for(var r = removed.length - 1; r >= 0; r--)
 	{
-		bullets.splice(removed[r], 1);
+		particleList.splice(removed[r], 1);
 	}
 }
 
-function do_physics(dt) {
-    for (var i1 = 0; i1 < particles.length; i1++) {
-        var p1 = particles[i1];
+function do_physics(dt, particleList) {
+	particleList = particleList || particles;
+    for (var i1 = 0; i1 < particleList.length; i1++) {
+        var p1 = particleList[i1];
         p1.pos.set(p1.pos.add(p1.velocity.mul(0.5 * dt)));
     }
     compute_forces();
-    for (var i2 = 0; i2 < particles.length; i2++) {
-        var p2 = particles[i2];
+    for (var i2 = 0; i2 < particleList.length; i2++) {
+        var p2 = particleList[i2];
         p2.velocity.set(p2.velocity.add(p2.acceleration.mul(dt)));
     }
-    for (var i3 = 0; i3 < particles.length; i3++) {
-        var p3 = particles[i3];
+    for (var i3 = 0; i3 < particleList.length; i3++) {
+        var p3 = particleList[i3];
         p3.pos.set(p3.pos.add(p3.velocity.mul(0.5 * dt)));
     }
-    do_collisions();
+    do_collisions(particleList);
 }
 
-function do_bullets(dt) {
-    for (var i1 = 0; i1 < bullets.length; i1++) {
-        var p1 = bullets[i1];
+function do_bullets(dt, particleList) {
+	particleList = particleList || bullets;
+    for (var i1 = 0; i1 < particleList.length; i1++) {
+        var p1 = particleList[i1];
         p1.pos.set(p1.pos.add(p1.velocity.mul(0.5 * dt)));
     }
-    for (var i2 = 0; i2 < bullets.length; i2++) {
-        var p2 = bullets[i2];
+    for (var i2 = 0; i2 < particleList.length; i2++) {
+        var p2 = particleList[i2];
         p2.velocity.set(p2.velocity.add(p2.acceleration.mul(dt)));
     }
-    for (var i3 = 0; i3 < bullets.length; i3++) {
-        var p3 = bullets[i3];
+    for (var i3 = 0; i3 < particleList.length; i3++) {
+        var p3 = particleList[i3];
         p3.pos.set(p3.pos.add(p3.velocity.mul(0.5 * dt)));
     }
-	do_bulletcollisions();
+	do_bulletcollisions(particleList);
 }
 
 function do_scengineflames(dt) {
