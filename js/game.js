@@ -4,7 +4,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -49,6 +49,7 @@ var MenuShowing = true;
 var MenuID = Menus.Main;
 var TalkBoxes = [];
 var curTB = -1;
+var pauseTB = -1;
 var Controls = [];
 var MouseDown = false;
 var MouseDownX = 0;
@@ -935,6 +936,8 @@ function ChangeMenu(menu)
 	else if(menu == Menus.Pause)
 	{
 		pausetimer = curframe;
+		pauseTB = curTB;
+		clearTalkBox();
 		Controls.push(btnQuit);
 		Controls.push(btnResume);
 	}
@@ -986,6 +989,9 @@ function ChangeMenu(menu)
 			}
 			
 			pausetimer = -1;
+			
+			setTalkBox(pauseTB);
+			pauseTB = -1;
 		}
 		MenuShowing = false;
 	}
@@ -1008,13 +1014,7 @@ function drawMenu()
 	}
 	else if(MenuID == Menus.Story1)
 	{
-		ctx.fillStyle = "#A05A2C";
-		ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-		
-		ctx.fillStyle = "#FFFFFF";
-		ctx.textAlign = "center";
-		ctx.font = "80px Arial, sans-serif";
-		ctx.fillText("TODO: Picture Here", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 3);
+		ctx.drawImage(KidsRoomImage, 0, 0);
 	}
 	else if(MenuID == Menus.Story2)
 	{

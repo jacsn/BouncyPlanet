@@ -58,6 +58,11 @@ ArrowButtonImage.ready = false;
 ArrowButtonImage.onload = function(){this.ready = true;};
 ArrowButtonImage.src = "img/arrowbutton.png";
 
+var KidsRoomImage = new Image();
+KidsRoomImage.ready = false;
+KidsRoomImage.onload = function(){this.ready = true;};
+KidsRoomImage.src = "img/story1.png";
+
 var KidIconImage = new Image();
 KidIconImage.ready = false;
 KidIconImage.onload = function(){this.ready = true;};
