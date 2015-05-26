@@ -68,6 +68,11 @@ KidIconImage.ready = false;
 KidIconImage.onload = function(){this.ready = true;};
 KidIconImage.src = "img/kidicon.png";
 
+var PresidentIconImage = new Image();
+PresidentIconImage.ready = false;
+PresidentIconImage.onload = function(){this.ready = true;};
+PresidentIconImage.src = "img/president.png";
+
 var SunImage = new Image();
 SunImage.ready = false;
 SunImage.onload = function(){this.ready = true;};

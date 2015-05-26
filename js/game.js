@@ -4,7 +4,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && PresidentIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -54,6 +54,8 @@ var Controls = [];
 var MouseDown = false;
 var MouseDownX = 0;
 var MouseDownY = 0;
+var LastX = 0;
+var LastY = 0;
 
 var pausetimer = -1;
 var CameraX = 0;
@@ -88,7 +90,7 @@ TalkBoxes.push(new TalkBox(KidIconImage, "And can Star Captain, hero of Bouncy P
 //ID 2
 TalkBoxes.push(new TalkBox(KidIconImage, "I will destroy this solar system. With my massive ship, the Mighty Hammerhead, I will knock every planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB03, ArrowButtonImage), "fiction", -1));
 //ID 3
-TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain... Come in, Star Captain... You have to stop General Mean! The people of Bouncy Planet need your help!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB04, ArrowButtonImage), "fiction", -1));
+TalkBoxes.push(new TalkBox(PresidentIconImage, "Star Captain... Come in, Star Captain... You have to stop General Mean! The people of Bouncy Planet need your help!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB04, ArrowButtonImage), "fiction", -1));
 //ID 4
 TalkBoxes.push(new TalkBox(KidIconImage, "I read you, Mr. President. I'll shoot him down before he can reach Bouncy Planet.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB05, ArrowButtonImage), "fiction", 60000));
 
@@ -997,6 +999,11 @@ function ChangeMenu(menu)
 	}
 	
 	MenuID = menu;
+	//send a mousemove event to all controls to prevent double-clicking
+	for(var c = 0; c < Controls.length; c++)
+	{
+		Controls[c].pick(LastX, LastY, EventType.MOVE, MouseDown, MouseDownX, MouseDownY);
+	}
 }
 
 function drawMenu()
@@ -1043,6 +1050,12 @@ function setTalkBox(id)
 		curTB = id;
 		Controls.push(TalkBoxes[id].button);
 		TalkBoxes[id].frame = curframe;
+	}
+	
+	//send a mousemove event to each of the controls to prevent double-clicking
+	for(var c = 0; c < Controls.length; c++)
+	{
+		Controls[c].pick(LastX, LastY, EventType.MOVE, MouseDown, MouseDownX, MouseDownY);
 	}
 }
 

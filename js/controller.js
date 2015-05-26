@@ -30,6 +30,8 @@ window.addEventListener("mousemove", function (event) {
 	var top = (window.pageYOffset || document.body.scrollTop)  - (document.body.clientTop || 0);
 	var x = event.clientX - canvas.offsetLeft + left;
 	var y = event.clientY - canvas.offsetTop + top;
+	LastX = x;
+	LastY = y;
 	
 	//pick controls
 	for(var c = 0; c < Controls.length; c++)
