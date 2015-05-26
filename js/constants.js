@@ -68,6 +68,16 @@ KidIconImage.ready = false;
 KidIconImage.onload = function(){this.ready = true;};
 KidIconImage.src = "img/kidicon.png";
 
+var GMIconImage = new Image();
+GMIconImage.ready = false;
+GMIconImage.onload = function(){this.ready = true;};
+GMIconImage.src = "img/meanicon.png";
+
+var SCIconImage = new Image();
+SCIconImage.ready = false;
+SCIconImage.onload = function(){this.ready = true;};
+SCIconImage.src = "img/scicon.png";
+
 var PresidentIconImage = new Image();
 PresidentIconImage.ready = false;
 PresidentIconImage.onload = function(){this.ready = true;};

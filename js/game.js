@@ -4,7 +4,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && PresidentIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -88,11 +88,11 @@ TalkBoxes.push(new TalkBox(KidIconImage, "Oh no! The evil General Mean approache
 //ID 1
 TalkBoxes.push(new TalkBox(KidIconImage, "And can Star Captain, hero of Bouncy Planet, stop him?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB02, ArrowButtonImage), "fact", -1));
 //ID 2
-TalkBoxes.push(new TalkBox(KidIconImage, "I will destroy this solar system. With my massive ship, the Mighty Hammerhead, I will knock every planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB03, ArrowButtonImage), "fiction", -1));
+TalkBoxes.push(new TalkBox(GMIconImage, "I will destroy this solar system. With my massive ship, the Mighty Hammerhead, I will knock every planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB03, ArrowButtonImage), "fiction", -1));
 //ID 3
 TalkBoxes.push(new TalkBox(PresidentIconImage, "Star Captain... Come in, Star Captain... You have to stop General Mean! The people of Bouncy Planet need your help!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB04, ArrowButtonImage), "fiction", -1));
 //ID 4
-TalkBoxes.push(new TalkBox(KidIconImage, "I read you, Mr. President. I'll shoot him down before he can reach Bouncy Planet.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB05, ArrowButtonImage), "fiction", 60000));
+TalkBoxes.push(new TalkBox(SCIconImage, "I read you, Mr. President. I'll shoot him down before he can reach Bouncy Planet.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB05, ArrowButtonImage), "fiction", 60000));
 
 function btnTB01()
 {
