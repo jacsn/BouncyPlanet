@@ -4,7 +4,7 @@ var curframe = -1;
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && SCThrustImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -243,7 +243,9 @@ function NewGame()
 	starcaptain.angle = 0;
 	
 	generalmean.pos = new Vector(503072, 3072);
+	generalmean.radius = 50;
 	generalmean.velocity = new Vector();
+	generalmean.mass = 2000;
 	generalmean.angle = 0;
 	generalmean.hp = maxhp;
 	
@@ -312,6 +314,14 @@ function do_bulletcollisions(particleList)
 		{
 			removed.push(i);
 			generalmean.hp--;
+			
+			//change general mean's physical properties to match his escape pod
+			if(generalmean.hp <= 0)
+			{
+				generalmean.mass = 10;
+				generalmean.radius = 20;
+			}
+			
 			if(generalmean.shieldframe < 0)
 			{
 				generalmean.shieldframe = curframe;
@@ -432,8 +442,8 @@ function CreateSCEngineFlame()
 function CreateGMEngineFlame()
 {
 	var p = particles[2]; //manually set a variable to General Mean's particle
-	var firespeed = 12 + Math.random() * 5;
-	var fireradius = 4 + Math.random() * 6;
+	var firespeed = (generalmean.hp > 0) ? 12 + Math.random() * 5 : 8 + Math.random() * 5;
+	var fireradius = (generalmean.hp > 0) ? 4 + Math.random() * 6 : 2 + Math.random() * 4;
 	
 	var angle = p.angle + Math.PI / 2 + ((Math.random() * 0.2) - 0.1);
 	var pangle = p.angle + Math.PI / 2;
@@ -493,7 +503,7 @@ function update()
 	
 	if(bindex == 1 || bindex == 2)
 	{
-		//give General Mean a heftier feel by giving him lower acceleration
+		//give General Mean a heftier feel by giving him lower acceleration (and give his escape pod an appropriately weaker engine)
 		var speed = (bindex == 1) ? 0.25 : 0.2;
 		if(keys[K_UP] || keys[A_UP])
 		{
@@ -627,7 +637,6 @@ function render() {
 			if(p.name == "Star Captain")
 			{
 				//draw the flame
-				//ctx.drawImage(SCThrustImage, -p.radius, -p.radius);
 				ctx.globalCompositeOperation = "lighter";
 				var toberemoved = [];
 				for(var fi = 0; fi < scengineflames.length; fi++)
@@ -731,7 +740,11 @@ function render() {
 				//account for General Mean's battle damage
 				var lifeper = generalmean.hp / maxhp;
 				var shipframe = 0;
-				if(lifeper < 0.2)
+				if(generalmean.hp <= 0)
+				{
+					shipframe = 5;
+				}
+				else if(lifeper < 0.2)
 				{
 					shipframe = 4;
 				}
@@ -751,7 +764,7 @@ function render() {
 				ctx.save();
 				ctx.translate(imgx, imgy);
 				ctx.rotate(p.angle);
-				ctx.drawImage(p.image, 100 * shipframe, 0, 100, 100, -p.radius, -p.radius, 100, 100);
+				ctx.drawImage(p.image, 100 * shipframe, 0, 100, 100, -50, -50, 100, 100);
 				ctx.restore();
 			}
 			else
@@ -787,7 +800,14 @@ function render() {
 					var frame = Math.floor(percent * 6);
 					if(frame < 6)
 					{
-						ctx.drawImage(GMShieldImage, 100 * frame, 0, 100, 100, p.pos.x + CameraX - p.radius, p.pos.y + CameraY - p.radius, 100, 100);
+						if(generalmean.hp > 0)
+						{
+							ctx.drawImage(GMShieldImage, 100 * frame, 0, 100, 100, p.pos.x + CameraX - p.radius, p.pos.y + CameraY - p.radius, 100, 100);
+						}
+						else
+						{
+							ctx.drawImage(EPShieldImage, 40 * frame, 0, 40, 40, p.pos.x + CameraX - p.radius, p.pos.y + CameraY - p.radius, 40, 40);
+						}
 					}
 					else
 					{

@@ -143,7 +143,7 @@ GMShieldImage.ready = false;
 GMShieldImage.onload = function(){this.ready = true;};
 GMShieldImage.src = "img/gmshield.png";
 
-var SCThrustImage = new Image();
-SCThrustImage.ready = false;
-SCThrustImage.onload = function(){this.ready = true;};
-SCThrustImage.src = "img/scthrust.png";
+var EPShieldImage = new Image();
+EPShieldImage.ready = false;
+EPShieldImage.onload = function(){this.ready = true;};
+EPShieldImage.src = "img/epshield.png";
