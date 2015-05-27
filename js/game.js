@@ -503,7 +503,7 @@ function update()
 	
 	if(bindex == 1 || bindex == 2)
 	{
-		//give General Mean a heftier feel by giving him lower acceleration (and give his escape pod an appropriately weaker engine)
+		//give General Mean a heftier feel by giving him lower acceleration
 		var speed = (bindex == 1) ? 0.25 : 0.2;
 		if(keys[K_UP] || keys[A_UP])
 		{
