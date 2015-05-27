@@ -14,6 +14,7 @@ function Entity(name, pos, radius, options){
 
 	this.image = options.image || null;
 	this.shieldframe = -1;
+	this.hitsun = false;
 }
 
 Entity.prototype.checkCollision = function(other){
@@ -60,6 +61,16 @@ Entity.prototype.resolveCollision = function(other){
 		{
 			other.shieldframe = curframe;
 		}
+	}
+	
+	//track when an entity hits the sun
+	if(this.name == "Sun")
+	{
+		other.hitsun = true;
+	}
+	else if(other.name == "Sun")
+	{
+		this.hitsun = true;
 	}
 }
 
