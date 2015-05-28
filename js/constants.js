@@ -21,6 +21,7 @@ var K_FIRE = 90;
 var K_SPACE = 32;
 var K_ESC = 27;
 var K_TAB = 9;
+var K_SHIFT = 16;
 var K_TRAILS = 84;
 var K_RADAR = 82;
 

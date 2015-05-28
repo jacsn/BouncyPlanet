@@ -75,7 +75,7 @@ window.addEventListener("mouseup", function (event) {
 window.addEventListener("keydown", function (e) {
 	keys[e.which] = true;
 	
-	if(e.which == K_TAB || e.which == K_SPACE || e.which == K_TRAILS || e.which == K_RADAR || e.which == K_ESC || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
+	if(e.which == K_TAB || e.which == K_SHIFT || e.which == K_SPACE || e.which == K_TRAILS || e.which == K_RADAR || e.which == K_ESC || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
 	{
 		e.preventDefault();
 	}
@@ -115,13 +115,28 @@ window.addEventListener("keyup", function (e) {
 	if(e.which == K_TAB)
 	{
 		e.preventDefault();
-		if(++newtarget >= particles.length)
+		
+		if(keys[K_SHIFT])
 		{
-			newtarget = 0;
+			if(--newtarget < 0)
+			{
+				newtarget = particles.length - 1;
+			}
+			else if(newtarget == bindex)
+			{
+				newtarget--;
+			}
 		}
-		else if(newtarget == bindex)
+		else
 		{
-			newtarget++;
+			if(++newtarget >= particles.length)
+			{
+				newtarget = 0;
+			}
+			else if(newtarget == bindex)
+			{
+				newtarget++;
+			}
 		}
 		/*
 		if(++bindex >= particles.length)
@@ -181,7 +196,7 @@ window.addEventListener("keyup", function (e) {
 			ChangeMenu(Menus.Pause);
 		}
 	}
-	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT)
+	else if(e.which == K_UP || e.which == K_DOWN || e.which == K_LEFT || e.which == K_RIGHT || e.which == A_UP || e.which == A_DOWN || e.which == A_LEFT || e.which == A_RIGHT || e.which == K_SHIFT)
 	{
 		e.preventDefault();
 	}
