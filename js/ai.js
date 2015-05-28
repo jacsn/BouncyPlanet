@@ -39,11 +39,6 @@ function findInterceptAngle(a, b){
 	return angle;
 }
 
-function timeToIntercept(x, y, dx, dy, speed){
-	// shh no tears only dreams now
-	return (Math.sqrt(speed*speed*x*x + speed*speed*y*y - dx*dx*y*y + 2*dx*dy*x*y - dy*dy*x*x) + dx*x + dy*y) / (speed*speed - dx*dx - dy*dy)
-}
-
 
 function updateAI(){
 	var enemy = particles[bindex];

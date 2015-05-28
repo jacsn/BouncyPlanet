@@ -15,6 +15,7 @@ function Entity(name, pos, radius, options){
 	this.image = options.image || null;
 	this.shieldframe = -1;
 	this.hitsun = false;
+	this.stable = true;
 }
 
 Entity.prototype.checkCollision = function(other){
@@ -75,40 +76,21 @@ Entity.prototype.resolveCollision = function(other){
 }
 
 Entity.prototype.isOrbitStable = function(){
-	// Create an in-place clone of the world (ideally we'll refactor and not need to do this)
-	var world = particles;
-	particles = [];
-	var tracked = null;
-	world.forEach(function(particle){
-		if(particle === this){
-			tracked = particle;
+	//check isEscaping and hitsun
+	if(this.stable) //no point checking if we're already knocked out
+	{
+		var stable = true;
+		if(this.hitsun || this.isEscaping())
+		{
+			stable = false;
 		}
-		particles.push(new Entity(particle.name, new Vector(particle.pos.x, particle.pos.y), particle.radius, {
-			mass: particle.mass,
-			velocity: new Vector(particle.velocity.x, particle.velocity.y),
-			acceleration: new Vector(particle.acceleration.x, particle.acceleration.y)
-		}));
-	}.bind(this));
-
-	var stable = true;
-    for (var k = 0; k < 4000; k++) { // increase the greater than value to increase simulation step rate
-        do_physics(1.0 / 1); // increase the divisor to increase accuracy and decrease simulation speed 
-		collidedEntities.forEach(function(entity){
-			if(tracked.name === entity.name){
-				stable = false;
-			}
-		}.bind(this));
-		if(!stable){
-			break;
-		}
-    }
-	particles[0].pos.x = 0;
-	particles[0].pos.y = 0;
-
-	// And put things back in place
-	particles = world;
-
-	return stable;
+		
+		return stable;
+	}
+	else
+	{
+		return this.stable;
+	}
 }
 
 Entity.prototype.isEscaping = function(b)

@@ -81,6 +81,7 @@ var MenuID = Menus.Main;
 var TalkBoxes = [];
 var curTB = -1;
 var pauseTB = -1;
+var gmwins = false;
 var Controls = [];
 var MouseDown = false;
 var MouseDownX = 0;
@@ -125,6 +126,32 @@ TalkBoxes.push(new TalkBox(GMIconImage, "I will destroy this solar system. With 
 TalkBoxes.push(new TalkBox(PresidentIconImage, "Star Captain... Come in, Star Captain... You have to stop General Mean! The people of Bouncy Planet need your help!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB04, ArrowButtonImage), "fiction", -1));
 //ID 4
 TalkBoxes.push(new TalkBox(SCIconImage, "I read you, Mr. President. I'll shoot him down before he can reach Bouncy Planet.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB05, ArrowButtonImage), "fiction", 60000));
+//ID 5
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Pluto out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+//ID 6
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Jupiter out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+//ID 7
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Venus out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+//ID 8
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Mercury out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+//ID 9
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Bouncy Planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB07, ArrowButtonImage), "fiction", 30000));
+//ID 10
+TalkBoxes.push(new TalkBox(SCIconImage, "Nooooo!!!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 10000));
+//ID 11
+TalkBoxes.push(new TalkBox(GMIconImage, "Victory is mine!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB08, ArrowButtonImage), "fiction", 30000));
+//ID 12
+TalkBoxes.push(new TalkBox(KidIconImage, "No one can stop General Mean! He leaves the solar system in ruins, its planets bouncing through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+//ID 13
+TalkBoxes.push(new TalkBox(SCIconImage, "General Mean, you are vanquished. My work here is done.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB10, ArrowButtonImage), "fiction", 60000));
+//ID 14
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. True to his word, though, Star Captain protected Bouncy Planet, and the people lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+//ID 15
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. Not even Bouncy Planet had been spared from the destruction. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+//ID 16
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean and protected the solar system. The people of Bouncy Planet lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+//ID 17
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, and the solar system was safe... for the most part. Unfortunately, General Mean had focused his attacks on Bouncy Planet, and it now bounces through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
 
 function btnTB01()
 {
@@ -153,6 +180,86 @@ function btnTB04()
 function btnTB05()
 {
 	clearTalkBox();
+}
+
+function btnTB06()
+{
+	if(gmwins)
+	{
+		setTalkBox(11);
+	}
+	else
+	{
+		clearTalkBox();
+	}
+}
+
+function btnTB07()
+{
+	setTalkBox(10);
+}
+
+function btnTB08()
+{
+	ChangeMenu(Menus.End);
+	setTalkBox(12);
+}
+
+function btnTB09()
+{
+	ChangeMenu(Menus.Main);
+}
+
+function btnTB10()
+{
+	ChangeMenu(Menus.End);
+	
+	var casualties = 0;
+	var missionsuccess = true;
+	if(!bouncyplanet.stable)
+	{
+		missionsuccess = false;
+		casualties++;
+	}
+	if(!mercury.stable)
+	{
+		casualties++;
+	}
+	if(!venus.stable)
+	{
+		casualties++;
+	}
+	if(!jupiter.stable)
+	{
+		casualties++;
+	}
+	if(!pluto.stable)
+	{
+		casualties++;
+	}
+	
+	if(casualties < 3) //two or fewer planets ruined
+	{
+		if(missionsuccess)
+		{
+			setTalkBox(16);
+		}
+		else
+		{
+			setTalkBox(17);
+		}
+	}
+	else
+	{
+		if(missionsuccess)
+		{
+			setTalkBox(14);
+		}
+		else
+		{
+			setTalkBox(15);
+		}
+	}
 }
 
 //Declare all buttons here
@@ -271,6 +378,7 @@ function NewGame()
 	showradar = true;
 	showtrails = true;
 	guntimer = -1;
+	gmwins = false;
 	
 	starcaptain.pos = new Vector(3000, -200);
 	starcaptain.velocity = new Vector(-8, -3);
@@ -285,18 +393,28 @@ function NewGame()
 	
 	bouncyplanet.pos = new Vector(3072, 0);
 	bouncyplanet.velocity = new Vector(0, -6);
+	bouncyplanet.hitsun = false;
+	bouncyplanet.stable = true;
 	
 	mercury.pos = new Vector(-10240, 0);
 	mercury.velocity = new Vector(0, -4.8);
+	mercury.hitsun = false;
+	mercury.stable = true;
 	
 	venus.pos = new Vector(0, 40000);
 	venus.velocity = new Vector(3, 0);
+	venus.hitsun = false;
+	venus.stable = true;
 	
 	jupiter.pos = new Vector(120000, 0);
 	jupiter.velocity = new Vector(0, 2);
+	jupiter.hitsun = false;
+	jupiter.stable = true;
 	
 	pluto.pos = new Vector(500000, 0);
 	pluto.velocity = new Vector(0, -1);
+	pluto.hitsun = false;
+	pluto.stable = true;
 }
 
 function compute_forces(particleList) {
@@ -354,6 +472,7 @@ function do_bulletcollisions(particleList)
 			{
 				generalmean.mass = 10;
 				generalmean.radius = 20;
+				setTalkBox(13);
 			}
 			
 			if(generalmean.shieldframe < 0)
@@ -604,6 +723,8 @@ function update()
 	updateAI();
 
     render();
+	
+	checkPlanets();
 	
 	//update target and bindex after updating and rendering to prevent weirdness
 	if(newtarget != target)
@@ -969,12 +1090,64 @@ function render() {
 			playerspeed = playerspeed.substring(0, sdot);
 		}
 		var speedtext = "Speed: " + playerspeed;
-		ctx.drawImage(UIBoxImage, ctx.measureText(speedtext).width - 400, SCREEN_HEIGHT - 45);
+		ctx.drawImage(UIBoxImage, ctx.measureText(speedtext).width - 400, SCREEN_HEIGHT - 50);
 		ctx.textAlign = "left";
-		ctx.fillText(speedtext, 10, SCREEN_HEIGHT - 10);
+		ctx.fillText(speedtext, 10, SCREEN_HEIGHT - 12);
 	}
 	
 	drawControls();
+}
+
+function checkPlanets()
+{
+	//Pluto first
+	var plutostable = pluto.isOrbitStable();
+	if(pluto.stable != plutostable)
+	{
+		pluto.stable = plutostable;
+		setTalkBox(5);
+	}
+	
+	//Jupiter second
+	var jupiterstable = jupiter.isOrbitStable();
+	if(jupiter.stable != jupiterstable)
+	{
+		jupiter.stable = jupiterstable;
+		setTalkBox(6);
+	}
+	
+	//Venus third
+	var venusstable = venus.isOrbitStable();
+	if(venus.stable != venusstable)
+	{
+		venus.stable = venusstable;
+		setTalkBox(7);
+	}
+	
+	//Mercury fourth
+	var mercurystable = mercury.isOrbitStable();
+	if(mercury.stable != mercurystable)
+	{
+		mercury.stable = mercurystable;
+		setTalkBox(8);
+	}
+	
+	//Mercury fourth
+	var bpstable = bouncyplanet.isOrbitStable();
+	if(bouncyplanet.stable != bpstable)
+	{
+		bouncyplanet.stable = bpstable;
+		setTalkBox(9);
+	}
+	
+	if(plutostable || jupiterstable || venusstable || mercurystable || bpstable)
+	{
+		gmwins = false;
+	}
+	else
+	{
+		gmwins = true;
+	}
 }
 
 function drawStars()
@@ -996,6 +1169,7 @@ function ChangeMenu(menu)
 	
 	if(menu == Menus.Main)
 	{
+		clearTalkBox();
 		Controls.push(btnBegin);
 	}
 	else if(menu == Menus.Story1)
@@ -1102,6 +1276,10 @@ function drawMenu()
 	else if(MenuID == Menus.Story2)
 	{
 		drawStars();
+	}
+	else if(MenuID == Menus.End)
+	{
+		ctx.drawImage(KidsRoomImage, 0, 0);
 	}
 	else if(MenuID == Menus.Pause)
 	{
