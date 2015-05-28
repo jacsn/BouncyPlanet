@@ -1,6 +1,9 @@
 'use strict';
 var curframe = -1;
 
+var loadcounter = 0;
+var dots = "";
+
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
@@ -39,7 +42,35 @@ function preloadloop(){
 	else
 	{
 		//TODO: display loading animation
+		loadcounter++;
+		if(loadcounter >= 50)
+		{
+			loadcounter = 0;
+			if(dots == "...")
+			{
+				dots = "";
+			}
+			else
+			{
+				dots += ".";
+			}
+		}
+		
+		//show the loading message until it loads
+		preloadClearScreen();
+		ctx.fillStyle = "#FFFFFF";
+		ctx.font = "60px Arial, sans-serif";
+		ctx.textAlign = "left";
+		var loadx = SCREEN_WIDTH/2 - ctx.measureText("Loading.").width/2;
+		ctx.fillText("Loading" + dots,loadx,SCREEN_HEIGHT/2);
 	}
+}
+
+function preloadClearScreen()
+{
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	drawStars();
 }
 
 var canvas = document.getElementById("canvas");
@@ -57,6 +88,7 @@ var MouseDownY = 0;
 var LastX = 0;
 var LastY = 0;
 
+var gametimer = -1;
 var pausetimer = -1;
 var CameraX = 0;
 var CameraY = 0;
@@ -115,6 +147,7 @@ function btnTB04()
 	NewGame();
 	ChangeMenu(Menus.None);
 	setTalkBox(4);
+	gametimer = curframe;
 }
 
 function btnTB05()
@@ -153,6 +186,7 @@ function btnResume_Click()
 
 function btnMainMenu_Click()
 {
+	gametimer = -1;
 	ChangeMenu(Menus.Main);
 }
 
@@ -614,6 +648,7 @@ function render() {
 
 	drawStars();
 
+	var dist = 0;
     for (var i = 0; i < particles.length; i++)
 	{
 		if(particles[i].image === null)
@@ -823,7 +858,7 @@ function render() {
 			var t = particles[target];
 			var diffx = t.pos.x - p.pos.x;
 			var diffy = t.pos.y - p.pos.y;
-			var dist = Math.sqrt(diffx * diffx + diffy * diffy) - t.radius - p.radius;
+			dist = Math.sqrt(diffx * diffx + diffy * diffy) - t.radius - p.radius;
 			if(dist < 0)
 			{
 				dist = "0";
@@ -923,6 +958,22 @@ function render() {
 	ctx.textAlign = "right";
 	ctx.fillText(distancetext, SCREEN_WIDTH - 10, 25);
 	
+	//display speed
+	if(curTB < 0)
+	{
+		var playerspeed = (particles[bindex].velocity.length() * 10) + "";
+		//whole numbers only, please
+		var sdot = playerspeed.indexOf(".");
+		if(sdot >= 0)
+		{
+			playerspeed = playerspeed.substring(0, sdot);
+		}
+		var speedtext = "Speed: " + playerspeed;
+		ctx.drawImage(UIBoxImage, ctx.measureText(speedtext).width - 400, SCREEN_HEIGHT - 45);
+		ctx.textAlign = "left";
+		ctx.fillText(speedtext, 10, SCREEN_HEIGHT - 10);
+	}
+	
 	drawControls();
 }
 
@@ -972,6 +1023,11 @@ function ChangeMenu(menu)
 			if(guntimer >= 0)
 			{
 				guntimer += pausetime;
+			}
+			
+			if(gametimer >= 0)
+			{
+				gametimer += pausetime;
 			}
 			
 			for(var i = 0; i < particles.length; i++)
