@@ -1,5 +1,50 @@
 'use strict';
 
+function findInterceptAngle(a, b){
+	var tracer = new Entity(
+		'tracer',
+		new Vector(a.pos.x, a.pos.y),
+		0, {
+			velocity: new Vector(a.velocity.x, a.velocity.y)
+		}
+	);
+	var target = new Entity(
+		'target',
+		new Vector(b.pos.x, b.pos.y),
+		b.radius, {
+			velocity: new Vector(b.velocity.x, b.velocity.y)
+		}
+	);
+	var frames = 0;
+	var speed = 0;
+	while(true){
+		frames++;
+		do_physics(1/4, [tracer, target]);
+		speed += .25;
+		tracer.radius += speed;
+		if(tracer.checkCollision(target)){
+			break;
+		}
+
+		if(frames > 1000000){
+			console.log('warning: aborting intercepting');
+			return 0;
+		}
+	}
+
+	var angle = Math.atan2(
+		target.pos.y - tracer.pos.y,
+		target.pos.x - tracer.pos.x
+	);
+	return angle;
+}
+
+function timeToIntercept(x, y, dx, dy, speed){
+	// shh no tears only dreams now
+	return (Math.sqrt(speed*speed*x*x + speed*speed*y*y - dx*dx*y*y + 2*dx*dy*x*y - dy*dy*x*x) + dx*x + dy*y) / (speed*speed - dx*dx - dy*dy)
+}
+
+
 function updateAI(){
 	var enemy = particles[bindex];
 	var me;
@@ -7,10 +52,7 @@ function updateAI(){
 		me = generalmean;
 	}else{
 		me = starcaptain;
-		me.angle =  Math.atan2(
-			enemy.pos.y - me.pos.y,
-			enemy.pos.x - me.pos.x
-		) + Math.PI/2;
+		me.angle = findInterceptAngle(me, generalmean) + Math.PI/2;
 		if(guntimer < 0){
 			guntimer = curframe;
 		}
