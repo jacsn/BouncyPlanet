@@ -1,6 +1,6 @@
 'use strict';
 
-function findInterceptAngle(a, b){
+function findInterceptAngle(a, b, acceleration){
 	var tracer = new Entity(
 		'tracer',
 		new Vector(a.pos.x, a.pos.y),
@@ -20,7 +20,7 @@ function findInterceptAngle(a, b){
 	while(true){
 		frames++;
 		do_physics(1/4, [tracer, target]);
-		speed += .25;
+		speed += acceleration;
 		tracer.radius += speed;
 		if(tracer.checkCollision(target)){
 			break;
@@ -39,23 +39,52 @@ function findInterceptAngle(a, b){
 	return angle;
 }
 
+function starCaptainAI(){
+	var enemy = particles[bindex];
+	var me = starcaptain;
+	me.angle = findInterceptAngle(me, enemy, .25) + Math.PI/2;
+	if(guntimer < 0){
+		guntimer = curframe;
+	}
+	me.thrusting = true;
+	var angle = me.angle - Math.PI / 2;
+	var speed = .25;
+	var vx = Math.cos(angle) * speed;
+	var vy = Math.sin(angle) * speed;
+	me.velocity.set(me.velocity.add(new Vector(vx, vy)));
+}
+
+function generalMeanAI(){
+	var enemy = particles[bindex];
+	var me = generalmean;
+
+	var target;
+	if(pluto.isOrbitStable()){
+		target = pluto;
+	}else if(jupiter.isOrbitStable()){
+		target = jupiter;
+	}else if(venus.isOrbitStable()){
+		target = venus;
+	}else if(mercury.isOrbitStable()){
+		target = mercury;
+	}else{
+		target = bouncyplanet;
+	}
+
+	me.angle = findInterceptAngle(me, target, .2) + Math.PI/2;
+	me.thrusting = true;
+	var angle = me.angle - Math.PI / 2;
+	var speed = .20;
+	var vx = Math.cos(angle) * speed;
+	var vy = Math.sin(angle) * speed;
+	me.velocity.set(me.velocity.add(new Vector(vx, vy)));
+}
 
 function updateAI(){
 	var enemy = particles[bindex];
-	var me;
 	if(enemy === starcaptain){
-		me = generalmean;
+		generalMeanAI();
 	}else{
-		me = starcaptain;
-		me.angle = findInterceptAngle(me, generalmean) + Math.PI/2;
-		if(guntimer < 0){
-			guntimer = curframe;
-		}
-		me.thrusting = true;
-		var angle = me.angle - Math.PI / 2;
-		var speed = .25;
-		var vx = Math.cos(angle) * speed;
-		var vy = Math.sin(angle) * speed;
-		me.velocity.set(me.velocity.add(new Vector(vx, vy)));
+		starCaptainAI();
 	}
 }
