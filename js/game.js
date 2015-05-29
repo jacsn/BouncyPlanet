@@ -7,7 +7,7 @@ var dots = "";
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && AgentIconImage.ready && MomIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -90,6 +90,7 @@ var LastX = 0;
 var LastY = 0;
 
 var gametimer = -1;
+var dinnertime = false;
 var pausetimer = -1;
 var CameraX = 0;
 var CameraY = 0;
@@ -152,6 +153,18 @@ TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, bu
 TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean and protected the solar system. The people of Bouncy Planet lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
 //ID 17
 TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, and the solar system was safe... for the most part. Unfortunately, General Mean had focused his attacks on Bouncy Planet, and it now bounces through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+//ID 18
+TalkBoxes.push(new TalkBox(AgentIconImage, "Dinner's ready. Get in here and eat.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB11, ArrowButtonImage), "fiction", 30000));
+//ID 19
+TalkBoxes.push(new TalkBox(KidIconImage, "Huh? Hold on, let me finish this first.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB12, ArrowButtonImage), "fact", 30000));
+//ID 20
+TalkBoxes.push(new TalkBox(MomIconImage, "How long is it going to take?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB13, ArrowButtonImage), "fact", 30000));
+//ID 21
+TalkBoxes.push(new TalkBox(KidIconImage, "I don't know.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB14, ArrowButtonImage), "fact", 30000));
+//ID 22
+TalkBoxes.push(new TalkBox(MomIconImage, "Then it'll have to wait. Your food's getting cold.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB15, ArrowButtonImage), "fact", 30000));
+//ID 23
+TalkBoxes.push(new TalkBox(KidIconImage, "*Sigh* Okaaaay!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 30000));
 
 function btnTB01()
 {
@@ -174,7 +187,6 @@ function btnTB04()
 	NewGame();
 	ChangeMenu(Menus.None);
 	setTalkBox(4);
-	gametimer = curframe;
 }
 
 function btnTB05()
@@ -260,6 +272,32 @@ function btnTB10()
 			setTalkBox(15);
 		}
 	}
+}
+
+function btnTB11()
+{
+	ChangeMenu(Menus.End);
+	setTalkBox(19);
+}
+
+function btnTB12()
+{
+	setTalkBox(20);
+}
+
+function btnTB13()
+{
+	setTalkBox(21);
+}
+
+function btnTB14()
+{
+	setTalkBox(22);
+}
+
+function btnTB15()
+{
+	setTalkBox(23);
 }
 
 //Declare all buttons here
@@ -359,6 +397,7 @@ trails.push([]);
 
 function NewGame()
 {
+	//reset all the important variables
 	for(var i = 0; i < trails.length; i++)
 	{
 		trails[i] = [];
@@ -380,6 +419,7 @@ function NewGame()
 	guntimer = -1;
 	gmwins = false;
 	
+	//reset all the entities to their starting states
 	starcaptain.pos = new Vector(3000, -200);
 	starcaptain.velocity = new Vector(-8, -3);
 	starcaptain.angle = 0;
@@ -415,6 +455,10 @@ function NewGame()
 	pluto.velocity = new Vector(0, -1);
 	pluto.hitsun = false;
 	pluto.stable = true;
+	
+	//start the game timer
+	gametimer = curframe;
+	dinnertime = false;
 }
 
 function compute_forces(particleList) {
@@ -741,6 +785,16 @@ function update()
 	if(target == bindex)
 	{
 		target++;
+	}
+	
+	if(!dinnertime)
+	{
+		var gametime = curframe - gametimer;
+		if(gametime > 600000) //ten minutes
+		{
+			dinnertime = true;
+			setTalkBox(18);
+		}
 	}
 }
 

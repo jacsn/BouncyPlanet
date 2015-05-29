@@ -88,6 +88,16 @@ PresidentIconImage.ready = false;
 PresidentIconImage.onload = function(){this.ready = true;};
 PresidentIconImage.src = "img/president.png";
 
+var AgentIconImage = new Image();
+AgentIconImage.ready = false;
+AgentIconImage.onload = function(){this.ready = true;};
+AgentIconImage.src = "img/agenticon.png";
+
+var MomIconImage = new Image();
+MomIconImage.ready = false;
+MomIconImage.onload = function(){this.ready = true;};
+MomIconImage.src = "img/momicon.png";
+
 var SunImage = new Image();
 SunImage.ready = false;
 SunImage.onload = function(){this.ready = true;};
