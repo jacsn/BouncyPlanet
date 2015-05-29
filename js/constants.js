@@ -5,6 +5,9 @@ var SCREEN_HEIGHT = 640;
 
 var ANGLE_INCREMENT = Math.PI / 64;
 
+var SC_ACCEL = 0.25;
+var GM_ACCEL = 0.2;
+
 //arrow keys
 var K_UP = 38;
 var K_DOWN = 40;

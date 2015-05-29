@@ -657,7 +657,7 @@ function update()
 	if(bindex == 1 || bindex == 2)
 	{
 		//give General Mean a heftier feel by giving him lower acceleration
-		var speed = (bindex == 1) ? 0.25 : 0.2;
+		var speed = (bindex == 1) ? SC_ACCEL : GM_ACCEL;
 		if(keys[K_UP] || keys[A_UP])
 		{
 			if(bindex == 1)
