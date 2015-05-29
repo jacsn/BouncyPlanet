@@ -1,6 +1,6 @@
 'use strict';
 
-function findInterceptAngle(a, b, acceleration){
+function findIntercept(a, b, acceleration){
 	var tracer = new Entity(
 		'tracer',
 		new Vector(a.pos.x, a.pos.y),
@@ -36,19 +36,31 @@ function findInterceptAngle(a, b, acceleration){
 		target.pos.y - tracer.pos.y,
 		target.pos.x - tracer.pos.x
 	);
-	return angle;
+
+	var speed = tracer.velocity.add(new Vector(target.pos.x - tracer.pos.x, target.pos.y - tracer.pos.y));
+	var relativeSpeed = speed.sub(target.velocity);
+
+	return {
+		angle: angle,
+		x: target.pos.x,
+		y: target.pos.y,
+		speed: speed.length(),
+		relativeSpeed: relativeSpeed.length()
+	};
 }
 
 function starCaptainAI(){
 	var enemy = particles[bindex];
 	var me = starcaptain;
-	me.angle = findInterceptAngle(me, enemy, .25) + Math.PI/2;
+	var intercept = findIntercept(me, enemy, .25);
+	me.angle = intercept.angle + Math.PI/2;
+	window.intercept = intercept;
 	if(guntimer < 0){
 		guntimer = curframe;
 	}
 	me.thrusting = true;
 	var angle = me.angle - Math.PI / 2;
-	var speed = .25;
+	var speed = SC_ACCEL;
 	var vx = Math.cos(angle) * speed;
 	var vy = Math.sin(angle) * speed;
 	me.velocity.set(me.velocity.add(new Vector(vx, vy)));
@@ -71,10 +83,10 @@ function generalMeanAI(){
 		target = bouncyplanet;
 	}
 
-	me.angle = findInterceptAngle(me, target, .2) + Math.PI/2;
+	me.angle = findIntercept(me, target, .2).angle + Math.PI/2;
 	me.thrusting = true;
 	var angle = me.angle - Math.PI / 2;
-	var speed = .20;
+	var speed = GM_ACCEL;
 	var vx = Math.cos(angle) * speed;
 	var vy = Math.sin(angle) * speed;
 	me.velocity.set(me.velocity.add(new Vector(vx, vy)));
