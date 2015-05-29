@@ -790,7 +790,7 @@ function update()
 	if(!dinnertime)
 	{
 		var gametime = curframe - gametimer;
-		if(gametime > 600000) //ten minutes
+		if(gametime > 1200000) //twenty minutes
 		{
 			dinnertime = true;
 			setTalkBox(18);
