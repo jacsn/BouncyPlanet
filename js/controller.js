@@ -79,7 +79,7 @@ window.addEventListener("keydown", function (e) {
 	{
 		e.preventDefault();
 	}
-	else if(e.which == K_FIRE)
+	else if(e.which == K_FIRE || e.which == A_FIRE)
 	{
 		if(bindex == 1)
 		{
@@ -176,13 +176,16 @@ window.addEventListener("keyup", function (e) {
 		e.preventDefault();
 		showradar = !showradar;
 	}
-	else if(e.which == K_FIRE)
+	else if(e.which == K_FIRE || e.which == A_FIRE)
 	{
 		e.preventDefault();
 		if(bindex == 1)
 		{
 			FireBullet();
-			guntimer = -1;
+			if(!keys[K_FIRE] && !keys[A_FIRE])
+			{
+				guntimer = -1;
+			}
 		}
 	}
 	else if(e.which == K_ESC)

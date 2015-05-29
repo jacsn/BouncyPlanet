@@ -20,6 +20,7 @@ var A_LEFT = 65;
 var A_RIGHT = 68;
 //key used for shooting
 var K_FIRE = 90;
+var A_FIRE = 88;
 //other necessary keys
 var K_SPACE = 32;
 var K_ESC = 27;
