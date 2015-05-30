@@ -181,9 +181,9 @@ window.addEventListener("keyup", function (e) {
 		e.preventDefault();
 		if(bindex == 1)
 		{
-			FireBullet();
 			if(!keys[K_FIRE] && !keys[A_FIRE])
 			{
+				FireBullet();
 				guntimer = -1;
 			}
 		}

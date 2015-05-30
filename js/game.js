@@ -350,7 +350,7 @@ starcaptain.thrusting = false;
 particles.push(starcaptain); //this means Star Captain will be particles[1] - this is important
 trails.push([]);
 
-var generalmean = new Entity("General Mean", new Vector(503072, 3072), 50, {
+var generalmean = new Entity("General Mean", new Vector(505000, 5000), 50, {
 	mass: 2000,
 	image: GeneralMeanImage
 });
@@ -387,7 +387,7 @@ var jupiter = new Entity("Jupiter", new Vector(120000, 0), 140, {
 particles.push(jupiter);
 trails.push([]);
 
-var pluto = new Entity("Pluto", new Vector(500000, 0), 90, {
+var pluto = new Entity("Pluto", new Vector(300000, 0), 90, {
 	velocity: new Vector(0, -1),
 	image: PlutoImage
 });
@@ -424,7 +424,7 @@ function NewGame()
 	starcaptain.velocity = new Vector(-8, -3);
 	starcaptain.angle = 0;
 	
-	generalmean.pos = new Vector(503072, 3072);
+	generalmean.pos = new Vector(505000, 5000);
 	generalmean.radius = 50;
 	generalmean.velocity = new Vector();
 	generalmean.mass = 2000;
@@ -451,7 +451,7 @@ function NewGame()
 	jupiter.hitsun = false;
 	jupiter.stable = true;
 	
-	pluto.pos = new Vector(500000, 0);
+	pluto.pos = new Vector(300000, 0);
 	pluto.velocity = new Vector(0, -1);
 	pluto.hitsun = false;
 	pluto.stable = true;
