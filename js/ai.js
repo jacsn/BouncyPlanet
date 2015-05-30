@@ -37,27 +37,35 @@ function findIntercept(a, b, acceleration){
 		target.pos.x - tracer.pos.x
 	);
 
-	var speed = tracer.velocity.add(new Vector(target.pos.x - tracer.pos.x, target.pos.y - tracer.pos.y));
-	var relativeSpeed = speed.sub(target.velocity);
-
 	return {
 		angle: angle,
 		x: target.pos.x,
 		y: target.pos.y,
-		speed: speed.length(),
-		relativeSpeed: relativeSpeed.length()
+		distance: a.pos.sub(target.pos).length()
 	};
 }
 
 function starCaptainAI(){
-	var enemy = particles[bindex];
 	var me = starcaptain;
-	var intercept = findIntercept(me, enemy, .25);
+	var enemy = generalmean;
+
+	var attackSpeed = 35;
+
+	var intercept = findIntercept(me, enemy, SC_ACCEL);
 	me.angle = intercept.angle + Math.PI/2;
+
+	window.relativeSpeed = me.velocity.sub(enemy.velocity).length();
+	window.slowDistance = .5*(Math.pow(relativeSpeed, 2) - Math.pow(attackSpeed, 2)) / SC_ACCEL;
 	window.intercept = intercept;
+	window.distance = me.pos.sub(enemy.pos).length();
+	if(slowDistance > distance && generalmean.velocity.length() < starcaptain.velocity.length()){
+		me.angle = Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2;
+	}
+
 	if(guntimer < 0){
 		guntimer = curframe;
 	}
+
 	me.thrusting = true;
 	var angle = me.angle - Math.PI / 2;
 	var speed = SC_ACCEL;
@@ -67,8 +75,8 @@ function starCaptainAI(){
 }
 
 function generalMeanAI(){
-	var enemy = particles[bindex];
 	var me = generalmean;
+	var enemy = starcaptain;
 
 	var target;
 	if(pluto.isOrbitStable()){
@@ -83,7 +91,7 @@ function generalMeanAI(){
 		target = bouncyplanet;
 	}
 
-	me.angle = findIntercept(me, target, .2).angle + Math.PI/2;
+	me.angle = findIntercept(me, target, GM_ACCEL).angle + Math.PI/2;
 	me.thrusting = true;
 	var angle = me.angle - Math.PI / 2;
 	var speed = GM_ACCEL;
@@ -96,7 +104,9 @@ function updateAI(){
 	var enemy = particles[bindex];
 	if(enemy === starcaptain){
 		generalMeanAI();
+		//starCaptainAI();
 	}else{
 		starCaptainAI();
+		//generalMeanAI();
 	}
 }
