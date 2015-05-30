@@ -518,14 +518,25 @@ function do_bulletcollisions(particleList)
 		if(particleList[i].checkCollision(generalmean))
 		{
 			removed.push(i);
-			generalmean.hp--;
-			
-			//change general mean's physical properties to match his escape pod
-			if(generalmean.hp <= 0)
+			if(generalmean.hp > 0)
 			{
-				generalmean.mass = 10;
-				generalmean.radius = 20;
-				setTalkBox(13);
+				generalmean.hp--;
+				
+				//change general mean's physical properties to match his escape pod
+				if(generalmean.hp <= 0)
+				{
+					generalmean.mass = 10;
+					generalmean.radius = 20;
+					//shoot GM's escape pod out the right side of the ship
+					var epangle = generalmean.angle;
+					var epspeed = 50;
+					var epx = epspeed * Math.cos(epangle);
+					var epy = epspeed * Math.sin(epangle);
+					generalmean.velocity.set(generalmean.velocity.add(new Vector(epx, epy)));
+					generalmean.angle = epangle + Math.PI / 2;
+					//begin the "end cutscene"
+					setTalkBox(13);
+				}
 			}
 			
 			if(generalmean.shieldframe < 0)
