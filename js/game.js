@@ -320,11 +320,29 @@ btnResume.width -= 20;
 btnResume.y += 10;
 btnResume.height -= 20;
 
-var btnQuit = new Button("Quit", SCREEN_WIDTH / 2 - 140, 360, 280, 100, btnMainMenu_Click, ButtonImage);
+var btnQuit = new Button("Quit", SCREEN_WIDTH / 2 - 140, 240, 280, 100, btnMainMenu_Click, ButtonImage);
 btnQuit.x += 10;
 btnQuit.width -= 20;
 btnQuit.y += 10;
 btnQuit.height -= 20;
+
+var btnControls = new Button("Controls", SCREEN_WIDTH / 2 - 140, 360, 280, 100, btnControls_Click, ButtonImage);
+btnControls.x += 10;
+btnControls.width -= 20;
+btnControls.y += 10;
+btnControls.height -= 20;
+
+var btnBackMain = new Button("Back", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnMainMenu_Click, ButtonImage);
+btnBackMain.x += 10;
+btnBackMain.width -= 20;
+btnBackMain.y += 10;
+btnBackMain.height -= 20;
+
+var btnBackPause = new Button("Back", SCREEN_WIDTH / 2 - 140, 480, 280, 100, btnBackPause_Click, ButtonImage);
+btnBackPause.x += 10;
+btnBackPause.width -= 20;
+btnBackPause.y += 10;
+btnBackPause.height -= 20;
 
 function btnBegin_Click()
 {
@@ -342,6 +360,16 @@ function btnMainMenu_Click()
 {
 	gametimer = -1;
 	ChangeMenu(Menus.Main);
+}
+
+function btnControls_Click()
+{
+	ChangeMenu(Menus.Controls);
+}
+
+function btnBackPause_Click()
+{
+	ChangeMenu(Menus.Pause);
 }
 
 var sun = new Entity('Sun', new Vector(0, 0), 300, {
@@ -1245,6 +1273,18 @@ function ChangeMenu(menu)
 	{
 		clearTalkBox();
 		Controls.push(btnBegin);
+		Controls.push(btnControls);
+	}
+	else if(menu == Menus.Controls)
+	{
+		if(MenuID == Menus.Main)
+		{
+			Controls.push(btnBackMain);
+		}
+		else if(MenuID == Menus.Pause)
+		{
+			Controls.push(btnBackPause);
+		}
 	}
 	else if(menu == Menus.Story1)
 	{
@@ -1256,10 +1296,14 @@ function ChangeMenu(menu)
 	}
 	else if(menu == Menus.Pause)
 	{
-		pausetimer = curframe;
-		pauseTB = curTB;
-		clearTalkBox();
+		if(MenuID == Menus.None)
+		{
+			pausetimer = curframe;
+			pauseTB = curTB;
+			clearTalkBox();
+		}
 		Controls.push(btnQuit);
+		Controls.push(btnControls);
 		Controls.push(btnResume);
 	}
 	else if(menu == Menus.None)
@@ -1362,6 +1406,20 @@ function drawMenu()
 		ctx.textAlign = "center";
 		ctx.font = "80px Bitwise, Arial, sans-serif";
 		ctx.fillText("Pause Menu", SCREEN_WIDTH / 2, 120);
+	}
+	else if(MenuID == Menus.Controls)
+	{
+		drawStars();
+		ctx.fillStyle = "#FFFFFF";
+		ctx.textAlign = "center";
+		ctx.font = "80px Bitwise, Arial, sans-serif";
+		ctx.fillText("Controls", SCREEN_WIDTH / 2, 120);
+		var line2 = FillWrapText("Arrow keys (or WASD) - Steer your ship", "24px Bitwise, Arial, sans-serif", "left", SCREEN_WIDTH * 3 / 4, 100, 200);
+		var line3 = FillWrapText("Tab - Switch Target (Shift+Tab to cycle backwards through targets)", "24px Bitwise, Arial, sans-serif", "left", SCREEN_WIDTH * 3 / 4, 100, line2 - 10);
+		var line4 = FillWrapText("Space - Toggle between ships", "24px Bitwise, Arial, sans-serif", "left", SCREEN_WIDTH * 3 / 4, 100, line3 - 10);
+		var line5 = FillWrapText("Z (or X) - Fire Star Captain's weapons", "24px Bitwise, Arial, sans-serif", "left", SCREEN_WIDTH * 3 / 4, 100, line4 - 10);
+		var line6 = FillWrapText("R - Toggle Radar display", "24px Bitwise, Arial, sans-serif", "left", SCREEN_WIDTH * 3 / 4, 100, line5 - 10);
+		var line7 = FillWrapText("T - Toggle visible trails", "24px Bitwise, Arial, sans-serif", "left", SCREEN_WIDTH * 3 / 4, 100, line6 - 10);
 	}
 	
 	drawControls();

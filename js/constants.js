@@ -37,7 +37,8 @@ var Menus = new function()
 	this.Story1 = 2;
 	this.Story2 = 3;
 	this.End = 4;
-	this.None = 5;
+	this.Controls = 5;
+	this.None = 6;
 }
 
 var ButtonImage = new Image();
