@@ -58,7 +58,7 @@ function starCaptainAI(){
 	window.slowDistance = .5*(Math.pow(relativeSpeed, 2) - Math.pow(attackSpeed, 2)) / SC_ACCEL;
 	window.intercept = intercept;
 	window.distance = me.pos.sub(enemy.pos).length();
-	if(slowDistance > distance && generalmean.velocity.length() < starcaptain.velocity.length()){
+	if(slowDistance > intercept.distance && generalmean.velocity.length() < starcaptain.velocity.length()){
 		me.angle = Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2;
 	}
 
