@@ -66,12 +66,16 @@ function starCaptainAI(){
 		guntimer = curframe;
 	}
 
-	me.thrusting = true;
-	var angle = me.angle - Math.PI / 2;
-	var speed = SC_ACCEL;
-	var vx = Math.cos(angle) * speed;
-	var vy = Math.sin(angle) * speed;
-	me.velocity.set(me.velocity.add(new Vector(vx, vy)));
+	if(distance > 300){
+		me.thrusting = true;
+		var angle = me.angle - Math.PI / 2;
+		var speed = SC_ACCEL;
+		var vx = Math.cos(angle) * speed;
+		var vy = Math.sin(angle) * speed;
+		me.velocity.set(me.velocity.add(new Vector(vx, vy)));
+	}else{
+		me.thrusting = false;
+	}
 }
 
 function generalMeanAI(){
