@@ -144,7 +144,7 @@ TalkBoxes.push(new TalkBox(GMIconImage, "Victory is mine!", new Button("", SCREE
 //ID 12
 TalkBoxes.push(new TalkBox(KidIconImage, "No one can stop General Mean! He leaves the solar system in ruins, its planets bouncing through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
 //ID 13
-TalkBoxes.push(new TalkBox(SCIconImage, "General Mean, you are vanquished. My work here is done.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB10, ArrowButtonImage), "fiction", 60000));
+TalkBoxes.push(new TalkBox(SCIconImage, "General Mean, you are vanquished. My work here is done.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB16, ArrowButtonImage), "fiction", 60000));
 //ID 14
 TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. True to his word, though, Star Captain protected Bouncy Planet, and the people lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
 //ID 15
@@ -165,6 +165,8 @@ TalkBoxes.push(new TalkBox(KidIconImage, "I don't know.", new Button("", SCREEN_
 TalkBoxes.push(new TalkBox(MomIconImage, "Then it'll have to wait. Your food's getting cold.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB15, ArrowButtonImage), "fact", 30000));
 //ID 23
 TalkBoxes.push(new TalkBox(KidIconImage, "*Sigh* Okaaaay!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 30000));
+//ID 24
+TalkBoxes.push(new TalkBox(GMIconImage, "Nooooo!!!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB10, ArrowButtonImage), "fiction", 60000));
 
 function btnTB01()
 {
@@ -298,6 +300,11 @@ function btnTB14()
 function btnTB15()
 {
 	setTalkBox(23);
+}
+
+function btnTB16()
+{
+	setTalkBox(24);
 }
 
 //Declare all buttons here
@@ -703,7 +710,7 @@ function update()
 	if(bindex == 1 || bindex == 2)
 	{
 		//give General Mean a heftier feel by giving him lower acceleration
-		var speed = (bindex == 1) ? SC_ACCEL : GM_ACCEL;
+		var speed = (bindex == 1) ? SC_ACCEL : (generalmean.hp > 0) ? GM_ACCEL : EP_ACCEL;
 		if(keys[K_UP] || keys[A_UP])
 		{
 			if(bindex == 1)

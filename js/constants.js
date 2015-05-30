@@ -7,6 +7,7 @@ var ANGLE_INCREMENT = Math.PI / 64;
 
 var SC_ACCEL = 1;
 var GM_ACCEL = 0.2;
+var EP_ACCEL = 0.8;
 
 //arrow keys
 var K_UP = 38;
