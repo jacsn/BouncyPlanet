@@ -92,8 +92,8 @@ var LastY = 0;
 var gametimer = -1;
 var dinnertime = false;
 var pausetimer = -1;
-var CameraX = 0;
-var CameraY = 0;
+var CameraX = -3000 + SCREEN_WIDTH / 2;
+var CameraY = 200 + SCREEN_HEIGHT / 2;
 var keys = [];
 var bindex = 1;
 var newbindex = bindex;
@@ -322,6 +322,8 @@ btnQuit.height -= 20;
 function btnBegin_Click()
 {
 	ChangeMenu(Menus.Story1);
+	CameraX = -3000 + SCREEN_WIDTH / 2;
+	CameraY = 200 + SCREEN_HEIGHT / 2;
 }
 
 function btnResume_Click()
@@ -408,8 +410,8 @@ function NewGame()
 	gmengineflames = [];
 	
 	pausetimer = -1;
-	CameraX = 0;
-	CameraY = 0;
+	CameraX = -3000 + SCREEN_WIDTH / 2;
+	CameraY = 200 + SCREEN_HEIGHT / 2;
 	bindex = 1;
 	newbindex = bindex;
 	target = 0;

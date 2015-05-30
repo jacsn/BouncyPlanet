@@ -14,9 +14,9 @@ function Star(){
 }
 
 Star.prototype.render = function(){
-	var playerPos = particles[bindex].pos;
-	var x = (this.x - this.speed * playerPos.x) % STARFIELD_WIDTH;
-	var y = (this.y - this.speed * playerPos.y) % STARFIELD_HEIGHT;
+	//var playerPos = particles[bindex].pos;
+	var x = (this.x - this.speed * -CameraX) % STARFIELD_WIDTH;
+	var y = (this.y - this.speed * -CameraY) % STARFIELD_HEIGHT;
 	while(x < 0){
 		x += STARFIELD_WIDTH;
 	}
