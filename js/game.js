@@ -434,6 +434,11 @@ particles.push(pluto);
 trails.push([]);
 
 var stardust = new Stardust();
+stardust.add(
+	function(){return generalmean.pos.x - generalmean.velocity.x/4 },
+	function(){return generalmean.pos.y - generalmean.velocity.y/4 },
+	generalMeanSmoke
+);
 
 function NewGame()
 {
@@ -464,14 +469,12 @@ function NewGame()
 	starcaptain.velocity = new Vector(-8, -3);
 	starcaptain.angle = 0;
 	
-	//generalmean.pos = new Vector(505000, 5000);
-	generalmean.pos = new Vector(starcaptain.pos.x, starcaptain.pos.y - 1000);
+	generalmean.pos = new Vector(505000, 5000);
 	generalmean.radius = 50;
 	generalmean.velocity = new Vector();
 	generalmean.mass = 2000;
 	generalmean.angle = 0;
 	generalmean.hp = maxhp;
-	generalmean.hp = 3;
 	
 	bouncyplanet.pos = new Vector(3072, 0);
 	bouncyplanet.velocity = new Vector(0, -6);
@@ -576,6 +579,7 @@ function do_bulletcollisions(particleList)
 					generalmean.angle = epangle + Math.PI / 2;
 					//begin the "end cutscene"
 					setTalkBox(13);
+				}else{
 				}
 			}
 			
