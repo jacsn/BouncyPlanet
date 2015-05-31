@@ -190,3 +190,8 @@ var Fire2Image = new Image();
 Fire2Image.ready = false;
 Fire2Image.onload = function(){this.ready = true;};
 Fire2Image.src = "img/fire2.png";
+
+var Fire3Image = new Image();
+Fire3Image.ready = false;
+Fire3Image.onload = function(){this.ready = true;};
+Fire3Image.src = "img/fire3.png";

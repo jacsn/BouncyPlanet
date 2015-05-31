@@ -8,7 +8,7 @@ var dots = "";
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && AgentIconImage.ready && MomIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready && Smoke1Image.ready && Smoke2Image.ready && Smoke3Image.ready && Fire1Image.ready && Fire2Image.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && AgentIconImage.ready && MomIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready && Smoke1Image.ready && Smoke2Image.ready && Smoke3Image.ready && Fire1Image.ready && Fire2Image.ready && Fire3Image.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
