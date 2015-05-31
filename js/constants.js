@@ -165,3 +165,28 @@ var EPShieldImage = new Image();
 EPShieldImage.ready = false;
 EPShieldImage.onload = function(){this.ready = true;};
 EPShieldImage.src = "img/epshield.png";
+
+var Smoke1Image = new Image();
+Smoke1Image.ready = false;
+Smoke1Image.onload = function(){this.ready = true;};
+Smoke1Image.src = "img/smoke1.png";
+
+var Smoke2Image = new Image();
+Smoke2Image.ready = false;
+Smoke2Image.onload = function(){this.ready = true;};
+Smoke2Image.src = "img/smoke2.png";
+
+var Smoke3Image = new Image();
+Smoke3Image.ready = false;
+Smoke3Image.onload = function(){this.ready = true;};
+Smoke3Image.src = "img/smoke3.png";
+
+var Fire1Image = new Image();
+Fire1Image.ready = false;
+Fire1Image.onload = function(){this.ready = true;};
+Fire1Image.src = "img/fire1.png";
+
+var Fire2Image = new Image();
+Fire2Image.ready = false;
+Fire2Image.onload = function(){this.ready = true;};
+Fire2Image.src = "img/fire2.png";

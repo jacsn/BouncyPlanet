@@ -1,5 +1,6 @@
 'use strict';
 var curframe = -1;
+var lastframe = -1;
 
 var loadcounter = 0;
 var dots = "";
@@ -7,7 +8,7 @@ var dots = "";
 var preloader = setInterval(preloadloop, 10);
 function preloadloop(){
 	//load assets
-	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && AgentIconImage.ready && MomIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready) {
+	if(ButtonImage.ready && UIBoxImage.ready && TalkBackgroundImage.ready && TalkBG2Image.ready && ArrowButtonImage.ready && KidsRoomImage.ready && KidIconImage.ready && GMIconImage.ready && SCIconImage.ready && PresidentIconImage.ready && AgentIconImage.ready && MomIconImage.ready && SunImage.ready && BouncyPlanetImage.ready && MercuryImage.ready && VenusImage.ready && JupiterImage.ready && PlutoImage.ready && StarCaptainImage.ready && GeneralMeanImage.ready && SCRadarImage.ready && GMRadarImage.ready && SCShieldImage.ready && GMShieldImage.ready && EPShieldImage.ready && Smoke1Image.ready && Smoke2Image.ready && Smoke3Image.ready && Fire1Image.ready && Fire2Image.ready) {
 		clearInterval(preloader);
 
 		//requestAnimationFrame(frame);
@@ -18,6 +19,7 @@ function preloadloop(){
 			{
 				ChangeMenu(Menus.Main);
 			}
+			lastframe = curframe;
 			curframe = step; //curframe is necessary for animations to know how long they've been playing
 			if(MenuShowing)
 			{
@@ -431,6 +433,7 @@ var pluto = new Entity("Ploo", new Vector(300000, 0), 90, {
 particles.push(pluto);
 trails.push([]);
 
+var stardust = new Stardust();
 
 function NewGame()
 {
@@ -461,12 +464,14 @@ function NewGame()
 	starcaptain.velocity = new Vector(-8, -3);
 	starcaptain.angle = 0;
 	
-	generalmean.pos = new Vector(505000, 5000);
+	//generalmean.pos = new Vector(505000, 5000);
+	generalmean.pos = new Vector(starcaptain.pos.x, starcaptain.pos.y - 1000);
 	generalmean.radius = 50;
 	generalmean.velocity = new Vector();
 	generalmean.mass = 2000;
 	generalmean.angle = 0;
 	generalmean.hp = maxhp;
+	generalmean.hp = 3;
 	
 	bouncyplanet.pos = new Vector(3072, 0);
 	bouncyplanet.velocity = new Vector(0, -6);
@@ -553,6 +558,13 @@ function do_bulletcollisions(particleList)
 				//change general mean's physical properties to match his escape pod
 				if(generalmean.hp <= 0)
 				{
+					// particle explosion
+					generalMeanExplosion[0].velocity = {x: generalmean.velocity.x*8, y: generalmean.velocity.y*8};
+					generalMeanExplosion[1].velocity = {x: generalmean.velocity.x*8, y: generalmean.velocity.y*8};
+					stardust.add(generalmean.pos.x, generalmean.pos.y, generalMeanExplosion);
+
+					//starcaptain.velocity = new Vector(0, 0);
+
 					generalmean.mass = 10;
 					generalmean.radius = 20;
 					//shoot GM's escape pod out the right side of the ship
@@ -813,7 +825,9 @@ function update()
 	}
 
 	updateAI();
-
+	
+	stardust.update(30);//curframe - lastframe);
+	
     render();
 	
 	checkPlanets();
@@ -1100,6 +1114,40 @@ function render() {
 		}
     }
 	
+	//draw bullets
+	var bullets_to_remove = 0;
+	for(var b = 0; b < bullets.length; b++)
+	{
+		//draw canvas arcs for bullets
+		var p = bullets[b];
+
+		if(curframe - p.shieldframe > 1000)
+		{
+			bullets_to_remove++;
+		}
+		else
+		{
+			ctx.beginPath();
+			ctx.arc(p.pos.x + CameraX, p.pos.y + CameraY, p.radius, 0, Math.PI * 2, false);
+			ctx.fillStyle = "#FF9900"; //p.colour;
+			ctx.fill();
+			ctx.closePath();
+		}
+	}
+	
+	for(var i = 0; i < bullets_to_remove; i++)
+	{
+		bullets.shift();
+	}
+
+	ctx.save()
+	ctx.translate(
+		canvas.width/2 - particles[bindex].pos.x,
+		canvas.height/2 - particles[bindex].pos.y
+	);
+	stardust.render(canvas, ctx);
+	ctx.restore()
+
 	//Draw the radar UI (this is outside the particle loop now, because it's supposed to be a UI overlay
 	if(showradar)
 	{
@@ -1138,32 +1186,6 @@ function render() {
 			//ctx.rotate(-ang);
 			//ctx.translate(-imgx, -imgy);
 		}
-	}
-	
-	//draw bullets
-	var bullets_to_remove = 0;
-	for(var b = 0; b < bullets.length; b++)
-	{
-		//draw canvas arcs for bullets
-		var p = bullets[b];
-
-		if(curframe - p.shieldframe > 1000)
-		{
-			bullets_to_remove++;
-		}
-		else
-		{
-			ctx.beginPath();
-			ctx.arc(p.pos.x + CameraX, p.pos.y + CameraY, p.radius, 0, Math.PI * 2, false);
-			ctx.fillStyle = "#FF9900"; //p.colour;
-			ctx.fill();
-			ctx.closePath();
-		}
-	}
-	
-	for(var i = 0; i < bullets_to_remove; i++)
-	{
-		bullets.shift();
 	}
 	
 	//display the current target destination
