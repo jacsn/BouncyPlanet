@@ -68,7 +68,7 @@ function starCaptainAI(){
 			guntimer = curframe;
 		}
 
-		if(distance > 300){
+		if(distance > 200){
 			me.thrusting = true;
 			var angle = me.angle - Math.PI / 2;
 			var speed = SC_ACCEL;
