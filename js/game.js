@@ -128,13 +128,13 @@ TalkBoxes.push(new TalkBox(PresidentIconImage, "Star Captain... Come in, Star Ca
 //ID 4
 TalkBoxes.push(new TalkBox(SCIconImage, "I read you, Mr. President. I'll shoot him down before he can reach Bouncy Planet.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB05, ArrowButtonImage), "fiction", 60000));
 //ID 5
-TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Pluto out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Ploo out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
 //ID 6
-TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Jupiter out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Jiant out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
 //ID 7
-TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Venus out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Meedos out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
 //ID 8
-TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Mercury out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
+TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Glint out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB06, ArrowButtonImage), "fiction", 30000));
 //ID 9
 TalkBoxes.push(new TalkBox(GMIconImage, "Mwahaha! I have knocked Bouncy Planet out of orbit!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB07, ArrowButtonImage), "fiction", 30000));
 //ID 10
@@ -142,17 +142,17 @@ TalkBoxes.push(new TalkBox(SCIconImage, "Nooooo!!!", new Button("", SCREEN_WIDTH
 //ID 11
 TalkBoxes.push(new TalkBox(GMIconImage, "Victory is mine!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB08, ArrowButtonImage), "fiction", 30000));
 //ID 12
-TalkBoxes.push(new TalkBox(KidIconImage, "No one can stop General Mean! He leaves the solar system in ruins, its planets bouncing through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+TalkBoxes.push(new TalkBox(KidIconImage, "No one can stop General Mean! He leaves the solar system in ruins, its planets bouncing through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", -1));
 //ID 13
 TalkBoxes.push(new TalkBox(SCIconImage, "General Mean, you are vanquished. My work here is done.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB16, ArrowButtonImage), "fiction", 60000));
 //ID 14
-TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. True to his word, though, Star Captain protected Bouncy Planet, and the people lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. True to his word, though, Star Captain protected Bouncy Planet, and the people lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", -1));
 //ID 15
-TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. Not even Bouncy Planet had been spared from the destruction. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, but the solar system had paid a heavy price. Not even Bouncy Planet had been spared from the destruction. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", -1));
 //ID 16
-TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean and protected the solar system. The people of Bouncy Planet lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean and protected the solar system. The people of Bouncy Planet lived happily ever after. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", -1));
 //ID 17
-TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, and the solar system was safe... for the most part. Unfortunately, General Mean had focused his attacks on Bouncy Planet, and it now bounces through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 60000));
+TalkBoxes.push(new TalkBox(KidIconImage, "Star Captain defeated General Mean, and the solar system was safe... for the most part. Unfortunately, General Mean had focused his attacks on Bouncy Planet, and it now bounces through space out of control. The End.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", -1));
 //ID 18
 TalkBoxes.push(new TalkBox(AgentIconImage, "Dinner's ready. Get in here and eat.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB11, ArrowButtonImage), "fiction", 30000));
 //ID 19
@@ -164,7 +164,7 @@ TalkBoxes.push(new TalkBox(KidIconImage, "I don't know.", new Button("", SCREEN_
 //ID 22
 TalkBoxes.push(new TalkBox(MomIconImage, "Then it'll have to wait. Your food's getting cold.", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB15, ArrowButtonImage), "fact", 30000));
 //ID 23
-TalkBoxes.push(new TalkBox(KidIconImage, "*Sigh* Okaaaay!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", 30000));
+TalkBoxes.push(new TalkBox(KidIconImage, "*Sigh* Okaaaay!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB09, ArrowButtonImage), "fact", -1));
 //ID 24
 TalkBoxes.push(new TalkBox(GMIconImage, "Nooooo!!!", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB10, ArrowButtonImage), "fiction", 60000));
 
@@ -403,28 +403,28 @@ var bouncyplanet = new Entity('Bouncy Planet', new Vector(3072, 0), 100, {
 particles.push(bouncyplanet); //bouncy planet is currently particles[3] - this may not last
 trails.push([]);
 
-var mercury = new Entity('Mercury', new Vector(-10240, 0), 80, {
+var mercury = new Entity('Glint', new Vector(-10240, 0), 80, {
 	velocity: new Vector(0, -4.8),
 	image: MercuryImage
 });
 particles.push(mercury); //mercury is particles[4]... for now.
 trails.push([]);
 
-var venus = new Entity('Venus', new Vector(0, 40000), 120, {
+var venus = new Entity('Meedos', new Vector(0, 40000), 120, {
 	velocity: new Vector(3, 0),
 	image: VenusImage
 });
 particles.push(venus); //venus is particles[5]... for now
 trails.push([]);
 
-var jupiter = new Entity("Jupiter", new Vector(120000, 0), 140, {
+var jupiter = new Entity("Jiant", new Vector(120000, 0), 140, {
 	velocity: new Vector(0, 2),
 	image: JupiterImage
 });
 particles.push(jupiter);
 trails.push([]);
 
-var pluto = new Entity("Pluto", new Vector(300000, 0), 90, {
+var pluto = new Entity("Ploo", new Vector(300000, 0), 90, {
 	velocity: new Vector(0, -1),
 	image: PlutoImage
 });
@@ -649,7 +649,7 @@ function do_gmengineflames(dt) {
 function FireBullet()
 {
 	var p = particles[1]; //manually set a variable to Star Captain's particle
-	var bulletspeed = 20;
+	var bulletspeed = 25;
 	var bulletradius = 3;
 	
 	var angle = p.angle - Math.PI / 2;

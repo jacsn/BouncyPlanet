@@ -14,8 +14,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="fire1.svg"
-   inkscape:export-filename="C:\Users\Nick\Desktop\HTML5 Games\Childhood\img\fire1.png"
+   sodipodi:docname="fire2.svg"
+   inkscape:export-filename="C:\Users\Nick\Desktop\HTML5 Games\Childhood\img\fire2.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -29,18 +29,18 @@
        inkscape:menu="Textures"
        inkscape:label="Felt"
        color-interpolation-filters="sRGB"
-       id="filter3253">
+       id="filter2987">
       <feGaussianBlur
          result="result1"
          in="SourceGraphic"
          stdDeviation="2"
-         id="feGaussianBlur3255" />
+         id="feGaussianBlur2989" />
       <feTurbulence
          result="result0"
          numOctaves="5"
          baseFrequency="0.05"
          type="fractalNoise"
-         id="feTurbulence3257" />
+         id="feTurbulence2991" />
       <feDisplacementMap
          result="result2"
          scale="20"
@@ -48,12 +48,12 @@
          xChannelSelector="R"
          in="result1"
          in2="result0"
-         id="feDisplacementMap3259" />
+         id="feDisplacementMap2993" />
       <feGaussianBlur
          result="result4"
          in="result2"
          stdDeviation="5"
-         id="feGaussianBlur3261" />
+         id="feGaussianBlur2995" />
       <feComposite
          result="result6"
          k1="1"
@@ -62,20 +62,20 @@
          in="result0"
          in2="result4"
          operator="arithmetic"
-         id="feComposite3263"
+         id="feComposite2997"
          k4="0" />
       <feComposite
          in="result6"
          in2="result0"
          operator="in"
          result="result91"
-         id="feComposite3265" />
+         id="feComposite2999" />
       <feComposite
          operator="arithmetic"
          k1="1.5"
          in="result2"
          in2="result91"
-         id="feComposite3267"
+         id="feComposite3001"
          k2="0"
          k3="0"
          k4="0" />
@@ -89,18 +89,18 @@
        inkscape:menu="Textures"
        inkscape:label="Felt"
        color-interpolation-filters="sRGB"
-       id="filter3277">
+       id="filter3027">
       <feGaussianBlur
          result="result1"
          in="SourceGraphic"
          stdDeviation="2"
-         id="feGaussianBlur3279" />
+         id="feGaussianBlur3029" />
       <feTurbulence
          result="result0"
          numOctaves="5"
          baseFrequency="0.05"
          type="fractalNoise"
-         id="feTurbulence3281" />
+         id="feTurbulence3031" />
       <feDisplacementMap
          result="result2"
          scale="20"
@@ -108,12 +108,12 @@
          xChannelSelector="R"
          in="result1"
          in2="result0"
-         id="feDisplacementMap3283" />
+         id="feDisplacementMap3033" />
       <feGaussianBlur
          result="result4"
          in="result2"
          stdDeviation="5"
-         id="feGaussianBlur3285" />
+         id="feGaussianBlur3035" />
       <feComposite
          result="result6"
          k1="1"
@@ -122,20 +122,20 @@
          in="result0"
          in2="result4"
          operator="arithmetic"
-         id="feComposite3287"
+         id="feComposite3037"
          k4="0" />
       <feComposite
          in="result6"
          in2="result0"
          operator="in"
          result="result91"
-         id="feComposite3289" />
+         id="feComposite3039" />
       <feComposite
          operator="arithmetic"
          k1="1.5"
          in="result2"
          in2="result91"
-         id="feComposite3291"
+         id="feComposite3041"
          k2="0"
          k3="0"
          k4="0" />
@@ -149,8 +149,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="202.72398"
-     inkscape:cy="53.369537"
+     inkscape:cx="337.7977"
+     inkscape:cy="146.49204"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -176,48 +176,36 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1022.3622)">
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff2a2a;stroke:none;filter:url(#filter2987)"
+       id="path2985"
+       sodipodi:cx="106"
+       sodipodi:cy="917.36218"
+       sodipodi:rx="25"
+       sodipodi:ry="25"
+       d="m 131,917.36218 a 25,25 0 1 1 -50,0 25,25 0 1 1 50,0 z"
+       transform="matrix(0.4,0,0,0.4,-27.4,671.41731)" />
     <g
-       id="g3249"
-       style="filter:url(#filter3253)"
-       transform="translate(6,-5)">
+       id="g3023"
+       style="filter:url(#filter3027)"
+       transform="matrix(1,0,0,-1,5,2081.7244)">
       <path
-         transform="matrix(0.66666667,0,0,0.66666667,-136,790.12073)"
-         d="m 234,378.36218 c 0,8.28427 -6.71573,15 -15,15 -8.28427,0 -15,-6.71573 -15,-15 0,-8.28427 6.71573,-15 15,-15 8.28427,0 15,6.71573 15,15 z"
-         sodipodi:ry="15"
-         sodipodi:rx="15"
-         sodipodi:cy="378.36218"
-         sodipodi:cx="219"
-         id="path2985"
-         style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.83333333,0,0,0.83333333,-134.16667,295.3937)"
+         d="m 185,896.36218 a 12,12 0 1 1 -24,0 12,12 0 1 1 24,0 z"
+         sodipodi:ry="12"
+         sodipodi:rx="12"
+         sodipodi:cy="896.36218"
+         sodipodi:cx="173"
+         id="path3003"
+         style="fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:none"
          sodipodi:type="arc" />
       <rect
-         y="976.36218"
-         x="-59"
-         height="146"
-         width="159"
-         id="rect3247"
-         style="fill:none;stroke:none" />
-    </g>
-    <g
-       id="g3273"
-       style="filter:url(#filter3277)"
-       transform="translate(6,-5)">
-      <path
-         transform="matrix(0.55555556,0,0,0.55555556,-70.555555,500.4943)"
-         d="m 163,975.36218 c 0,9.94113 -8.05887,18 -18,18 -9.94113,0 -18,-8.05887 -18,-18 0,-9.94112 8.05887,-18 18,-18 9.94113,0 18,8.05888 18,18 z"
-         sodipodi:ry="18"
-         sodipodi:rx="18"
-         sodipodi:cy="975.36218"
-         sodipodi:cx="145"
-         id="path3269"
-         style="fill:#ff6600;stroke:none"
-         sodipodi:type="arc" />
-      <rect
-         y="956.36218"
-         x="-65"
-         height="188"
-         width="182"
-         id="rect3271"
+         y="969.36218"
+         x="-64"
+         height="147"
+         width="148.5"
+         id="rect3021"
          style="fill:none;stroke:none" />
     </g>
   </g>
