@@ -46,7 +46,7 @@ function findIntercept(a, b, acceleration){
 }
 
 function requestAngle(currentAngle, requestedAngle, distanceToPlayer){
-	if(distanceToPlayer > 600){
+	if(distanceToPlayer > 600 || true){
 		return requestedAngle;
 	}
 
@@ -70,45 +70,42 @@ function starCaptainAI(){
 		var attackSpeed = 10;
 
 		var intercept = findIntercept(me, enemy, SC_ACCEL);
-
 		var relativeSpeed = me.velocity.sub(enemy.velocity).length();
 		var slowDistance = .5*(Math.pow(relativeSpeed, 2) - Math.pow(attackSpeed, 2)) / SC_ACCEL;
-		var intercept = intercept;
 		var distance = me.pos.sub(enemy.pos).length();
+		var gettingCloser;
+		if(distance > me.pos.add(me.velocity).sub(enemy.pos.add(enemy.velocity)).length()){
+			gettingCloser = true;
+		}else{
+			gettingCloser = false;
+		}
+
 		var noThrust = false;
-		if(slowDistance > intercept.distance
-				&& generalmean.velocity.length() < starcaptain.velocity.length()){
-			if(me.pos.sub(enemy.pos).length() > 700){
+		
+		if(slowDistance > intercept.distance && gettingCloser){
+			if(distance > 700){
 				me.angle = requestAngle(
 					me.angle,
 					Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2,
-					me.pos.sub(enemy.pos).length()
+					distance
 				);
 			}else{
 				noThrust = true;
 				me.angle = requestAngle(
 					me.angle,
 					intercept.angle + Math.PI/2,
-					me.pos.sub(enemy.pos).length()
+					distance
 				);
 			}
 		}else{
 			me.angle = requestAngle(
 				me.angle,
 				intercept.angle + Math.PI/2,
-				me.pos.sub(enemy.pos).length()
+				distance
 			);
 		}
 
-		if(distance < 500){
-			if(guntimer < 0){
-				guntimer = curframe;
-			}
-		}else{
-			guntimer = -1;
-		}
-
-		if(distance > 200 && !noThrust){
+		if((distance > 350 && !noThrust) || (!gettingCloser && distance > 200)){
 			me.thrusting = true;
 			var angle = me.angle - Math.PI / 2;
 			var speed = SC_ACCEL;
@@ -118,6 +115,15 @@ function starCaptainAI(){
 		}else{
 			me.thrusting = false;
 		}
+		 
+		if(distance < 500){
+			if(guntimer < 0){
+				guntimer = curframe;
+			}
+		}else{
+			guntimer = -1;
+		}
+
 	}
 }
 
@@ -158,9 +164,7 @@ function updateAI(){
 	var enemy = particles[bindex];
 	if(enemy === starcaptain){
 		generalMeanAI();
-		//starCaptainAI();
 	}else{
 		starCaptainAI();
-		//generalMeanAI();
 	}
 }
