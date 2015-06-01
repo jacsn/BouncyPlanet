@@ -45,30 +45,68 @@ function findIntercept(a, b, acceleration){
 	};
 }
 
+function requestAngle(currentAngle, requestedAngle, distanceToPlayer){
+	if(distanceToPlayer > 600){
+		return requestedAngle;
+	}
+
+	/*
+	if(Math.abs(currentAngle - requestedAngle) < ANGLE_INCREMENT){
+		return requestedAngle;
+	}
+	*/
+	
+	if(requestedAngle < currentAngle && currentAngle - requestedAngle < requestedAngle+Math.PI*2 - currentAngle){
+		return currentAngle - ANGLE_INCREMENT;
+	}else{
+		return currentAngle + ANGLE_INCREMENT;
+	}
+}
+
 function starCaptainAI(){
 	if(generalmean.hp > 0)
 	{
 		var me = starcaptain;
 		var enemy = generalmean;
 
-		var attackSpeed = 35;
+		var attackSpeed = 10;
 
 		var intercept = findIntercept(me, enemy, SC_ACCEL);
-		me.angle = intercept.angle + Math.PI/2;
 
-		window.relativeSpeed = me.velocity.sub(enemy.velocity).length();
-		window.slowDistance = .5*(Math.pow(relativeSpeed, 2) - Math.pow(attackSpeed, 2)) / SC_ACCEL;
-		window.intercept = intercept;
-		window.distance = me.pos.sub(enemy.pos).length();
-		if(slowDistance > intercept.distance && generalmean.velocity.length() < starcaptain.velocity.length()){
-			me.angle = Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2;
+		var relativeSpeed = me.velocity.sub(enemy.velocity).length();
+		var slowDistance = .5*(Math.pow(relativeSpeed, 2) - Math.pow(attackSpeed, 2)) / SC_ACCEL;
+		var intercept = intercept;
+		var distance = me.pos.sub(enemy.pos).length();
+		var noThrust = false;
+		if(slowDistance > intercept.distance
+				&& generalmean.velocity.length() < starcaptain.velocity.length()){
+			if(me.pos.sub(enemy.pos).length() > 700){
+				me.angle = requestAngle(
+					me.angle,
+					Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2,
+					me.pos.sub(enemy.pos).length()
+				);
+			}else{
+				noThrust = true;
+				me.angle = requestAngle(
+					me.angle,
+					intercept.angle + Math.PI/2,
+					me.pos.sub(enemy.pos).length()
+				);
+			}
+		}else{
+			me.angle = requestAngle(
+				me.angle,
+				intercept.angle + Math.PI/2,
+				me.pos.sub(enemy.pos).length()
+			);
 		}
 
 		if(guntimer < 0){
 			guntimer = curframe;
 		}
 
-		if(distance > 200){
+		if(distance > 200 && !noThrust){
 			me.thrusting = true;
 			var angle = me.angle - Math.PI / 2;
 			var speed = SC_ACCEL;
