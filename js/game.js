@@ -120,7 +120,7 @@ var trails = [];
 
 //Declare TalkBoxes here
 //ID 0
-TalkBoxes.push(new TalkBox(KidIconImage, "Oh no! The evil General Mean approaches the system. What sinister plans could he have in mind?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB01, ArrowButtonImage), "fact", -1));
+TalkBoxes.push(new TalkBox(KidIconImage, "Oh no! The evil General Mean approaches the peaceful solar system. What sinister plans could he have in mind?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB01, ArrowButtonImage), "fact", -1));
 //ID 1
 TalkBoxes.push(new TalkBox(KidIconImage, "And can Star Captain, hero of Bouncy Planet, stop him?", new Button("", SCREEN_WIDTH - 105, SCREEN_HEIGHT - 105, 100, 100, btnTB02, ArrowButtonImage), "fact", -1));
 //ID 2
