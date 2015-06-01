@@ -46,7 +46,7 @@ function findIntercept(a, b, acceleration){
 }
 
 function requestAngle(currentAngle, requestedAngle, distanceToPlayer){
-	if(distanceToPlayer > 600 || true){
+	if(distanceToPlayer > 600){
 		return requestedAngle;
 	}
 
@@ -54,7 +54,16 @@ function requestAngle(currentAngle, requestedAngle, distanceToPlayer){
 		return requestedAngle;
 	}
 	
-	if(requestedAngle < currentAngle && currentAngle - requestedAngle < requestedAngle+Math.PI*2 - currentAngle){
+	var distanceDown = currentAngle - requestAngle;
+	if(distanceDown < 0){
+		distanceDown += Math.PI*2;
+	}
+	var distanceUp = requestAngle - currentAngle;
+	if(distanceUp < 0){
+		distanceUp += Math.PI*2;
+	}
+
+	if(distanceDown < distanceUp){
 		return currentAngle - ANGLE_INCREMENT;
 	}else{
 		return currentAngle + ANGLE_INCREMENT;
@@ -84,25 +93,13 @@ function starCaptainAI(){
 		
 		if(slowDistance > intercept.distance && gettingCloser){
 			if(distance > 700){
-				me.angle = requestAngle(
-					me.angle,
-					Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2,
-					distance
-				);
+				me.angle = Math.atan2(me.velocity.y, me.velocity.x) + Math.PI + Math.PI/2;
 			}else{
 				noThrust = true;
-				me.angle = requestAngle(
-					me.angle,
-					intercept.angle + Math.PI/2,
-					distance
-				);
+				me.angle = intercept.angle + Math.PI/2;
 			}
 		}else{
-			me.angle = requestAngle(
-				me.angle,
-				intercept.angle + Math.PI/2,
-				distance
-			);
+			me.angle = intercept.angle + Math.PI/2;
 		}
 
 		if((distance > 350 && !noThrust) || (!gettingCloser && distance > 200)){
