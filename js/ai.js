@@ -100,8 +100,12 @@ function starCaptainAI(){
 			);
 		}
 
-		if(guntimer < 0){
-			guntimer = curframe;
+		if(distance < 500){
+			if(guntimer < 0){
+				guntimer = curframe;
+			}
+		}else{
+			guntimer = -1;
 		}
 
 		if(distance > 200 && !noThrust){
