@@ -50,11 +50,9 @@ function requestAngle(currentAngle, requestedAngle, distanceToPlayer){
 		return requestedAngle;
 	}
 
-	/*
 	if(Math.abs(currentAngle - requestedAngle) < ANGLE_INCREMENT){
 		return requestedAngle;
 	}
-	*/
 	
 	if(requestedAngle < currentAngle && currentAngle - requestedAngle < requestedAngle+Math.PI*2 - currentAngle){
 		return currentAngle - ANGLE_INCREMENT;
@@ -138,7 +136,11 @@ function generalMeanAI(){
 			target = bouncyplanet;
 		}
 
-		me.angle = findIntercept(me, target, GM_ACCEL).angle + Math.PI/2;
+		me.angle = requestAngle(
+			me.angle,
+			findIntercept(me, target, GM_ACCEL).angle + Math.PI/2,
+			me.pos.sub(enemy.pos).length()
+		);
 		me.thrusting = true;
 		var angle = me.angle - Math.PI / 2;
 		var speed = GM_ACCEL;
