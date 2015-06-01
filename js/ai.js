@@ -45,31 +45,6 @@ function findIntercept(a, b, acceleration){
 	};
 }
 
-function requestAngle(currentAngle, requestedAngle, distanceToPlayer){
-	if(distanceToPlayer > 600){
-		return requestedAngle;
-	}
-
-	if(Math.abs(currentAngle - requestedAngle) < ANGLE_INCREMENT){
-		return requestedAngle;
-	}
-	
-	var distanceDown = currentAngle - requestAngle;
-	if(distanceDown < 0){
-		distanceDown += Math.PI*2;
-	}
-	var distanceUp = requestAngle - currentAngle;
-	if(distanceUp < 0){
-		distanceUp += Math.PI*2;
-	}
-
-	if(distanceDown < distanceUp){
-		return currentAngle - ANGLE_INCREMENT;
-	}else{
-		return currentAngle + ANGLE_INCREMENT;
-	}
-}
-
 function starCaptainAI(){
 	if(generalmean.hp > 0)
 	{
@@ -143,11 +118,7 @@ function generalMeanAI(){
 			target = bouncyplanet;
 		}
 
-		me.angle = requestAngle(
-			me.angle,
-			findIntercept(me, target, GM_ACCEL).angle + Math.PI/2,
-			me.pos.sub(enemy.pos).length()
-		);
+		me.angle = findIntercept(me, target, GM_ACCEL).angle + Math.PI/2;
 		me.thrusting = true;
 		var angle = me.angle - Math.PI / 2;
 		var speed = GM_ACCEL;
